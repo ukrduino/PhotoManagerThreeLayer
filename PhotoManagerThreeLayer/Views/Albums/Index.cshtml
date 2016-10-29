@@ -1,0 +1,17 @@
+@model IEnumerable<PhotoManagerModels.ViewModels.AlbumListViewModel>
+@{
+    ViewBag.Title = "Home Page";
+}
+<div class="row">
+    <h2>Albums</h2>
+    @*<p>@Html.ActionLink("Create New", "Create")</p>*@
+    @foreach (var item in Model)
+    {
+        <div class="col-lg-4 albumCover">
+            @*<a href='@Url.Action("Details", "Albums", new {id = item.Id})'>*@
+                <img src="data:image/png;base64,@Convert.ToBase64String(item.CoverImageData, 0, item.CoverImageData.Length)" class="albumCoverImage"/>
+                <h4>@item.Title</h4>
+            @*</a>*@
+        </div>
+    }
+</div>

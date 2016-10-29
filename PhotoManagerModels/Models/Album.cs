@@ -1,0 +1,31 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using PhotoManagerModels.Models.Interfaces;
+
+namespace PhotoManagerModels.Models
+{
+    public class Album: IHasLastModifiedField, ICommentable, ICategorized
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
+        public string Title { get; set; }
+        public string Description { get; set; }
+        public List<Category> Categories { get; set; }
+        public List<Comment> Comments { get; set; }
+        public List<Photo> Photos { get; set; }
+        public byte[] CoverImageData { get; set; }
+        public DateTime CreatedDate { get; set; }
+        public DateTime? LastModified { get; set; }
+
+        public Album()
+        {
+            Photos = new List<Photo>();
+            Categories = new List<Category>();
+            Comments = new List<Comment>();
+            CreatedDate = DateTime.Now;
+        }
+    }
+}
