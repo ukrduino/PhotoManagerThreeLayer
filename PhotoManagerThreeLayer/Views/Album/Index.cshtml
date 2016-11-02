@@ -8,10 +8,10 @@
     @foreach (var item in Model)
     {
         <div class="col-lg-4 albumCover">
-            @*<a href='@Url.Action("Details", "Albums", new {id = item.Id})'>*@
+            <a href='@Url.Action("Details", "Album", new {id = item.Id})'>
                 <img src="data:image/png;base64,@Convert.ToBase64String(item.CoverImageData, 0, item.CoverImageData.Length)" class="albumCoverImage"/>
                 <h4>@item.Title</h4>
-            @*</a>*@
+            </a>
         </div>
     }
 </div>

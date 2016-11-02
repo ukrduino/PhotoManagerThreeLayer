@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace PhotoManagerModels.DTOModels
+namespace PhotoManagerModels.ViewModels
 {
-    public class PhotoDTO
+    public class PhotoDetailViewModel
     {
         public int Id { get; set; }
         public string Title { get; set; }
         public DateTime? TakenDate { get; set; }
+        public List<string> Categories { get; set; }
+        public List<PhotoCommentViewModel> Comments { get; set; }
         public string Description { get; set; }
         public string Place { get; set; }
         public string Camera { get; set; }
@@ -17,11 +19,16 @@ namespace PhotoManagerModels.DTOModels
         public string ISO { get; set; }
         public bool UsedFlash { get; set; }
         public byte[] OriginalSizeImageData { get; set; }
-        public byte?[] MiddleSizeImageData { get; set; }
-        public byte?[] SmallSizeImageData { get; set; }
+        public List<string> Albums { get; set; }
         public DateTime? LastModified { get; set; }
-        public DateTime? Uploaded { get; set; }
-        public bool AnyOneCanSee { get; set; }
-        public int Views { get; set; }
+        public DateTime CreatedDate { get; set; }
+        public bool anyOneCanSee { get; set; }
+
+        public PhotoDetailViewModel()
+        {
+            Albums = new List<string>();
+            Categories = new List<string>();
+            Comments = new List<PhotoCommentViewModel>();
+        }
     }
 }

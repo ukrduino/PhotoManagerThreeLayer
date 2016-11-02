@@ -1,4 +1,6 @@
-﻿using PhotoManagerModels.Models;
+﻿using System.Collections.Generic;
+using System.Linq;
+using PhotoManagerModels.Models;
 
 namespace PhotoManager.DAL.Repositories
 {
@@ -8,7 +10,22 @@ namespace PhotoManager.DAL.Repositories
 
         public AlbumRepository(PhotoManagerDbContext context) : base(context)
         {
-            _context = _context;
+            _context = context;
+        }
+
+        public List<Album> GetAlbumsByPhoto(int id)
+        {
+            var query = from album in _context.Albums
+                        where album.Photos.Any(photo => photo.Id == id)
+                        select album;
+            return query.ToList();
+        }
+        public List<Album> GetAlbumsByCategory(int id)
+        {
+            var query = from album in _context.Albums
+                        where album.Categories.Any(cat => cat.Id == id)
+                        select album;
+            return query.ToList();
         }
     }
 }

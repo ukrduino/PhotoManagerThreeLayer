@@ -5,23 +5,15 @@ using PhotoManagerModels.Models.Interfaces;
 
 namespace PhotoManagerModels.Models
 {
-    public class Comment: IHasLastModifiedField
+    public class AlbumComment : IHasLastModifiedField
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        public string Author { get; set; }
         public string Text { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime? LastModified { get; set; }
-        public int CommentableId { get; set; }
-        public ICommentable Commentable { get; set; }
-
-
-        public Comment(string text, string author)
-        {
-            Text = text;
-            Author = author;
-        }
+        public int AlbumID { get; set; }
+        public Album Album { get; set; }
     }
 }

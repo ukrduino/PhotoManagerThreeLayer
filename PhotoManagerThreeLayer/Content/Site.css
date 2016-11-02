@@ -39,8 +39,33 @@ textarea {
     margin: 10px
 }
 
+.photoListItem {
+    width: 300px;
+    height: 400px;
+    overflow: hidden;
+    text-align: center;
+    background-color: #211b1b;
+    margin: 10px;
+    text-align: left
+}
+
 .albumCoverImage {
     object-fit: cover;
     width: 260px;
     height: 260px;
+}
+
+.photoListView-anyOneCanSee {
+    font-size: 20px;
+    margin-right: 20px;
+}
+
+.photoListView-anyOneCanSee-false-icon {
+    font-size: 20px;
+    margin-right: 20px;
+
+}
+
+.photoListView-anyOneCanSee-false {
+    color: red
 }

@@ -6,7 +6,7 @@ using PhotoManagerModels.Models.Interfaces;
 
 namespace PhotoManagerModels.Models
 {
-    public class Photo: IHasLastModifiedField, ICommentable, ICategorized
+    public class Photo: IHasLastModifiedField, ICategorized
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -14,7 +14,7 @@ namespace PhotoManagerModels.Models
         public string Title { get; set; }
         public DateTime? TakenDate { get; set; }
         public List<Category> Categories { get; set; }
-        public List<Comment> Comments { get; set; }
+        public List<PhotoComment> Comments { get; set; }
         public string Description { get; set; }
         public string Place { get; set; }
         public string Camera { get; set; }
@@ -28,14 +28,17 @@ namespace PhotoManagerModels.Models
         public byte[] SmallSizeImageData { get; set; }
         public List<Album> Albums { get; set; }
         public DateTime? LastModified { get; set; }
-        public DateTime CreatedDate { get; set; }
+        public DateTime Uploaded { get; set; }
+        public bool AnyOneCanSee { get; set; }
+        public int Views { get; set; }
 
         public Photo()
         {
             Albums = new List<Album>();
             Categories = new List<Category>();
-            Comments = new List<Comment>();
-            CreatedDate = DateTime.Now;
+            Comments = new List<PhotoComment>();
+            Uploaded = DateTime.Now;
+            AnyOneCanSee = true;
         }
     }
 }

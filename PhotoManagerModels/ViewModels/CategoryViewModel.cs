@@ -1,10 +1,9 @@
 ﻿
 namespace PhotoManagerModels.ViewModels
 {
-    public class AlbumListViewModel
+    public class CategoryViewModel
     {
         public int Id { get; set; }
         public string Title { get; set; }
-        public byte[] CoverImageData { get; set; }
     }
 }

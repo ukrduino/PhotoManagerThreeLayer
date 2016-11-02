@@ -48,19 +48,24 @@
     <Compile Include="AutoMapperConf.cs" />
     <Compile Include="DTOModels\AlbumDTO.cs" />
     <Compile Include="DTOModels\CategoryDTO.cs" />
-    <Compile Include="DTOModels\CommentDTO.cs" />
-    <Compile Include="DTOModels\Interfaces\ICategorized.cs" />
-    <Compile Include="DTOModels\Interfaces\ICommentable.cs" />
+    <Compile Include="DTOModels\AlbumCommentDTO.cs" />
+    <Compile Include="DTOModels\PhotoCommentDTO.cs" />
     <Compile Include="DTOModels\PhotoDTO.cs" />
     <Compile Include="Models\Album.cs" />
+    <Compile Include="Models\AlbumComment.cs" />
     <Compile Include="Models\Category.cs" />
-    <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\Interfaces\ICategorized.cs" />
-    <Compile Include="Models\Interfaces\ICommentable.cs" />
     <Compile Include="Models\Interfaces\IHasLastModifiedField.cs" />
-    <Compile Include="Models\PhotoModel.cs" />
+    <Compile Include="Models\PhotoComment.cs" />
+    <Compile Include="Models\Photo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\AlbumDetailViewModel.cs" />
     <Compile Include="ViewModels\AlbumListViewModel.cs" />
+    <Compile Include="ViewModels\CategoryViewModel.cs" />
+    <Compile Include="ViewModels\AlbumCommentViewModel.cs" />
+    <Compile Include="ViewModels\PhotoCommentViewModel.cs" />
+    <Compile Include="ViewModels\PhotoDetailViewModel.cs" />
+    <Compile Include="ViewModels\PhotoListViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

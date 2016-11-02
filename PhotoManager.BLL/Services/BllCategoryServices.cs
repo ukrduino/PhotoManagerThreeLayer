@@ -9,12 +9,12 @@ namespace PhotoManager.BLL.Services
 {
     public class BllCategoryServices
     {
-        public IEnumerable<CategoryDTO> GetAllCategories()
+        public List<CategoryDTO> GetCategoriesByAlbum(int id)
         {
             using (UnitOfWork unitOfWork = new UnitOfWork(new PhotoManagerDbContext()))
             {
-                IEnumerable<Category> categories = unitOfWork.Categories.GetAll();
-                return Mapper.Map<IEnumerable<CategoryDTO>>(categories);
+                List<Category> categories = unitOfWork.Categories.GetCategoriesByAlbum(id);
+                return Mapper.Map<List<Category>, List<CategoryDTO>>(categories);
             }
         }
     }

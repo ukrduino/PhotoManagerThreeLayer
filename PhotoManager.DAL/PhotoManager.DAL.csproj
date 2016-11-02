@@ -56,7 +56,8 @@
     <Compile Include="DalServices.cs" />
     <Compile Include="Repositories\AlbumsRepository.cs" />
     <Compile Include="Repositories\BaseRepository.cs" />
-    <Compile Include="Repositories\CommentsRepository.cs" />
+    <Compile Include="Repositories\AlbumCommentsRepository.cs" />
+    <Compile Include="Repositories\PhotoCommentsRepository.cs" />
     <Compile Include="Repositories\Interfaces\IRepository.cs" />
     <Compile Include="Repositories\CategoriesRepository.cs" />
     <Compile Include="Repositories\PhotosRepository.cs" />

@@ -1,6 +1,8 @@
-﻿using AutoMapper;
+﻿using System.Threading;
+using AutoMapper;
 using PhotoManagerModels.DTOModels;
 using PhotoManagerModels.Models;
+using PhotoManagerModels.ViewModels;
 
 namespace PhotoManagerModels
 {
@@ -9,16 +11,26 @@ namespace PhotoManagerModels
         public AutoMapperConf()
         {
             CreateMap<Photo, PhotoDTO>();
-            CreateMap<PhotoDTO, Photo>();
+            //CreateMap<PhotoDTO, Photo>();
+            CreateMap<PhotoDTO, PhotoListViewModel>();
+            //CreateMap<PhotoDTO, PhotoDetailViewModel>();
 
             CreateMap<Album, AlbumDTO>();
-            CreateMap<AlbumDTO, Album>();
+            //CreateMap<AlbumDTO, Album>();
+            CreateMap<AlbumDTO, AlbumListViewModel>();
+            CreateMap<AlbumDTO, AlbumDetailViewModel>();
 
-            CreateMap<Comment, CommentDTO>();
-            CreateMap<CommentDTO, Comment>();
+            CreateMap<PhotoComment, PhotoCommentDTO>();
+            CreateMap<AlbumComment, AlbumCommentDTO>();
+            //CreateMap<PhotoCommentDTO, PhotoComment>();
+            //CreateMap<AlbumCommentDTO, AlbumComment>();
+            CreateMap<AlbumCommentDTO, AlbumCommentViewModel>();
+            CreateMap<PhotoCommentDTO, PhotoCommentViewModel>();
 
             CreateMap<Category, CategoryDTO>();
-            CreateMap<CategoryDTO, Category>().ForMember(dest => dest.Albums, opt => opt.AllowNull());
+            //CreateMap<CategoryDTO, Category>();
+            CreateMap<CategoryDTO, CategoryViewModel>();
         }
+
     }
 }

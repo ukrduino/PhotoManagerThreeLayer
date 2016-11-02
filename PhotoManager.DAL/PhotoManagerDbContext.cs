@@ -30,10 +30,10 @@ namespace PhotoManager.DAL
 
             return base.SaveChanges();
         }
-
         public virtual DbSet<Album> Albums { get; set; }
         public virtual DbSet<Photo> Photoes { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
-        public virtual DbSet<Comment> Comments { get; set; }
+        public virtual DbSet<PhotoComment> PhotoComments { get; set; }
+        public virtual DbSet<AlbumComment> AlbumComments { get; set; }
     }
 }

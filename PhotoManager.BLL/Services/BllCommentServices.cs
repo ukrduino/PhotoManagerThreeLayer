@@ -10,12 +10,20 @@ namespace PhotoManager.BLL.Services
 {
     public class BllCommentServices
     {
-        public IEnumerable<CommentDTO> GetAllComments()
+        public List<AlbumCommentDTO> GetCommentsByAlbum(int id)
         {
             using (UnitOfWork unitOfWork = new UnitOfWork(new PhotoManagerDbContext()))
             {
-                IEnumerable<Comment> comments = unitOfWork.Comments.GetAll();
-                return Mapper.Map<IEnumerable<CommentDTO>>(comments);
+                List<AlbumComment> comments = unitOfWork.AlbumComments.GetCommentsByAlbum(id);
+                return Mapper.Map<List<AlbumComment>, List<AlbumCommentDTO>>(comments);
+            }
+        }
+        public List<PhotoCommentDTO> GetCommentsByPhoto(int id)
+        {
+            using (UnitOfWork unitOfWork = new UnitOfWork(new PhotoManagerDbContext()))
+            {
+                List<PhotoComment> comments = unitOfWork.PhotoComments.GetCommentsByPhoto(id);
+                return Mapper.Map<List<PhotoComment>, List<PhotoCommentDTO>>(comments);
             }
         }
     }

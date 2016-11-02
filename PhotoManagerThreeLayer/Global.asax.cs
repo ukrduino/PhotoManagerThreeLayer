@@ -21,6 +21,7 @@ namespace PhotoManagerThreeLayer
             {
                 cfg.AddProfile<AutoMapperConf>();
             });
+            bllDbServices.CleanUpDb(); //For development - delete on production
             bllDbServices.SeedDb();
         }
     }

@@ -10,12 +10,20 @@ namespace PhotoManager.BLL.Services
 {
     public class BllAlbumServices
     {
-        public IEnumerable<AlbumDTO> GetAllAlbums()
+        public List<AlbumDTO> GetAllAlbums()
         {
             using (UnitOfWork unitOfWork = new UnitOfWork(new PhotoManagerDbContext()))
             {
-                IEnumerable<Album> albums = unitOfWork.Albums.GetAll().ToList();
+                IEnumerable<Album> albums = unitOfWork.Albums.GetAll();
                 return Mapper.Map<IEnumerable<Album>, List<AlbumDTO>>(albums);
+            }
+        }
+        public AlbumDTO GetAlbum(int id)
+        {
+            using (UnitOfWork unitOfWork = new UnitOfWork(new PhotoManagerDbContext()))
+            {
+                Album album = unitOfWork.Albums.Get(id);
+                return Mapper.Map<AlbumDTO>(album);
             }
         }
     }
