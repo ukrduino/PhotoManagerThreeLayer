@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using PhotoManagerModels.Models;
 
 namespace PhotoManagerModels.ViewModels
@@ -12,8 +13,11 @@ namespace PhotoManagerModels.ViewModels
         public List<CategoryViewModel> Categories { get; set; }
         public List<AlbumCommentViewModel> Comments { get; set; }
         public List<PhotoListViewModel> Photos { get; set; }
+        [DisplayName("Album cover")]
         public byte[] CoverImageData { get; set; }
+        [DisplayName("Album created")]
         public DateTime CreatedDate { get; set; }
+        [DisplayName("Album modified")]
         public DateTime? LastModified { get; set; }
 
         public AlbumDetailViewModel()
@@ -21,6 +25,7 @@ namespace PhotoManagerModels.ViewModels
             Photos = new List<PhotoListViewModel>();
             Categories = new List<CategoryViewModel>();
             Comments = new List<AlbumCommentViewModel>();
+            CreatedDate = DateTime.Now;
         }
     }
 }

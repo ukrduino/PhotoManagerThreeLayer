@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
+using PhotoManagerModels.DTOModels;
 using PhotoManagerModels.Models;
 
 namespace PhotoManager.DAL.Repositories
@@ -26,6 +28,19 @@ namespace PhotoManager.DAL.Repositories
                         where album.Categories.Any(cat => cat.Id == id)
                         select album;
             return query.ToList();
+        }
+
+        public void UpdateAlbum(Album album)
+        {
+            _context.Albums.Attach(album);
+            var albumFromDb = _context.Entry(album);
+            albumFromDb.State = EntityState.Modified;
+
+            albumFromDb.Property(alb => alb.CreatedDate).IsModified = false;
+            if (album.CoverImageData == null)
+            {
+                albumFromDb.Property(alb => alb.CoverImageData).IsModified = false;
+            }
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using AutoMapper;
 using PhotoManager.DAL;
 using PhotoManager.DAL.Repositories;
@@ -24,6 +23,26 @@ namespace PhotoManager.BLL.Services
             {
                 Album album = unitOfWork.Albums.Get(id);
                 return Mapper.Map<AlbumDTO>(album);
+            }
+        }
+
+        public void CreateAlbum(AlbumDTO albumDto)
+        {
+            using (UnitOfWork unitOfWork = new UnitOfWork(new PhotoManagerDbContext()))
+            {
+
+                Album album = Mapper.Map<Album>(albumDto);
+                unitOfWork.Albums.Add(album);
+                unitOfWork.Complete();
+            }
+        }
+        public void UpdateAlbum(AlbumDTO albumDto)
+        {
+            using (UnitOfWork unitOfWork = new UnitOfWork(new PhotoManagerDbContext()))
+            {
+                Album album = Mapper.Map<Album>(albumDto);
+                unitOfWork.Albums.UpdateAlbum(album);
+                unitOfWork.Complete();
             }
         }
     }

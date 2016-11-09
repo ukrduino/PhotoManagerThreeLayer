@@ -2,14 +2,20 @@
 @{
     ViewBag.Title = "Home Page";
 }
-<div class="row">
-    <h2>Albums</h2>
-    @*<p>@Html.ActionLink("Create New", "Create")</p>*@
+<div class="row" style="text-align: center">
+    <h2 >Albums &nbsp; <a href='@Url.Action("Create", "Album")'><span class="glyphicon glyphicon-plus photoListView-anyOneCanSee" aria-hidden="true"></span></a></h2>
     @foreach (var item in Model)
     {
         <div class="col-lg-4 albumCover">
             <a href='@Url.Action("Details", "Album", new {id = item.Id})'>
-                <img src="data:image/png;base64,@Convert.ToBase64String(item.CoverImageData, 0, item.CoverImageData.Length)" class="albumCoverImage"/>
+                @if (item.CoverImageData.Length > 0)
+                {
+                    <img src="data:image/png;base64,@Convert.ToBase64String(item.CoverImageData, 0, item.CoverImageData.Length)" class="albumCoverImage"/>
+                }
+                else
+                {
+                    <img src="./../../Content/AlbumPlaceholder.jpg" class="albumCoverImage" alt="Album cover not selected"/>
+                }
                 <h4>@item.Title</h4>
             </a>
         </div>
