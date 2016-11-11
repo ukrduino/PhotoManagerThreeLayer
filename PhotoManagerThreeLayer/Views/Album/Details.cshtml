@@ -63,14 +63,17 @@
 <hr />
 <div class="row">
     <h4 style="text-align: center">
-        Photos&nbsp;
-        @using (Html.BeginForm("RemovePhotosFromAlbum", "Album", FormMethod.Post, new { enctype = "multipart/form-data", id= "MyForm" }))
+        Photos
+    </h4>
+
+        @using (Html.BeginForm("RemovePhotosFromAlbum", "Album", FormMethod.Post, new { id= "MyForm" }))
         {
             @Html.AntiForgeryToken()
-            <span type="submit" class="glyphicon glyphicon-minus" aria-hidden="true" id="removePhotos"></span>
+            <input id="AlbumId" name="AlbumId" type="hidden" value="@Model.Id"/>
+            <input id="PhotosArr" name="PhotosArr" type="hidden" value=""/>
+            <a href='@Url.Action("Details", "Album", new {id = Model.Id})'><span class="glyphicon glyphicon-plus" aria-hidden="true" id="addPhotos"></span></a>
+            <button type="submit" id="removePhotos"><span class="glyphicon glyphicon-minus" aria-hidden="true" ></span></button>
         }
-        <a href='@Url.Action("Details", "Album", new {id = Model.Id})'><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>&nbsp;
-    </h4>
     @foreach (var item in Model.Photos)
     {
         <div class="col-lg-4 photoListItem">

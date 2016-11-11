@@ -22,7 +22,6 @@ namespace PhotoManagerModels.Models
 
         public Album()
         {
-            Photos = new List<Photo>();
             Categories = new List<Category>();
             Comments = new List<AlbumComment>();
             CreatedDate = DateTime.Now;

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using AutoMapper;
@@ -133,12 +134,10 @@ namespace PhotoManagerThreeLayer.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult RemovePhotosFromAlbum(int albumId, List<int>photosArr)
+        public ActionResult RemovePhotosFromAlbum(int albumId, string photosArr)
         {
-
-            AlbumDTO albumDto = _albumServices.GetAlbum(albumId);
-            AlbumDetailViewModel albumDetailViewModel = Mapper.Map<AlbumDetailViewModel>(albumDto);
-
+            List<int> photoIds = photosArr.Split(',').ToList().Select(int.Parse).ToList();
+            _albumServices.RemovePhotosFromAlbum(albumId, photoIds);
             return RedirectToAction("Details", new { id = albumId });
         }
     }

@@ -45,7 +45,7 @@ textarea {
     text-align: center;
     background-color: #211b1b;
     margin: 10px;
-    text-align: left
+    text-align: left;
 }
 
 .albumCoverImage {
@@ -68,9 +68,25 @@ textarea {
 .photoListView-anyOneCanSee-false-icon {
     font-size: 20px;
     margin-right: 20px;
-
 }
 
 .photoListView-anyOneCanSee-false {
-    color: red
+    color: red;
+}
+
+#removePhotos {
+    border: none;
+    background: none;
+    color: red;
+    font-size: 20px;
+    margin-left: 20px;
+}
+
+#MyForm {
+    text-align: center;
+}
+
+#addPhotos {
+    color: blue;
+    font-size: 20px;
 }

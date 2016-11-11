@@ -45,5 +45,13 @@ namespace PhotoManager.BLL.Services
                 unitOfWork.Complete();
             }
         }
+        public void RemovePhotosFromAlbum(int albumId, List<int> photoIds)
+        {
+            using (UnitOfWork unitOfWork = new UnitOfWork(new PhotoManagerDbContext()))
+            {
+                unitOfWork.Albums.RemovePhotosFromAlbum(albumId, photoIds);
+                unitOfWork.Complete();
+            }
+        }
     }
 }

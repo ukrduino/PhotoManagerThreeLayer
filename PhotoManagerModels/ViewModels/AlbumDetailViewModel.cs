@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using PhotoManagerModels.Models;
 
 namespace PhotoManagerModels.ViewModels
@@ -8,6 +9,8 @@ namespace PhotoManagerModels.ViewModels
     public class AlbumDetailViewModel
     {
         public int Id { get; set; }
+        [StringLength(50)]
+        [Required]
         public string Title { get; set; }
         public string Description { get; set; }
         public List<CategoryViewModel> Categories { get; set; }

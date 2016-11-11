@@ -42,5 +42,12 @@ namespace PhotoManager.DAL.Repositories
                 albumFromDb.Property(alb => alb.CoverImageData).IsModified = false;
             }
         }
+
+        public void RemovePhotosFromAlbum(int albumId, List<int> photoIds)
+        {
+            Album album = _context.Albums.Include("Photos").SingleOrDefault(alb=>alb.Id == albumId);
+            List<Photo> photoesToRemove = _context.Photoes.Where(photo => photoIds.Contains(photo.Id)).ToList();
+            photoesToRemove.ForEach(photo=> album.Photos.Remove(photo));
+        }
     }
 }
