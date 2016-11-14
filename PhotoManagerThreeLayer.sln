@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhotoManagerModels", "Photo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestProject", "UnitTestProject1\UnitTestProject.csproj", "{D804DC5E-4D4F-4956-BCAB-B29467F2BECF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleSecurity", "SimpleSecurity\SimpleSecurity.csproj", "{BB4DF35B-F6EB-4F53-A00D-9EAFF0165E3A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{D804DC5E-4D4F-4956-BCAB-B29467F2BECF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D804DC5E-4D4F-4956-BCAB-B29467F2BECF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D804DC5E-4D4F-4956-BCAB-B29467F2BECF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BB4DF35B-F6EB-4F53-A00D-9EAFF0165E3A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB4DF35B-F6EB-4F53-A00D-9EAFF0165E3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB4DF35B-F6EB-4F53-A00D-9EAFF0165E3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB4DF35B-F6EB-4F53-A00D-9EAFF0165E3A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

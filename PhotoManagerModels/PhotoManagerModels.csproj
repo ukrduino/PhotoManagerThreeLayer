@@ -59,6 +59,7 @@
     <Compile Include="Models\PhotoComment.cs" />
     <Compile Include="Models\Photo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\AccountModels.cs" />
     <Compile Include="ViewModels\AlbumDetailViewModel.cs" />
     <Compile Include="ViewModels\AlbumListViewModel.cs" />
     <Compile Include="ViewModels\CategoryViewModel.cs" />

@@ -15,6 +15,7 @@ namespace PhotoManagerThreeLayer
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            SimpleSecurity.WebSecurity.Register();
             BllDbServices bllDbServices = new BllDbServices();
             bllDbServices.SetUpDb();
             Mapper.Initialize(cfg =>
