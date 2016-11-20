@@ -1,16 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Controllers;
-using System.Web.Security;
+using SimpleSecurity;
 using WebMatrix.WebData;
 
-namespace SimpleSecurity.Filters
+namespace SecurityModule.Filters
 {
-    [AttributeUsageAttribute(AttributeTargets.Class | AttributeTargets.Method, Inherited = true,
+    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, Inherited = true,
        AllowMultiple = true)]
     public class BasicAuthorizeAttribute : AuthorizeAttribute
     {
@@ -76,21 +75,21 @@ namespace SimpleSecurity.Filters
 
                 if (authenticationType == AuthType.basic)
                 {
-                    if (WebSecurity.Login(username, password, true))
+                    if (WebSecurityService.Login(username, password, true))
                     {
                         isAuthenticated = true;
                     }
                     else
                     {
-                        WebSecurity.Logout();
+                        WebSecurityService.Logout();
                     }
                 }
                 else //authType == cookie
                 {
-                    if (WebSecurity.IsAuthenticated )
+                    if (WebSecurityService.IsAuthenticated )
                         isAuthenticated = true;
 
-                    username = WebSecurity.CurrentUserName;
+                    username = WebSecurityService.CurrentUserName;
                 }
             }
             else

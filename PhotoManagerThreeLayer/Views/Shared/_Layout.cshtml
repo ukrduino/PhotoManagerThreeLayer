@@ -16,8 +16,11 @@
                     <li>@Html.ActionLink("HOME", "Index", "Album")</li>
                     <li>@Html.ActionLink("ALBUMS", "Index", "Album")</li>
                     <li>@Html.ActionLink("PHOTOS", "Index", "Photo")</li>
-                    @*<li>@Html.ActionLink("PHOTOES", "Index", "Photoes")</li>*@
+                    <li>@Html.ActionLink("LOGIN", "Login", "Account")</li>
                 </ul>
+                <section class="nav navbar-nav navbar-right">
+                    @Html.Partial("_LoginPartial")
+                </section>
             </div>
         </div>
     </div>

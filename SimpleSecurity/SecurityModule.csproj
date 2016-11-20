@@ -7,8 +7,8 @@
     <ProjectGuid>{BB4DF35B-F6EB-4F53-A00D-9EAFF0165E3A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SimpleSecurity</RootNamespace>
-    <AssemblyName>SimpleSecurity</AssemblyName>
+    <RootNamespace>SecurityModule</RootNamespace>
+    <AssemblyName>SecurityModule</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SccProjectName>SAK</SccProjectName>
@@ -50,11 +50,6 @@
     <Reference Include="System.Web" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
     <Reference Include="WebMatrix.Data, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebPages.Data.3.2.3\lib\net45\WebMatrix.Data.dll</HintPath>
       <Private>True</Private>
@@ -68,12 +63,13 @@
     <Compile Include="Entities\UserProfile.cs" />
     <Compile Include="Filters\BasicAuthorizeAttribute.cs" />
     <Compile Include="InitSecurityDb.cs" />
-    <Compile Include="Repositories\GenericRepository.cs" />
+    <Compile Include="Repositories\BaseRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IRepository.cs" />
     <Compile Include="Repositories\SecurityContext.cs" />
-    <Compile Include="Repositories\UnitOfWork.cs" />
+    <Compile Include="Repositories\SecurityUnitOfWork.cs" />
     <Compile Include="Repositories\UserProfileRepository.cs" />
-    <Compile Include="WebSecurity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WebSecurityService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

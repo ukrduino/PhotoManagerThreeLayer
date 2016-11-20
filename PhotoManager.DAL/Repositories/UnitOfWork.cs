@@ -16,11 +16,11 @@ namespace PhotoManager.DAL.Repositories
             AlbumComments = new AlbumCommentsRepository(_context);
         }
 
-        public PhotoRepository Photos { get; private set; }
-        public AlbumRepository Albums { get; private set; }
-        public CategoryRepository Categories { get; private set; }
-        public PhotoCommentsRepository PhotoComments { get; private set; }
-        public AlbumCommentsRepository AlbumComments { get; private set; }
+        public PhotoRepository Photos { get; }
+        public AlbumRepository Albums { get; }
+        public CategoryRepository Categories { get; }
+        public PhotoCommentsRepository PhotoComments { get; }
+        public AlbumCommentsRepository AlbumComments { get; }
 
         public int Complete()
         {

@@ -4,6 +4,7 @@ using System.Web.Routing;
 using AutoMapper;
 using PhotoManager.BLL.Services;
 using PhotoManagerModels;
+using SecurityModule;
 
 namespace PhotoManagerThreeLayer
 {
@@ -15,7 +16,7 @@ namespace PhotoManagerThreeLayer
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-            SimpleSecurity.WebSecurity.Register();
+            WebSecurityService.InitSecurityDataBase();
             BllDbServices bllDbServices = new BllDbServices();
             bllDbServices.SetUpDb();
             Mapper.Initialize(cfg =>

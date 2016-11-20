@@ -28,6 +28,8 @@ namespace PhotoManagerThreeLayer
                       "~/Content/site.css"));
             bundles.Add(new ScriptBundle("~/bundles/albumDetails").Include(
                 "~/Scripts/albumDetails.js"));
+            bundles.Add(new ScriptBundle("~/bundles/albumAddEdit").Include(
+                "~/Scripts/albumAddEdit.js"));
         }
     }
 }

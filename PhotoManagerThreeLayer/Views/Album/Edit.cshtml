@@ -1,11 +1,8 @@
 ﻿@model PhotoManagerModels.ViewModels.AlbumDetailViewModel
 
-@{
-    ViewBag.Title = "Edit";
-}
-
-<h2>Edit</h2>
-<div class="row">
+<div class="row" style="text-align: center">
+    <h2>Edit album</h2>
+    <hr />
     <div class="col-lg-3">
         @if (Model.CoverImageData.Length > 0)
         {
@@ -23,48 +20,48 @@
 
             <div class="form-horizontal">
 
-                @Html.ValidationSummary(true, "", new {@class = "text-danger"})
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                 @Html.HiddenFor(model => model.Id)
 
                 <div class="form-group">
-                    @Html.LabelFor(model => model.Title, new {@class = "control-label col-md-2"})
+                    @Html.LabelFor(model => model.Title, new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.TextBoxFor(model => model.Title, new {@class = "form-control"})
-                        @Html.ValidationMessageFor(model => model.Title, "", new {@class = "text-danger"})
+                        @Html.TextBoxFor(model => model.Title, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
                     </div>
                 </div>
 
                 <div class="form-group">
-                    @Html.LabelFor(model => model.Description, new {@class = "control-label col-md-2"})
+                    @Html.LabelFor(model => model.Description, new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.TextAreaFor(model => model.Description, new {@class = "form-control", cols = 50, rows = 5})
-                        @Html.ValidationMessageFor(model => model.Description, "", new {@class = "text-danger"})
+                        @Html.TextAreaFor(model => model.Description, new { @class = "form-control", cols = 50, rows = 5 })
+                        @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 <div class="form-group">
-                    @Html.LabelFor(model => model.CoverImageData, new {@class = "control-label col-md-2"})
-                    <div class="col-md-10">
+                    @Html.LabelFor(model => model.CoverImageData, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10" style="text-align: left">
                         <label class="btn btn-primary" for="my-file-selector">
-                            <input id="my-file-selector" type="file" name="file" style="display: none;" onchange="$('#upload-file-info').html($(this).val());">
+                            <input id="my-file-selector" type="file" name="file" style="display: none;">
                             Select file
                         </label>
-                        <span id="upload-file-info"></span>
-                        @Html.ValidationMessage("ImageUploadValidationError", new {@class = "text-danger"})
+                        <span id="edit-upload-file-info"></span>
+                        @Html.ValidationMessage("ImageUploadValidationError", new { @class = "text-danger" })
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Save" class="btn btn-success"/>
+                        <input type="submit" value="Save" class="btn btn-success" />
                         <a class="btn btn-danger" href='@Url.Action("Details", "Album", new {id = Model.Id})'>Back to album details</a>
                     </div>
                 </div>
             </div>
         }
     </div>
-
 </div>
 
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/albumAddEdit")
 }

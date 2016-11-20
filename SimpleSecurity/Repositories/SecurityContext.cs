@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SimpleSecurity.Entities;
+﻿using System.Data.Entity;
+using SecurityModule.Entities;
 
-namespace SimpleSecurity.Repositories
+namespace SecurityModule.Repositories
 {
     public class SecurityContext : DbContext
     {
@@ -17,5 +12,4 @@ namespace SimpleSecurity.Repositories
 
         public DbSet<UserProfile> UserProfiles { get; set; }
     }
-
 }

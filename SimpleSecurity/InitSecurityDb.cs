@@ -1,41 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Web;
+﻿using System.Data.Entity;
 using System.Web.Security;
-using SimpleSecurity.Repositories;
+using SecurityModule.Repositories;
 using WebMatrix.WebData;
 
-namespace SimpleSecurity
+namespace SecurityModule
 {
     public class InitSecurityDb : DropCreateDatabaseAlways<SecurityContext>
     {
         protected override void Seed(SecurityContext context)
         {
 
-            WebMatrix.WebData.WebSecurity.InitializeDatabaseConnection("PhotoManagerDB_3_layer",
+            WebSecurity.InitializeDatabaseConnection("PhotoManagerDB_3_layer",
                "UserProfile", "UserId", "UserName", autoCreateTables: true);
-            var roles = (SimpleRoleProvider)Roles.Provider;
             var membership = (SimpleMembershipProvider)Membership.Provider;
 
-            if (!roles.RoleExists("Admin"))
+            if (membership.GetUser("Bob", false) == null)
             {
-                roles.CreateRole("Admin");
+                membership.CreateUserAndAccount("Bob", "test", false);
             }
-            if (membership.GetUser("test", false) == null)
+            if (membership.GetUser("Joe", false) == null)
             {
-                membership.CreateUserAndAccount("test", "test");
+                membership.CreateUserAndAccount("Joe", "test", false);
             }
-            if (!roles.GetRolesForUser("test").Contains("Admin"))
-            {
-                roles.AddUsersToRoles(new[] { "test" }, new[] { "admin" });
-            }
-            if (membership.GetUser("joe", false) == null)
-            {
-                membership.CreateUserAndAccount("joe", "test");
-            }
-
         }
     }
 }

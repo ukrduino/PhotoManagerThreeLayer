@@ -1,14 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SimpleSecurity.Entities;
+﻿using System.Linq;
+using SecurityModule.Entities;
 
-namespace SimpleSecurity.Repositories
+namespace SecurityModule.Repositories
 {
-    public class UserProfileRepository: GenericRepository<UserProfile>
+    public class UserProfileRepository: BaseRepository<UserProfile>
     {
-        public UserProfileRepository(SecurityContext context) : base(context) { }
+        private SecurityContext _context;
+
+        public UserProfileRepository(SecurityContext context) : base(context)
+        {
+            _context = context;
+        }
+        public UserProfile GetUserByName(string userName)
+        {
+            var query = from user in _context.UserProfiles
+                        where user.UserName.Equals(userName)
+                        select user;
+            return query.FirstOrDefault();
+        }
     }
 }
