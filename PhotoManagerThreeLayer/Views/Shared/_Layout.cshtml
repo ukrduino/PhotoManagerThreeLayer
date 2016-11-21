@@ -1,5 +1,6 @@
-﻿@using SecurityModule
-@using SecurityModule.Models
+﻿@using PhotoManager.BLL.Services
+@using PhotoManager.DAL.Models
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,7 +21,7 @@
                         <li>@Html.ActionLink("HOME", "Index", "Album")</li>
                         <li>@Html.ActionLink("ALBUMS", "Index", "Album")</li>
                         <li>@Html.ActionLink("PHOTOS", "Index", "Photo")</li>
-                        @if (WebSecurityService.GetCurrentUser() is FreeUser)
+                        @if (!WebSecurityService.IsPayedUser())
                         {
                             <li><h4 id="advert">Upgrade to payed user to have more than 5 albums (you have 2 albums)</h4></li>
                         }

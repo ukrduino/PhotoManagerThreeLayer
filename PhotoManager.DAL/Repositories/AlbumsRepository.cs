@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using PhotoManagerModels.DTOModels;
-using PhotoManagerModels.Models;
+using PhotoManager.DAL.Models;
+
 
 namespace PhotoManager.DAL.Repositories
 {
@@ -22,6 +22,17 @@ namespace PhotoManager.DAL.Repositories
                         select album;
             return query.ToList();
         }
+        public Album GetAlbumById(int id)
+        {
+            return _context.Albums.Include(user => user.User).FirstOrDefault(alb => alb.Id == id);
+        }
+        public List<Album> GetAlbumsByUser(User user)
+        {
+            var query = from albums in _context.Albums
+                        where albums.User.UserId == user.UserId
+                        select albums;
+            return query.ToList();
+        }
 
         public void UpdateAlbum(Album album)
         {
@@ -39,7 +50,7 @@ namespace PhotoManager.DAL.Repositories
         public void RemovePhotosFromAlbum(int albumId, List<int> photoIds)
         {
             Album album = _context.Albums.Include("Photos").SingleOrDefault(alb=>alb.Id == albumId);
-            List<Photo> photoesToRemove = _context.Photoes.Where(photo => photoIds.Contains(photo.Id)).ToList();
+            List<Photo> photoesToRemove = _context.Photos.Where(photo => photoIds.Contains(photo.Id)).ToList();
             photoesToRemove.ForEach(photo=> album.Photos.Remove(photo));
         }
     }

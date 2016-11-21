@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
+using PhotoManager.BLL.DTOModels;
 using PhotoManager.DAL;
+using PhotoManager.DAL.Models;
 using PhotoManager.DAL.Repositories;
-using PhotoManagerModels.DTOModels;
-using PhotoManagerModels.Models;
 
 namespace PhotoManager.BLL.Services
 {
@@ -14,7 +14,7 @@ namespace PhotoManager.BLL.Services
         {
             using (UnitOfWork unitOfWork = new UnitOfWork(new PhotoManagerDbContext()))
             {
-                IEnumerable<Photo> photos = unitOfWork.Photos.GetAll();
+                IEnumerable<Photo> photos = unitOfWork.Photos.GetPhotosByUser(WebSecurityService.GetCurrentUser());
                 return Mapper.Map<IEnumerable<Photo>, List<PhotoDTO>>(photos);
             }
         }
@@ -30,7 +30,7 @@ namespace PhotoManager.BLL.Services
         {
             using (UnitOfWork unitOfWork = new UnitOfWork(new PhotoManagerDbContext()))
             {
-                Photo photo = unitOfWork.Photos.Get(id);
+                Photo photo = unitOfWork.Photos.GetPhotoById(id);
                 return Mapper.Map<PhotoDTO>(photo);
             }
         }

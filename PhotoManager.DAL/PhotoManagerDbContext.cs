@@ -2,8 +2,8 @@ using System;
 using System.Data.Entity;
 using System.Data.Entity.Core.Objects;
 using System.Data.Entity.Infrastructure;
-using PhotoManagerModels.Models;
-using PhotoManagerModels.Models.Interfaces;
+using PhotoManager.DAL.Models;
+using PhotoManager.DAL.Models.Interfaces;
 
 
 namespace PhotoManager.DAL
@@ -31,7 +31,8 @@ namespace PhotoManager.DAL
             return base.SaveChanges();
         }
         public virtual DbSet<Album> Albums { get; set; }
-        public virtual DbSet<Photo> Photoes { get; set; }
+        public virtual DbSet<Photo> Photos { get; set; }
         public virtual DbSet<PhotoComment> PhotoComments { get; set; }
+        public DbSet<User> Users { get; set; }
     }
 }

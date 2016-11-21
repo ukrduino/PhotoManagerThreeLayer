@@ -180,6 +180,14 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\AccountViewModels.cs" />
+    <Compile Include="ViewModels\AlbumCommentViewModel.cs" />
+    <Compile Include="ViewModels\AlbumDetailViewModel.cs" />
+    <Compile Include="ViewModels\AlbumListViewModel.cs" />
+    <Compile Include="ViewModels\AutoMapperViewProfile.cs" />
+    <Compile Include="ViewModels\PhotoCommentViewModel.cs" />
+    <Compile Include="ViewModels\PhotoDetailViewModel.cs" />
+    <Compile Include="ViewModels\PhotoListViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\AlbumPlaceholder.jpg" />
@@ -241,14 +249,6 @@
     <ProjectReference Include="..\PhotoManager.BLL\PhotoManager.BLL.csproj">
       <Project>{46b7aa8a-0a23-44b5-b69e-b712bf7d831c}</Project>
       <Name>PhotoManager.BLL</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\PhotoManagerModels\PhotoManagerModels.csproj">
-      <Project>{3cd32a4f-b636-4bdd-85cd-988254b25200}</Project>
-      <Name>PhotoManagerModels</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SimpleSecurity\SecurityModule.csproj">
-      <Project>{bb4df35b-f6eb-4f53-a00d-9eaff0165e3a}</Project>
-      <Name>SecurityModule</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

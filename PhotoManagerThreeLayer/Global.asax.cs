@@ -3,8 +3,8 @@ using System.Web.Optimization;
 using System.Web.Routing;
 using AutoMapper;
 using PhotoManager.BLL.Services;
-using PhotoManagerModels;
-using SecurityModule;
+using PhotoManager.BLL.DTOModels;
+using PhotoManagerThreeLayer.ViewModels;
 
 namespace PhotoManagerThreeLayer
 {
@@ -16,14 +16,14 @@ namespace PhotoManagerThreeLayer
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-            WebSecurityService.InitSecurityDataBase();
             BllDbServices bllDbServices = new BllDbServices();
             bllDbServices.SetUpDb();
             Mapper.Initialize(cfg =>
             {
-                cfg.AddProfile<AutoMapperConf>();
+                cfg.AddProfile<AutoMapperViewProfile>();
+                cfg.AddProfile<AutoMapperBllProfile>();
             });
-            bllDbServices.CleanUpDb(); //For development - delete on production
+            bllDbServices.CleanUpDb();
             bllDbServices.SeedDb();
         }
     }

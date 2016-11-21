@@ -1,7 +1,7 @@
 ﻿using System.Web.Mvc;
 using System.Web.Security;
-using PhotoManagerModels.ViewModels;
-using SecurityModule;
+using PhotoManager.BLL.Services;
+using PhotoManagerThreeLayer.ViewModels;
 
 
 namespace PhotoManagerThreeLayer.Controllers

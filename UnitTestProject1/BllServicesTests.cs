@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using AutoMapper;
 using NUnit.Framework;
+using PhotoManager.BLL.DTOModels;
 using PhotoManager.BLL.Services;
 using PhotoManager.DAL;
+using PhotoManager.DAL.Models;
 using PhotoManager.DAL.Repositories;
-using PhotoManagerModels;
-using PhotoManagerModels.DTOModels;
-using PhotoManagerModels.Models;
-using PhotoManagerModels.ViewModels;
+using PhotoManagerThreeLayer.ViewModels;
 
 namespace UnitTestProject1
 {
@@ -25,7 +25,8 @@ namespace UnitTestProject1
         {
             Mapper.Initialize(cfg =>
             {
-                cfg.AddProfile<AutoMapperConf>();
+                cfg.AddProfile<AutoMapperBllProfile>();
+                cfg.AddProfile<AutoMapperViewProfile>();
             });
             bllDbServices.SetUpDb();
         }
@@ -49,8 +50,9 @@ namespace UnitTestProject1
             int numberOfAlbums = 3;
             using (UnitOfWork unitOfWork = new UnitOfWork(new PhotoManagerDbContext()))
             {
-                albums = bllDbServices.CreateAlbumsInDb(numberOfAlbums, unitOfWork);
+                bllDbServices.CreateAlbumsInDb(unitOfWork, numberOfAlbums);
                 bllDbServices.CreatePhotosInDb(unitOfWork);
+                albums = unitOfWork.Albums.GetAll().ToList();
             }
             foreach (Album album in albums)
             {
@@ -74,7 +76,7 @@ namespace UnitTestProject1
             int numberOfAlbums = 3;
             using (UnitOfWork unitOfWork = new UnitOfWork(new PhotoManagerDbContext()))
             {
-                bllDbServices.CreateAlbumsInDb(numberOfAlbums, unitOfWork);
+                bllDbServices.CreateAlbumsInDb(unitOfWork, numberOfAlbums);
                 photos = bllDbServices.CreatePhotosInDb(unitOfWork);
             }
             foreach (Photo photo in photos)

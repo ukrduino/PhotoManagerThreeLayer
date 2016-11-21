@@ -1,4 +1,4 @@
-﻿@model PhotoManagerModels.ViewModels.AlbumDetailViewModel
+﻿@model PhotoManagerThreeLayer.ViewModels.AlbumDetailViewModel
 
 
 <div class="row">
@@ -45,6 +45,14 @@
 
             <dd>
                 @Html.DisplayFor(model => model.LastModified)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Author)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Author)
             </dd>
         </dl>
     </div>

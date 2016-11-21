@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
-using PhotoManagerModels.Models;
+using PhotoManager.DAL.Models;
 
 
 namespace PhotoManager.DAL.Repositories
@@ -16,10 +17,22 @@ namespace PhotoManager.DAL.Repositories
 
         public List<Photo> GetPhotosByAlbum(int id)
         {
-            var query = from photo in _context.Photoes
-                         where photo.Albums.Any(album => album.Id == id)
-                        select photo;
+            var query = from photo in _context.Photos
+                where photo.Albums.Any(album => album.Id == id)
+                select photo;
             return query.ToList();
+        }
+
+        public List<Photo> GetPhotosByUser(User user)
+        {
+            var query = from photos in _context.Photos
+                where photos.User.UserId == user.UserId
+                select photos;
+            return query.ToList();
+        }
+        public Photo GetPhotoById(int id)
+        {
+            return _context.Photos.Include(pht=>pht.User).FirstOrDefault(photo => photo.Id == id);
         }
     }
 }

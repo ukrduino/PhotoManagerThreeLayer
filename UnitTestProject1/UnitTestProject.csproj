@@ -86,9 +86,9 @@
       <Project>{d287fb2c-86c1-451b-8df4-e408883c4565}</Project>
       <Name>PhotoManager.DAL</Name>
     </ProjectReference>
-    <ProjectReference Include="..\PhotoManagerModels\PhotoManagerModels.csproj">
-      <Project>{3cd32a4f-b636-4bdd-85cd-988254b25200}</Project>
-      <Name>PhotoManagerModels</Name>
+    <ProjectReference Include="..\PhotoManagerThreeLayer\PhotoManagerThreeLayer.csproj">
+      <Project>{8F1B5463-C8F8-4695-8DE0-58596FACCB15}</Project>
+      <Name>PhotoManagerThreeLayer</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

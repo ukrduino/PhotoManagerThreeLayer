@@ -3,8 +3,8 @@ using System.Linq;
 using NUnit.Framework;
 using PhotoManager.BLL.Services;
 using PhotoManager.DAL;
+using PhotoManager.DAL.Models;
 using PhotoManager.DAL.Repositories;
-using PhotoManagerModels.Models;
 
 namespace UnitTestProject1
 {
@@ -32,7 +32,7 @@ namespace UnitTestProject1
             using (UnitOfWork unitOfWork = new UnitOfWork(new PhotoManagerDbContext()))
             {
                 int numberOfAlbums = 3;
-                bllDbServices.CreateAlbumsInDb(numberOfAlbums, unitOfWork);
+                bllDbServices.CreateAlbumsInDb(unitOfWork, numberOfAlbums);
                 List<Album> albums = unitOfWork.Albums.GetAll().ToList();
                 Assert.AreEqual(numberOfAlbums, albums.Count);
             }
@@ -43,7 +43,7 @@ namespace UnitTestProject1
             using (UnitOfWork unitOfWork = new UnitOfWork(new PhotoManagerDbContext()))
             {
                 int numberOfAlbums = 3;
-                bllDbServices.CreateAlbumsInDb(numberOfAlbums, unitOfWork);
+                bllDbServices.CreateAlbumsInDb(unitOfWork, numberOfAlbums);
                 bllDbServices.CreatePhotosInDb(unitOfWork);
 
                 List<Photo> photosAll = unitOfWork.Photos.GetAll().ToList();

@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using AutoMapper;
+using PhotoManager.BLL.DTOModels;
 using PhotoManager.DAL;
+using PhotoManager.DAL.Models;
 using PhotoManager.DAL.Repositories;
-using PhotoManagerModels.DTOModels;
-using PhotoManagerModels.Models;
 
 namespace PhotoManager.BLL.Services
 {

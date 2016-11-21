@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using PhotoManagerModels.Models;
+using PhotoManager.DAL.Models;
 
 
 namespace PhotoManager.DAL.Repositories

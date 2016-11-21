@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Web.Mvc;
 using AutoMapper;
+using PhotoManager.BLL.DTOModels;
 using PhotoManager.BLL.Services;
-using PhotoManagerModels.DTOModels;
-using PhotoManagerModels.ViewModels;
+using PhotoManagerThreeLayer.ViewModels;
 
 namespace PhotoManagerThreeLayer.Controllers
 {
