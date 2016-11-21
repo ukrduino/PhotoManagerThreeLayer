@@ -25,16 +25,6 @@ namespace PhotoManager.BLL.Services
             dalServices.DalSetUpDb();
         }
 
-        public void CreateCategoriesInDb(List<string> catTitles, UnitOfWork unitOfWork)
-        {
-            List<Category> categories = new List<Category>();
-            foreach (var title in catTitles)
-            {
-                categories.Add(new Category(title));
-            }
-            unitOfWork.Categories.AddRange(categories);
-            unitOfWork.Complete();
-        }
         public List<Album> CreateAlbumsInDb(int quantity, UnitOfWork unitOfWork)
         {
             List<string> albumNames = new List<string>();
@@ -47,7 +37,6 @@ namespace PhotoManager.BLL.Services
             {
                 Album album = new Album();
                 album.Title = albumName;
-                AddRandomCategories(album, unitOfWork);
                 album.Description = generator.GenerateSentences(1)[0];
                 album.CoverImageData = File.ReadAllBytes(fileNames[Math.Min(albumNames.IndexOf(albumName), fileNames.Count - 1)]);
                 albums.Add(album);
@@ -68,7 +57,6 @@ namespace PhotoManager.BLL.Services
                 photo.OriginalSizeImageData = File.ReadAllBytes(file);
                 photo.MiddleSizeImageData = File.ReadAllBytes(file);
                 photo.SmallSizeImageData = File.ReadAllBytes(file);
-                AddRandomCategories(photo, unitOfWork);
                 AddPhotoToRandomAlbums(photo, unitOfWork);
                 photo.Description = generator.GenerateSentences(1)[0];
                 photo.Place = generator.GenerateSentences(1)[0];
@@ -87,17 +75,6 @@ namespace PhotoManager.BLL.Services
             return photos;
         }
 
-        private void AddRandomCategories(ICategorized categorizable, UnitOfWork unitOfWork)
-        {
-            int numberOfCategories = NumberUtils.RandomIntInRange(1, unitOfWork.Categories.GetAll().Count());
-            Random r = new Random();
-            var categories = unitOfWork.Categories.GetAll().OrderBy(x => r.Next()).Take(numberOfCategories);
-            foreach (var category in categories)
-            {
-                categorizable.Categories.Add(category);
-            }
-        }
-
         private void AddPhotoToRandomAlbums(Photo photo, UnitOfWork unitOfWork)
         {
             int numberOfAlbums = NumberUtils.RandomIntInRange(1, unitOfWork.Albums.GetAll().ToList().Count);
@@ -112,23 +89,10 @@ namespace PhotoManager.BLL.Services
         {
             using (UnitOfWork unitOfWork = new UnitOfWork(new PhotoManagerDbContext()))
             {
-                IEnumerable<AlbumComment> aCom = unitOfWork.AlbumComments.GetAll();
-                if (aCom.Any())
-                {
-                    unitOfWork.AlbumComments.RemoveRange(aCom);
-                    unitOfWork.Complete();
-                }
                 IEnumerable<PhotoComment> pCom = unitOfWork.PhotoComments.GetAll();
                 if (pCom.Any())
                 {
                     unitOfWork.PhotoComments.RemoveRange(pCom);
-                    unitOfWork.Complete();
-                }
-
-                IEnumerable<Category> cat = unitOfWork.Categories.GetAll();
-                if (cat.Any())
-                {
-                    unitOfWork.Categories.RemoveRange(cat);
                     unitOfWork.Complete();
                 }
 
@@ -153,7 +117,6 @@ namespace PhotoManager.BLL.Services
             int numberOfAlbums = 3;
             using (UnitOfWork unitOfWork = new UnitOfWork(new PhotoManagerDbContext()))
             {
-                CreateCategoriesInDb(catTitles, unitOfWork);
                 CreateAlbumsInDb(numberOfAlbums, unitOfWork);
                 CreatePhotosInDb(unitOfWork);
             }

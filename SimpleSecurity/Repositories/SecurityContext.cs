@@ -1,5 +1,5 @@
 ﻿using System.Data.Entity;
-using SecurityModule.Entities;
+using SecurityModule.Models;
 
 namespace SecurityModule.Repositories
 {
@@ -10,6 +10,6 @@ namespace SecurityModule.Repositories
         {
         }
 
-        public DbSet<UserProfile> UserProfiles { get; set; }
+        public DbSet<User> Users { get; set; }
     }
 }

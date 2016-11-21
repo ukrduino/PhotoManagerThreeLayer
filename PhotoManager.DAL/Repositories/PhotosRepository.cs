@@ -21,12 +21,5 @@ namespace PhotoManager.DAL.Repositories
                         select photo;
             return query.ToList();
         }
-        public List<Photo> GetPhotosByCategory(int id)
-        {
-            var query = from photo in _context.Photoes
-                        where photo.Categories.Any(cat => cat.Id == id)
-                        select photo;
-            return query.ToList();
-        }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Data.Entity;
-using SecurityModule.Entities;
+using SecurityModule.Models;
 using SecurityModule.Repositories;
 
 namespace SecurityModule
@@ -9,54 +9,36 @@ namespace SecurityModule
     {
         public static void InitSecurityDataBase()
         {
-            Database.SetInitializer<SecurityContext>(new InitSecurityDb());
+            Database.SetInitializer(new InitSecurityDb());
             SecurityContext context = new SecurityContext();
             context.Database.Initialize(true);
             if (!WebMatrix.WebData.WebSecurity.Initialized)
                 WebMatrix.WebData.WebSecurity.InitializeDatabaseConnection("PhotoManagerDB_3_layer",
-                    "UserProfile", "UserId", "UserName", autoCreateTables: true);
+                    "Users", "UserId", "UserName", autoCreateTables: true);
         }
 
 
-        public static UserProfile GetUser(string username)
+        public static User GetUser(string username)
         {
             using (SecurityUnitOfWork securityUnitOfWork = new SecurityUnitOfWork())
             {
-                return securityUnitOfWork.UserProfileRepository.GetUserByName(username);
+                return securityUnitOfWork.UsersRepository.GetUserByName(username);
             }
         }
 
-        public static UserProfile GetCurrentUser()
+        public static User GetCurrentUser()
         {
             return GetUser(CurrentUserName);
         }
-
-        public static void CreateUser(UserProfile user)
-        {
-            UserProfile dbUser = GetUser(user.UserName);
-            if (dbUser != null)
-                throw new Exception("User with that username already exists.");
-            using (SecurityUnitOfWork securityUnitOfWork = new SecurityUnitOfWork())
-            {
-                securityUnitOfWork.UserProfileRepository.Add(user);
-                securityUnitOfWork.Complete();
-            }
-        }
-
 
         public static bool Login(string userName, string password, bool persistCookie = false)
         {
             return WebMatrix.WebData.WebSecurity.Login(userName, password, persistCookie);
         }
 
-        public static bool ChangePassword(string userName, string oldPassword, string newPassword)
-        {
-            return WebMatrix.WebData.WebSecurity.ChangePassword(userName, oldPassword, newPassword);
-        }
-
         public static string CreateUserAndAccount(string userName, string password, bool requireConfirmationToken = false)
         {
-            return WebMatrix.WebData.WebSecurity.CreateUserAndAccount(userName, password, requireConfirmationToken);
+            return WebMatrix.WebData.WebSecurity.CreateUserAndAccount(userName, password, new {Discriminator = "FreeUser"}, requireConfirmationToken);
         }
 
         public static int GetUserId(string userName)

@@ -13,8 +13,6 @@ namespace PhotoManagerModels.ViewModels
         [Required]
         public string Title { get; set; }
         public string Description { get; set; }
-        public List<CategoryViewModel> Categories { get; set; }
-        public List<AlbumCommentViewModel> Comments { get; set; }
         public List<PhotoListViewModel> Photos { get; set; }
         [DisplayName("Album cover")]
         public byte[] CoverImageData { get; set; }
@@ -26,8 +24,6 @@ namespace PhotoManagerModels.ViewModels
         public AlbumDetailViewModel()
         {
             Photos = new List<PhotoListViewModel>();
-            Categories = new List<CategoryViewModel>();
-            Comments = new List<AlbumCommentViewModel>();
             CreatedDate = DateTime.Now;
         }
     }

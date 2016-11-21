@@ -8,10 +8,10 @@ namespace SecurityModule.Repositories
 
         public SecurityUnitOfWork()
         {
-            UserProfileRepository = new UserProfileRepository(_context);
+            UsersRepository = new UsersRepository(_context);
         }
 
-        public UserProfileRepository UserProfileRepository { get; }
+        public UsersRepository UsersRepository { get; }
 
         public int Complete()
         {

@@ -32,8 +32,6 @@ namespace PhotoManager.DAL
         }
         public virtual DbSet<Album> Albums { get; set; }
         public virtual DbSet<Photo> Photoes { get; set; }
-        public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<PhotoComment> PhotoComments { get; set; }
-        public virtual DbSet<AlbumComment> AlbumComments { get; set; }
     }
 }

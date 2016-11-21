@@ -1,22 +1,38 @@
 ﻿using System.Linq;
-using SecurityModule.Entities;
+using SecurityModule.Models;
 
 namespace SecurityModule.Repositories
 {
-    public class UserProfileRepository: BaseRepository<UserProfile>
+    public class UsersRepository: BaseRepository<User>
     {
         private SecurityContext _context;
 
-        public UserProfileRepository(SecurityContext context) : base(context)
+        public UsersRepository(SecurityContext context) : base(context)
         {
             _context = context;
         }
-        public UserProfile GetUserByName(string userName)
+        public User GetUserByName(string userName)
         {
-            var query = from user in _context.UserProfiles
-                        where user.UserName.Equals(userName)
-                        select user;
-            return query.FirstOrDefault();
+            var query = from dbuser in _context.Users
+                        where dbuser.UserName.Equals(userName)
+                        select dbuser;
+            var user = query.FirstOrDefault();
+            if (user is PayedUser){
+                return user as PayedUser;
+            }
+            return user as FreeUser;
+        }
+        public User GetUserById(int userId)
+        {
+            var query = from dbuser in _context.Users
+                        where dbuser.UserId.Equals(userId)
+                        select dbuser;
+            var user = query.FirstOrDefault();
+            if (user is PayedUser)
+            {
+                return user as PayedUser;
+            }
+            return user as FreeUser;
         }
     }
 }

@@ -17,7 +17,6 @@ namespace UnitTestProject1
     {
         private BllAlbumServices _albumServices = new BllAlbumServices();
         private BllPhotoServices _photoServices = new BllPhotoServices();
-        private BllCategoryServices _categoryServices = new BllCategoryServices();
         private BllCommentServices _commentServices = new BllCommentServices();
         private BllDbServices bllDbServices = new BllDbServices();
 
@@ -50,7 +49,6 @@ namespace UnitTestProject1
             int numberOfAlbums = 3;
             using (UnitOfWork unitOfWork = new UnitOfWork(new PhotoManagerDbContext()))
             {
-                bllDbServices.CreateCategoriesInDb(bllDbServices.catTitles, unitOfWork);
                 albums = bllDbServices.CreateAlbumsInDb(numberOfAlbums, unitOfWork);
                 bllDbServices.CreatePhotosInDb(unitOfWork);
             }
@@ -76,7 +74,6 @@ namespace UnitTestProject1
             int numberOfAlbums = 3;
             using (UnitOfWork unitOfWork = new UnitOfWork(new PhotoManagerDbContext()))
             {
-                bllDbServices.CreateCategoriesInDb(bllDbServices.catTitles, unitOfWork);
                 bllDbServices.CreateAlbumsInDb(numberOfAlbums, unitOfWork);
                 photos = bllDbServices.CreatePhotosInDb(unitOfWork);
             }
@@ -110,30 +107,5 @@ namespace UnitTestProject1
                 Assert.AreEqual(photoDto.AnyOneCanSee, photoListViewModel.anyOneCanSee);
             }
         }
-
-        //[Test]
-        //public void AlbumToAlbumDtoToAlbumDetailViewModelTest()
-        //{
-        //    List<Album> albums;
-        //    List<Photo> photos;
-        //    List<PhotoDTO> photoDtos;
-        //    int numberOfAlbums = 3;
-        //    using (UnitOfWork unitOfWork = new UnitOfWork(new PhotoManagerDbContext()))
-        //    {
-        //        CreateCategoriesInDb(catTitles, unitOfWork);
-        //        albums = CreateAlbumsInDb(numberOfAlbums, unitOfWork);
-        //        photos = CreatePhotosInDb(unitOfWork);
-        //    }
-        //    photoDtos = Mapper.Map<List<Photo>, List<PhotoDTO>>(photos);
-        //    foreach (Photo photo in photos )
-        //    {
-        //        PhotoDTO photoDto = _photoServices.GetPhoto(photo.Id);
-        //        AlbumDetailViewModel albumDetailViewModel = Mapper.Map<AlbumDetailViewModel>(albumDto);
-        //        List<PhotoDTO> photoDtoList = _photoServices.GetPhotosByAlbum(album.Id);
-        //        List<CategoryDTO> categoriesDtoList = _categoryServices.GetCategoriesByAlbum(album.Id);
-        //        albumDetailViewModel.Photos = Mapper.Map<List<PhotoDTO>, List<PhotoListViewModel>>(photoDtoList);
-        //        albumDetailViewModel.Categories = Mapper.Map<List<CategoryDTO>, List<CategoryViewModel>>(categoriesDtoList);
-        //    }
-        //}
     }
 }

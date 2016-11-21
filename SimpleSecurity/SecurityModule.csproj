@@ -60,8 +60,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entities\UserProfile.cs" />
-    <Compile Include="Filters\BasicAuthorizeAttribute.cs" />
+    <Compile Include="Models\FreeUser.cs" />
+    <Compile Include="Models\PayedUser.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="InitSecurityDb.cs" />
     <Compile Include="Repositories\BaseRepository.cs" />
     <Compile Include="Repositories\Interfaces\IRepository.cs" />

@@ -24,16 +24,8 @@ namespace PhotoManagerModels
             CreateMap<AlbumDetailViewModel, AlbumDTO>();
 
             CreateMap<PhotoComment, PhotoCommentDTO>();
-            CreateMap<AlbumComment, AlbumCommentDTO>();
             //CreateMap<PhotoCommentDTO, PhotoComment>();
-            //CreateMap<AlbumCommentDTO, AlbumComment>();
-            CreateMap<AlbumCommentDTO, AlbumCommentViewModel>();
             CreateMap<PhotoCommentDTO, PhotoCommentViewModel>();
-
-            CreateMap<Category, CategoryDTO>();
-            //CreateMap<CategoryDTO, Category>();
-            CreateMap<CategoryDTO, CategoryViewModel>();
         }
-
     }
 }

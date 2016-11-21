@@ -6,14 +6,13 @@ using PhotoManagerModels.Models.Interfaces;
 
 namespace PhotoManagerModels.Models
 {
-    public class Photo: IHasLastModifiedField, ICategorized
+    public class Photo: IHasLastModifiedField
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public string Title { get; set; }
         public DateTime? TakenDate { get; set; }
-        public List<Category> Categories { get; set; }
         public List<PhotoComment> Comments { get; set; }
         public string Description { get; set; }
         public string Place { get; set; }
@@ -35,7 +34,6 @@ namespace PhotoManagerModels.Models
         public Photo()
         {
             Albums = new List<Album>();
-            Categories = new List<Category>();
             Comments = new List<PhotoComment>();
             Uploaded = DateTime.Now;
             AnyOneCanSee = true;

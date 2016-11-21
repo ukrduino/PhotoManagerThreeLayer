@@ -1,33 +1,31 @@
-﻿using System;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using System.Web.Security;
-using Microsoft.Web.WebPages.OAuth;
 using PhotoManagerModels.ViewModels;
-using SimpleSecurity;
+using SecurityModule;
+
 
 namespace PhotoManagerThreeLayer.Controllers
 {
     [Authorize]
-    //[InitializeSimpleMembership]
     public class AccountController : Controller
     {
 
         // GET: /Account/Login
-
         [AllowAnonymous]
-        public ActionResult Login(string returnUrl)
+        public ActionResult Login()
         {
-            ViewBag.ReturnUrl = returnUrl;
+            if (WebSecurityService.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Album");
+            }
             return View();
         }
 
-
         // POST: /Account/Login
-
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public ActionResult Login(LoginModel model, string returnUrl)
+        public ActionResult Login(LoginModel model)
         {
             if (ModelState.IsValid && WebSecurityService.Login(model.UserName, model.Password, persistCookie: model.RememberMe))
             {
@@ -39,9 +37,7 @@ namespace PhotoManagerThreeLayer.Controllers
             return View(model);
         }
 
-        //
         // POST: /Account/LogOff
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
@@ -51,18 +47,14 @@ namespace PhotoManagerThreeLayer.Controllers
             return RedirectToAction("Login", "Account");
         }
 
-        //
         // GET: /Account/Register
-
         [AllowAnonymous]
         public ActionResult Register()
         {
             return View();
         }
 
-        //
         // POST: /Account/Register
-
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -83,60 +75,6 @@ namespace PhotoManagerThreeLayer.Controllers
             }
             return View(model);
         }
-
-        //
-        // GET: /Account/Manage
-
-        public ActionResult Manage(ManageMessageId? message)
-        {
-            ViewBag.StatusMessage =
-                message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
-                : message == ManageMessageId.SetPasswordSuccess ? "Your password has been set."
-                : "";
-            return View();
-        }
-
-        //
-        // POST: /Account/Manage
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Manage(LocalPasswordModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                bool changePasswordSucceeded;
-                try
-                {
-                    changePasswordSucceeded = WebSecurityService.ChangePassword(User.Identity.Name, model.OldPassword, model.NewPassword);
-                }
-                catch (Exception)
-                {
-                    changePasswordSucceeded = false;
-                }
-
-                if (changePasswordSucceeded)
-                {
-                    return RedirectToAction("Manage", new { Message = ManageMessageId.ChangePasswordSuccess });
-                }
-                else
-                {
-                    ModelState.AddModelError("", "The current password is incorrect or the new password is invalid.");
-                }
-            }
-
-
-            // If we got this far, something failed, redisplay form
-            return View(model);
-        }
-
-        public enum ManageMessageId
-        {
-            ChangePasswordSuccess,
-            SetPasswordSuccess,
-        }
-
-
 
         private static string ErrorCodeToString(MembershipCreateStatus createStatus)
         {

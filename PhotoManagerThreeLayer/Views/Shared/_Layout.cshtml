@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using SecurityModule
+@using SecurityModule.Models
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -12,15 +14,34 @@
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("HOME", "Index", "Album")</li>
-                    <li>@Html.ActionLink("ALBUMS", "Index", "Album")</li>
-                    <li>@Html.ActionLink("PHOTOS", "Index", "Photo")</li>
-                    <li>@Html.ActionLink("LOGIN", "Login", "Account")</li>
-                </ul>
-                <section class="nav navbar-nav navbar-right">
-                    @Html.Partial("_LoginPartial")
-                </section>
+                @if (Request.IsAuthenticated)
+                {
+                    <ul class="nav navbar-nav">
+                        <li>@Html.ActionLink("HOME", "Index", "Album")</li>
+                        <li>@Html.ActionLink("ALBUMS", "Index", "Album")</li>
+                        <li>@Html.ActionLink("PHOTOS", "Index", "Photo")</li>
+                        @if (WebSecurityService.GetCurrentUser() is FreeUser)
+                        {
+                            <li><h4 id="advert">Upgrade to payed user to have more than 5 albums (you have 2 albums)</h4></li>
+                        }
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a>Hello, @User.Identity.Name</a></li>
+
+                        @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "nav navbar-nav navbar-right" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+                        }
+                    </ul>
+                }
+                else
+                {
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+                        <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+                    </ul>
+                }
             </div>
         </div>
     </div>

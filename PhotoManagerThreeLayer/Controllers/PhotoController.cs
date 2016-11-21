@@ -7,11 +7,11 @@ using PhotoManagerModels.ViewModels;
 
 namespace PhotoManagerThreeLayer.Controllers
 {
+    [Authorize]
     public class PhotoController : Controller
     {
         private BllAlbumServices _albumServices = new BllAlbumServices();
         private BllPhotoServices _photoServices = new BllPhotoServices();
-        private BllCategoryServices _categoryServices = new BllCategoryServices();
         //private BllCommentServices _commentServices = new BllCommentServices();
 
         public ActionResult Index()
@@ -28,7 +28,6 @@ namespace PhotoManagerThreeLayer.Controllers
         }
 
         // GET: /Photo/Edit/5
-
         public ActionResult Edit(int id = 0)
         {
 
@@ -36,7 +35,6 @@ namespace PhotoManagerThreeLayer.Controllers
         }
 
         // GET: /Photo/Delete/5
-
         public ActionResult Delete(int id = 0)
         {
 

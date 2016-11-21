@@ -59,7 +59,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Services\BllPhotoServices.cs" />
-    <Compile Include="Services\BllCategoryServices.cs" />
     <Compile Include="Services\BllCommentServices.cs" />
     <Compile Include="Services\BllDbServices.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

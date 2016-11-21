@@ -22,13 +22,6 @@ namespace PhotoManager.DAL.Repositories
                         select album;
             return query.ToList();
         }
-        public List<Album> GetAlbumsByCategory(int id)
-        {
-            var query = from album in _context.Albums
-                        where album.Categories.Any(cat => cat.Id == id)
-                        select album;
-            return query.ToList();
-        }
 
         public void UpdateAlbum(Album album)
         {
