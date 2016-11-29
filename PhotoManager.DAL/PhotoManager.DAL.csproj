@@ -66,6 +66,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\Image.cs" />
     <Compile Include="Models\Album.cs" />
     <Compile Include="Models\FreeUser.cs" />
     <Compile Include="Models\Interfaces\IHasLastModifiedField.cs" />
@@ -78,6 +79,7 @@
     <Compile Include="DalServices.cs" />
     <Compile Include="Repositories\AlbumsRepository.cs" />
     <Compile Include="Repositories\BaseRepository.cs" />
+    <Compile Include="Repositories\ImageRepository.cs" />
     <Compile Include="Repositories\PhotoCommentsRepository.cs" />
     <Compile Include="Repositories\Interfaces\IRepository.cs" />
     <Compile Include="Repositories\PhotosRepository.cs" />

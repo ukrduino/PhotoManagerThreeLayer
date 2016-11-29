@@ -8,7 +8,7 @@ namespace PhotoManager.BLL.DTOModels
         public string Title { get; set; }
         public string Author { get; set; }
         public string Description { get; set; }
-        public byte[] CoverImageData { get; set; }
+        public int? ImageId { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime? LastModified { get; set; }
     }

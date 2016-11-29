@@ -4,9 +4,9 @@
     <h2>Edit album</h2>
     <hr />
     <div class="col-lg-3">
-        @if (Model.CoverImageData.Length > 0)
+        @if (Model.ImageId != null)
         {
-            <img src="data:image/png;base64,@Convert.ToBase64String(Model.CoverImageData, 0, Model.CoverImageData.Length)" class="albumCoverImage" />
+            <img src="@Url.Action("GetAlbumCoverImage", new { id = Model.ImageId})" class="albumCoverImage" />
         }
         else
         {
@@ -39,7 +39,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    @Html.LabelFor(model => model.CoverImageData, new { @class = "control-label col-md-2" })
+                    @Html.LabelFor(model => model.ImageId, new { @class = "control-label col-md-2" })
                     <div class="col-md-10" style="text-align: left">
                         <label class="btn btn-primary" for="my-file-selector">
                             <input id="my-file-selector" type="file" name="file" style="display: none;">

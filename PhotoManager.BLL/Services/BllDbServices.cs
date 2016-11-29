@@ -26,30 +26,32 @@ namespace PhotoManager.BLL.Services
             dalServices.DalSetUpDb();
         }
 
-        public void CreateAlbumsInDb(UnitOfWork unitOfWork, int numberOfAlbums)
-        {
-            List<User> users = unitOfWork.Users.GetAll().ToList();
-            foreach (var user in users)
-            {
-                List<string> albumNames = new List<string>();
-                for (int i = 0; i < numberOfAlbums; i++)
-                {
-                    albumNames.Add("Album_" + StringUtils.RandomAlphaNumericalStr(6));
-                }
-                foreach (var albumName in albumNames)
-                {
-                    Album album = new Album();
-                    album.Title = albumName;
-                    album.User = user;
-                    album.Description = generator.GenerateSentences(1)[0];
-                    album.CoverImageData = File.ReadAllBytes(fileNames[Math.Min(albumNames.IndexOf(albumName), fileNames.Count - 1)]);
-                    List<Album> albums = new List<Album>();
-                    albums.Add(album);
-                    unitOfWork.Albums.AddRange(albums);
-                    unitOfWork.Complete();
-                }
-            }
-        }
+        //public void CreateAlbumsInDb(UnitOfWork unitOfWork, int numberOfAlbums)
+        //{
+        //    List<User> users = unitOfWork.Users.GetAll().ToList();
+        //    foreach (var user in users)
+        //    {
+        //        List<string> albumNames = new List<string>();
+        //        for (int i = 0; i < numberOfAlbums; i++)
+        //        {
+        //            albumNames.Add("Album_" + StringUtils.RandomAlphaNumericalStr(6));
+        //        }
+        //        foreach (var albumName in albumNames)
+        //        {
+        //            Album album = new Album();
+        //            album.Title = albumName;
+        //            album.User = user;
+        //            album.Description = generator.GenerateSentences(1)[0];
+        //            album.Image =  
+
+        //            File.ReadAllBytes(fileNames[Math.Min(albumNames.IndexOf(albumName), fileNames.Count - 1)]);
+        //            List<Album> albums = new List<Album>();
+        //            albums.Add(album);
+        //            unitOfWork.Albums.AddRange(albums);
+        //            unitOfWork.Complete();
+        //        }
+        //    }
+        //}
 
         public List<Photo> CreatePhotosInDb(UnitOfWork unitOfWork)
         {
@@ -136,12 +138,12 @@ namespace PhotoManager.BLL.Services
                 membership.CreateUserAndAccount("Joe", "test", false, parameters);
             }
 
-            int numberOfAlbums = 3;
-            using (UnitOfWork unitOfWork = new UnitOfWork(new PhotoManagerDbContext()))
-            {
-                CreateAlbumsInDb(unitOfWork, numberOfAlbums);
-                CreatePhotosInDb(unitOfWork);
-            }
+            //int numberOfAlbums = 3;
+            //using (UnitOfWork unitOfWork = new UnitOfWork(new PhotoManagerDbContext()))
+            //{
+            //    CreateAlbumsInDb(unitOfWork, numberOfAlbums);
+            //    CreatePhotosInDb(unitOfWork);
+            //}
         }
     }
 }

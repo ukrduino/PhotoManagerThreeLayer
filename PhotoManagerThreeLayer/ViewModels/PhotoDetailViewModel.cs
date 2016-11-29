@@ -1,24 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace PhotoManagerThreeLayer.ViewModels
 {
     public class PhotoDetailViewModel
     {
         public int Id { get; set; }
+        [StringLength(50)]
+        [Required]
         public string Title { get; set; }
-        public DateTime? TakenDate { get; set; }
-        public List<string> Categories { get; set; }
-        public List<PhotoCommentViewModel> Comments { get; set; }
-        public string Description { get; set; }
+        [DisplayName("Date when photo taken")]
+        public DateTime TakenDate { get; set; }
         public string Place { get; set; }
         public string Camera { get; set; }
+        [DisplayName("Focal length")]
         public string FocalLength { get; set; }
         public string Aperture { get; set; }
+        [DisplayName("Camera lock speed")]
         public string CameraLockSpeed { get; set; }
         public string ISO { get; set; }
+        [DisplayName("Used flash")]
         public bool UsedFlash { get; set; }
-        public byte[] OriginalSizeImageData { get; set; }
+        public List<PhotoCommentViewModel> Comments { get; set; }
+        public int? ImageId { get; set; }
         public List<string> Albums { get; set; }
         public DateTime? LastModified { get; set; }
         public DateTime CreatedDate { get; set; }
@@ -27,7 +33,6 @@ namespace PhotoManagerThreeLayer.ViewModels
         public PhotoDetailViewModel()
         {
             Albums = new List<string>();
-            Categories = new List<string>();
             Comments = new List<PhotoCommentViewModel>();
         }
     }

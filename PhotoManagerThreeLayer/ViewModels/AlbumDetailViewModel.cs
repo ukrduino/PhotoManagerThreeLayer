@@ -15,7 +15,7 @@ namespace PhotoManagerThreeLayer.ViewModels
         public string Description { get; set; }
         public List<PhotoListViewModel> Photos { get; set; }
         [DisplayName("Album cover")]
-        public byte[] CoverImageData { get; set; }
+        public int? ImageId { get; set; }
         [DisplayName("Album created")]
         public DateTime CreatedDate { get; set; }
         [DisplayName("Album modified")]

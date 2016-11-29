@@ -32,6 +32,7 @@ namespace PhotoManager.BLL.Services
             {
 
                 Album album = Mapper.Map<Album>(albumDto);
+                album.UserID = WebSecurityService.GetCurrentUser().UserId;
                 unitOfWork.Albums.Add(album);
                 unitOfWork.Complete();
             }

@@ -5,6 +5,6 @@ namespace PhotoManagerThreeLayer.ViewModels
     {
         public int Id { get; set; }
         public string Title { get; set; }
-        public byte[] CoverImageData { get; set; }
+        public int? ImageId { get; set; }
     }
 }

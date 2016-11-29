@@ -10,6 +10,7 @@ namespace PhotoManager.DAL.Repositories
         public AlbumRepository Albums { get; }
         public PhotoCommentsRepository PhotoComments { get; }
         public UsersRepository Users { get; }
+        public ImageRepository Images { get; }
 
         public UnitOfWork(PhotoManagerDbContext context)
         {
@@ -18,6 +19,7 @@ namespace PhotoManager.DAL.Repositories
             Albums = new AlbumRepository(_context);
             PhotoComments = new PhotoCommentsRepository(_context);
             Users = new UsersRepository(_context);
+            Images = new ImageRepository(_context);
         }
 
 

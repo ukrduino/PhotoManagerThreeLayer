@@ -12,9 +12,7 @@ namespace PhotoManager.BLL.DTOModels
             //CreateMap<PhotoDTO, Photo>();
 
             CreateMap<Album, AlbumDTO>().ForMember(dest => dest.Author, opt => opt.MapFrom(src => src.User.UserName));
-            CreateMap<AlbumDTO, Album>()
-                .ForMember(dest => dest.CoverImageData, opt => opt.Condition(src => src.CoverImageData != null && src.CoverImageData.Length > 0))
-                .ForMember(dest => dest.CreatedDate, opt => opt.Ignore());
+            CreateMap<AlbumDTO, Album>().ForMember(dest => dest.CreatedDate, opt => opt.Ignore());
 
             CreateMap<PhotoComment, PhotoCommentDTO>();
             //CreateMap<PhotoCommentDTO, PhotoComment>();

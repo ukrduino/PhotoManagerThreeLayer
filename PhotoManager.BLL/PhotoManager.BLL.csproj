@@ -54,6 +54,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -97,12 +98,15 @@
     <Compile Include="DTOModels\AutoMapperBllProfile.cs" />
     <Compile Include="DTOModels\PhotoCommentDTO.cs" />
     <Compile Include="DTOModels\PhotoDTO.cs" />
+    <Compile Include="Services\BLLImageServices.cs" />
     <Compile Include="Services\BllPhotoServices.cs" />
     <Compile Include="Services\BllCommentServices.cs" />
     <Compile Include="Services\BllDbServices.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\BllAlbumServices.cs" />
     <Compile Include="Services\WebSecurityService.cs" />
+    <Compile Include="Utils\Enums.cs" />
+    <Compile Include="Utils\ImageUtils.cs" />
     <Compile Include="Utils\NumberUtils.cs" />
     <Compile Include="Utils\StringUtils.cs" />
     <Compile Include="Utils\Wait.cs" />

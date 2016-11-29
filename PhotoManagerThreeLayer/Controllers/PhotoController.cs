@@ -42,9 +42,8 @@ namespace PhotoManagerThreeLayer.Controllers
         }
 
         // GET: /Photo/Create
-        public ActionResult Create(int albumId)
+        public ActionResult Create()
         {
-            int id = albumId;
             return RedirectToAction("Index", "Album", new { area = "" });
         }
     }

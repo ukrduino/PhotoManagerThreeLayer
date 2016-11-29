@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using AutoMapper;
 using PhotoManager.BLL.DTOModels;
 using PhotoManager.BLL.Services;
+using PhotoManager.BLL.Utils;
 using PhotoManagerThreeLayer.ViewModels;
 
 namespace PhotoManagerThreeLayer.Controllers
@@ -15,6 +16,7 @@ namespace PhotoManagerThreeLayer.Controllers
     {
         private BllAlbumServices _albumServices = new BllAlbumServices();
         private BllPhotoServices _photoServices = new BllPhotoServices();
+        private BLLImageServices _imageServices = new BLLImageServices();
 
         public ActionResult Index()
         {
@@ -46,34 +48,30 @@ namespace PhotoManagerThreeLayer.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(AlbumDetailViewModel album, HttpPostedFileBase file)
+        public ActionResult Create(AlbumDetailViewModel viewAlbum, HttpPostedFileBase file)
         {
             if (ModelState.IsValid)
             {
+                AlbumDTO albumDto = Mapper.Map<AlbumDTO>(viewAlbum);
                 byte[] imageData = null;
                 if (file != null)
                 {
                     if (file.ContentLength > (500 * 1024))
                     {
                         ModelState.AddModelError("ImageUploadValidationError", "File size must be less than 500 Kb");
-                        return View(album);
+                        return View(viewAlbum);
                     }
-                    if (!file.ContentType.Equals("image/jpeg"))
+                    if (!file.IsJpgImage())
                     {
                         ModelState.AddModelError("ImageUploadValidationError", "File type allowed : jpeg");
-                        return View(album);
+                        return View(viewAlbum);
                     }
-                    using (var binaryReader = new BinaryReader(file.InputStream))
-                    {
-                        imageData = binaryReader.ReadBytes(file.ContentLength);
-                    }
+                    albumDto.ImageId = _imageServices.SaveImageToDb(file.InputStream, Enums.ImageSize.Small);
                 }
-                AlbumDTO albumDto = Mapper.Map<AlbumDTO>(album);
-                albumDto.CoverImageData = imageData;
                 _albumServices.CreateAlbum(albumDto);
                 return RedirectToAction("Index");
             }
-            return View(album);
+            return View(viewAlbum);
         }
 
         // GET: /Album/Edit/5
@@ -91,36 +89,36 @@ namespace PhotoManagerThreeLayer.Controllers
         // POST: /Album/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(AlbumDetailViewModel album, HttpPostedFileBase file)
+        public ActionResult Edit(AlbumDetailViewModel viewAlbum, HttpPostedFileBase file)
         {
             if (ModelState.IsValid)
             {
                 byte[] imageData = null;
-                AlbumDTO albumDto = Mapper.Map<AlbumDTO>(album);
+                AlbumDTO albumDto = Mapper.Map<AlbumDTO>(viewAlbum);
+                albumDto = _albumServices.GetAlbum(viewAlbum.Id);
+                AlbumDetailViewModel albumDetailViewModel = Mapper.Map<AlbumDetailViewModel>(albumDto);
                 if (file != null)
                 {
                     if (file.ContentLength > (500 * 1024))
                     {
-                        albumDto = _albumServices.GetAlbum(album.Id);
-                        AlbumDetailViewModel albumDetailViewModel = Mapper.Map<AlbumDetailViewModel>(albumDto);
                         ModelState.AddModelError("ImageUploadValidationError", "File size must be less than 500 Kb");
                         return View(albumDetailViewModel);
                     }
-                    if (!file.ContentType.Equals("image/jpeg"))
+                    if (!file.IsJpgImage())
                     {
                         ModelState.AddModelError("ImageUploadValidationError", "File type allowed : jpeg");
-                        return View(album);
+                        return View(albumDetailViewModel);
                     }
                     using (var binaryReader = new BinaryReader(file.InputStream))
                     {
                         imageData = binaryReader.ReadBytes(file.ContentLength);
                     }
-                    albumDto.CoverImageData = imageData;
+                    //albumDto.ImageId = _imageServices.SaveImageToDb(imageData, Enums.ImageSize.Small);
                 }
                 _albumServices.UpdateAlbum(albumDto);
-                return RedirectToAction("Details", new { id = album.Id });
+                return RedirectToAction("Details", new { id = viewAlbum.Id });
             }
-            return View(album);
+            return View(viewAlbum);
         }
 
         // POST: /Album/RemovePhotosFromAlbum
@@ -131,6 +129,13 @@ namespace PhotoManagerThreeLayer.Controllers
             List<int> photoIds = photosArr.Split(',').ToList().Select(int.Parse).ToList();
             _albumServices.RemovePhotosFromAlbum(albumId, photoIds);
             return RedirectToAction("Details", new { id = albumId });
+        }
+
+
+        //TODO needs refactoring, album should contain not image but link on photo from this album
+        public ActionResult GetAlbumCoverImage(int id)
+        {
+            return File(_imageServices.GetImageBytesFromDb(id), "image/jpg");
         }
     }
 }

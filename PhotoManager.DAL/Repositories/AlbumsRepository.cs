@@ -24,8 +24,10 @@ namespace PhotoManager.DAL.Repositories
         }
         public Album GetAlbumById(int id)
         {
-            return _context.Albums.Include(user => user.User).FirstOrDefault(alb => alb.Id == id);
+            //TODO Do we need to include image
+            return _context.Albums.Include(user => user.User).Include(image=>image.Image).FirstOrDefault(alb => alb.Id == id);
         }
+
         public List<Album> GetAlbumsByUser(User user)
         {
             var query = from albums in _context.Albums
@@ -41,9 +43,9 @@ namespace PhotoManager.DAL.Repositories
             albumFromDb.State = EntityState.Modified;
 
             albumFromDb.Property(alb => alb.CreatedDate).IsModified = false;
-            if (album.CoverImageData == null)
+            if (album.Image == null)
             {
-                albumFromDb.Property(alb => alb.CoverImageData).IsModified = false;
+                albumFromDb.Property(alb => alb.Image).IsModified = false;
             }
         }
 

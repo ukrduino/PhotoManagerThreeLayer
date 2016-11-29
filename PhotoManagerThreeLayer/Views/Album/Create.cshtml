@@ -2,7 +2,7 @@
 
 
 <div class="row" style="text-align: center">
-    <h2>Edit album</h2>
+    <h2>Add album</h2>
     <hr />
     @using (Html.BeginForm("Create", "Album", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
@@ -26,7 +26,7 @@
                 </div>
             </div>
             <div class="form-group">
-                @Html.LabelFor(model => model.CoverImageData, new { @class = "control-label col-md-2" })
+                @Html.LabelFor(model => model.ImageId, new { @class = "control-label col-md-2" })
                 <div class="col-md-10" style="text-align: left">
                     <label class="btn btn-primary" for="my-file-selector">
                         <input id="my-file-selector" type="file" name="file" style="display: none;">
