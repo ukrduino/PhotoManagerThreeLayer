@@ -53,73 +53,73 @@ namespace PhotoManager.BLL.Services
         //    }
         //}
 
-        public List<Photo> CreatePhotosInDb(UnitOfWork unitOfWork)
-        {
-            List<User> users = unitOfWork.Users.GetAll().ToList();
-            List<Photo> photos = new List<Photo>();
-            foreach (string file in fileNames)
-            {
-                Photo photo = new Photo();
-                photo.Title = Path.GetFileNameWithoutExtension(file) + '_' + StringUtils.RandomAlphaNumericalStr(6);
-                photo.User = users[NumberUtils.RandomIntInRange(1, users.Count)];
-                photo.TakenDate = DateTime.Now.AddDays(NumberUtils.RandomIntInRange(-20, -5));
-                photo.OriginalSizeImageData = File.ReadAllBytes(file);
-                photo.MiddleSizeImageData = File.ReadAllBytes(file);
-                photo.SmallSizeImageData = File.ReadAllBytes(file);
-                AddPhotoToRandomAlbums(photo, unitOfWork);
-                photo.Description = generator.GenerateSentences(1)[0];
-                photo.Place = generator.GenerateSentences(1)[0];
-                photo.Camera = "CAM_" + StringUtils.RandomAlphaNumericalStr(5);
-                photo.FocalLength = NumberUtils.RandomIntInRange(18, 56) + " mm";
-                photo.Aperture = "1/" + NumberUtils.RandomIntInRange(2, 16);
-                photo.CameraLockSpeed = "1/" + NumberUtils.RandomIntInRange(10, 1000);
-                photo.ISO = "200";
-                photo.UsedFlash = StringUtils.RandomBool();
-                photo.Views = NumberUtils.RandomIntInRange(0, 50);
-                photo.AnyOneCanSee = StringUtils.RandomBool();
-                photos.Add(photo);
-            }
-            unitOfWork.Photos.AddRange(photos);
-            unitOfWork.Complete();
-            return photos;
-        }
+        //public List<Photo> CreatePhotosInDb(UnitOfWork unitOfWork)
+        //{
+        //    List<User> users = unitOfWork.Users.GetAll().ToList();
+        //    List<Photo> photos = new List<Photo>();
+        //    foreach (string file in fileNames)
+        //    {
+        //        Photo photo = new Photo();
+        //        photo.Title = Path.GetFileNameWithoutExtension(file) + '_' + StringUtils.RandomAlphaNumericalStr(6);
+        //        photo.User = users[NumberUtils.RandomIntInRange(1, users.Count)];
+        //        photo.TakenDate = DateTime.Now.AddDays(NumberUtils.RandomIntInRange(-20, -5));
+        //        photo.OriginalSizeImageData = File.ReadAllBytes(file);
+        //        photo.MiddleSizeImageData = File.ReadAllBytes(file);
+        //        photo.SmallSizeImageData = File.ReadAllBytes(file);
+        //        AddPhotoToRandomAlbums(photo, unitOfWork);
+        //        photo.Description = generator.GenerateSentences(1)[0];
+        //        photo.Place = generator.GenerateSentences(1)[0];
+        //        photo.Camera = "CAM_" + StringUtils.RandomAlphaNumericalStr(5);
+        //        photo.FocalLength = NumberUtils.RandomIntInRange(18, 56) + " mm";
+        //        photo.Aperture = "1/" + NumberUtils.RandomIntInRange(2, 16);
+        //        photo.CameraLockSpeed = "1/" + NumberUtils.RandomIntInRange(10, 1000);
+        //        photo.ISO = "200";
+        //        photo.UsedFlash = StringUtils.RandomBool();
+        //        photo.Views = NumberUtils.RandomIntInRange(0, 50);
+        //        photo.AnyOneCanSee = StringUtils.RandomBool();
+        //        photos.Add(photo);
+        //    }
+        //    unitOfWork.Photos.AddRange(photos);
+        //    unitOfWork.Complete();
+        //    return photos;
+        //}
 
-        private void AddPhotoToRandomAlbums(Photo photo, UnitOfWork unitOfWork)
-        {
-            int numberOfAlbums = NumberUtils.RandomIntInRange(1, unitOfWork.Albums.GetAll().ToList().Count);
-            var albums = unitOfWork.Albums.GetAlbumsByUser(photo.User).OrderBy(arg => Guid.NewGuid()).Take(numberOfAlbums);
-            foreach (var album in albums)
-            {
-                photo.Albums.Add(album);
-            }
-        }
+        //private void AddPhotoToRandomAlbums(Photo photo, UnitOfWork unitOfWork)
+        //{
+        //    int numberOfAlbums = NumberUtils.RandomIntInRange(1, unitOfWork.Albums.GetAll().ToList().Count);
+        //    var albums = unitOfWork.Albums.GetAlbumsByUser(photo.User).OrderBy(arg => Guid.NewGuid()).Take(numberOfAlbums);
+        //    foreach (var album in albums)
+        //    {
+        //        photo.Albums.Add(album);
+        //    }
+        //}
 
-        public void CleanUpDb()
-        {
-            using (UnitOfWork unitOfWork = new UnitOfWork(new PhotoManagerDbContext()))
-            {
-                IEnumerable<PhotoComment> pCom = unitOfWork.PhotoComments.GetAll();
-                if (pCom.Any())
-                {
-                    unitOfWork.PhotoComments.RemoveRange(pCom);
-                    unitOfWork.Complete();
-                }
+        //public void CleanUpDb()
+        //{
+        //    using (UnitOfWork unitOfWork = new UnitOfWork(new PhotoManagerDbContext()))
+        //    {
+        //        IEnumerable<PhotoComment> pCom = unitOfWork.PhotoComments.GetAll();
+        //        if (pCom.Any())
+        //        {
+        //            unitOfWork.PhotoComments.RemoveRange(pCom);
+        //            unitOfWork.Complete();
+        //        }
 
-                IEnumerable<Photo> pho = unitOfWork.Photos.GetAll();
-                if (pho.Any())
-                {
-                    unitOfWork.Photos.RemoveRange(pho);
-                    unitOfWork.Complete();
-                }
+        //        IEnumerable<Photo> pho = unitOfWork.Photos.GetAll();
+        //        if (pho.Any())
+        //        {
+        //            unitOfWork.Photos.RemoveRange(pho);
+        //            unitOfWork.Complete();
+        //        }
 
-                IEnumerable<Album> alb = unitOfWork.Albums.GetAll();
-                if (alb.Any())
-                {
-                    unitOfWork.Albums.RemoveRange(alb);
-                    unitOfWork.Complete();
-                }
-            }
-        }
+        //        IEnumerable<Album> alb = unitOfWork.Albums.GetAll();
+        //        if (alb.Any())
+        //        {
+        //            unitOfWork.Albums.RemoveRange(alb);
+        //            unitOfWork.Complete();
+        //        }
+        //    }
+        //}
 
         public void SeedDb()
         {

@@ -26,13 +26,13 @@ namespace PhotoManager.DAL.Repositories
         public List<Photo> GetPhotosByUser(User user)
         {
             var query = from photos in _context.Photos
-                where photos.User.UserId == user.UserId
+                where photos.UserId == user.UserId
                 select photos;
             return query.ToList();
         }
         public Photo GetPhotoById(int id)
         {
-            return _context.Photos.Include(pht=>pht.User).FirstOrDefault(photo => photo.Id == id);
+            return _context.Photos.FirstOrDefault(photo => photo.Id == id);
         }
     }
 }

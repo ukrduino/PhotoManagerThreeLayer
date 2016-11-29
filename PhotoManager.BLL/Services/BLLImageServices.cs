@@ -16,7 +16,7 @@ namespace PhotoManager.BLL.Services
                 newImage.ImageData = ImageUtils.ResizeImage(imageDataStream, size);
                 unitOfWork.Images.Add(newImage);
                 unitOfWork.Complete();
-                return newImage.ImageId;
+                return newImage.Id;
             }
         }
 

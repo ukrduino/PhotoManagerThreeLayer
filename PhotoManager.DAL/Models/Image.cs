@@ -7,7 +7,7 @@ namespace PhotoManager.DAL.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int ImageId { get; set; }
+        public int Id { get; set; }
         public byte[] ImageData { get; set; }
     }
 }

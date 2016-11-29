@@ -6,7 +6,7 @@ using PhotoManager.DAL.Models.Interfaces;
 
 namespace PhotoManager.DAL.Models
 {
-    public class Album: IHasLastModifiedField
+    public class Album: IHasModifiedField
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -14,14 +14,12 @@ namespace PhotoManager.DAL.Models
         [StringLength(50)]
         [Index(IsUnique = true)]
         public string Title { get; set; }
-        public int UserID { get; set; }
-        public User User { get; set; }
         public string Description { get; set; }
+        public int UserId { get; set; }
         public List<Photo> Photos { get; set; }
-        public int? ImageID { get; set; }
-        public Image Image { get; set; }
+        public int? PhotoId { get; set; }
         public DateTime CreatedDate { get; set; }
-        public DateTime? LastModified { get; set; }
+        public DateTime? Modified { get; set; }
 
         public Album()
         {

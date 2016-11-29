@@ -16,7 +16,7 @@ namespace PhotoManager.DAL.Repositories
         public List<PhotoComment> GetCommentsByPhoto(int id)
         {
             var query = from comment in _context.PhotoComments
-                        where comment.PhotoID == id
+                        where comment.PhotoId == id
                         select comment;
             return query.ToList();
         }

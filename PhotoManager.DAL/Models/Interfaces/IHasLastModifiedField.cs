@@ -2,8 +2,8 @@
 
 namespace PhotoManager.DAL.Models.Interfaces
 {
-    public interface IHasLastModifiedField
+    public interface IHasModifiedField
     {
-        DateTime? LastModified { get; set; }
+        DateTime? Modified { get; set; }
     }
 }

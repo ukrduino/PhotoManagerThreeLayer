@@ -23,9 +23,9 @@ namespace PhotoManager.DAL
             {
                 if (!entry.IsRelationship)
                 {
-                    IHasLastModifiedField lastModified = entry.Entity as IHasLastModifiedField;
-                    if (lastModified != null)
-                        lastModified.LastModified = now;
+                    IHasModifiedField modified = entry.Entity as IHasModifiedField;
+                    if (modified != null)
+                        modified.Modified = now;
                 }
             }
 
