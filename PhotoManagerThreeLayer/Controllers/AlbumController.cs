@@ -94,8 +94,7 @@ namespace PhotoManagerThreeLayer.Controllers
             if (ModelState.IsValid)
             {
                 byte[] imageData = null;
-                AlbumDTO albumDto = Mapper.Map<AlbumDTO>(viewAlbum);
-                albumDto = _albumServices.GetAlbum(viewAlbum.Id);
+                AlbumDTO albumDto = _albumServices.GetAlbum(viewAlbum.Id);
                 AlbumDetailViewModel albumDetailViewModel = Mapper.Map<AlbumDetailViewModel>(albumDto);
                 if (file != null)
                 {

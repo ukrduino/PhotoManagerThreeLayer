@@ -2,7 +2,7 @@
     $(function() {
         $('#my-file-selector')
             .change(function() {
-                console.log(111);
+                console.log($(this).val());
                 $('#edit-upload-file-info').html($(this).val());
                 $('.field-validation-error').html("");
             });

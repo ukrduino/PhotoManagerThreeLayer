@@ -1,0 +1,122 @@
+﻿@model PhotoManagerThreeLayer.ViewModels.PhotoDetailViewModel
+
+<div class="row">
+    <div id="photo" value="@Model.Id"></div>
+    <h4 style="text-align: center">
+        @Model.Title &nbsp;
+        <a href='@Url.Action("Edit", "Photo", new {id = Model.Id})'><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>&nbsp;
+        <a href='@Url.Action("Create", "Photo")'><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
+    </h4>
+    <hr />
+    <div class="col-lg-3">
+        <img src="@Url.Action("GetPhotoCoverImage", new { id = Model.ImageId})" class="albumCoverImage" />
+    </div>
+    <div class="col-lg-9">
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Title)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Title)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Description)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Description)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.TakenDate)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.TakenDate)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Place)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Place)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Camera)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Camera)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.FocalLength)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.FocalLength)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Aperture)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Aperture)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.CameraLockSpeed)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.CameraLockSpeed)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.ISO)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.ISO)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.UsedFlash)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.UsedFlash)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.LastModified)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.LastModified)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.CreatedDate)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.CreatedDate)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.anyOneCanSee)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.anyOneCanSee)
+            </dd>
+
+        </dl>
+    </div>
+</div>

@@ -7,9 +7,9 @@ namespace PhotoManagerThreeLayer.ViewModels
         public int Id { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
-        public byte[] SmallSizeImageData { get; set; }
-        public bool anyOneCanSee { get; set; }
-        public DateTime Uploaded { get; set; }
+        public int ImageId { get; set; }
+        public bool AnyOneCanSee { get; set; }
+        public DateTime Created { get; set; }
         public int Views { get; set; }
         public int Comments { get; set; }
     }

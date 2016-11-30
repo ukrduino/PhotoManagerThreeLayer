@@ -34,5 +34,15 @@ namespace PhotoManager.DAL.Repositories
         {
             return _context.Photos.FirstOrDefault(photo => photo.Id == id);
         }
+
+        public void UpdatePhoto(Photo photo)
+        {
+            _context.Photos.Attach(photo);
+            var photoFromDb = _context.Entry(photo);
+            photoFromDb.State = EntityState.Modified;
+            photoFromDb.Property(phot => phot.Created).IsModified = false;
+            photoFromDb.Property(phot => phot.UserId).IsModified = false;
+            photoFromDb.Property(phot => phot.ImageId).IsModified = false;
+        }
     }
 }

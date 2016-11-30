@@ -34,5 +34,27 @@ namespace PhotoManager.BLL.Services
                 return Mapper.Map<PhotoDTO>(photo);
             }
         }
+
+        public void CreatePhoto(PhotoDTO photoDto)
+        {
+            using (UnitOfWork unitOfWork = new UnitOfWork(new PhotoManagerDbContext()))
+            {
+
+                Photo photo = Mapper.Map<Photo>(photoDto);
+                photo.UserId = WebSecurityService.GetCurrentUser().UserId;
+                unitOfWork.Photos.Add(photo);
+                unitOfWork.Complete();
+            }
+        }
+
+        public void UpdatePhoto(PhotoDTO photoDto)
+        {
+            using (UnitOfWork unitOfWork = new UnitOfWork(new PhotoManagerDbContext()))
+            {
+                Photo photo = Mapper.Map<Photo>(photoDto);
+                unitOfWork.Photos.UpdatePhoto(photo);
+                unitOfWork.Complete();
+            }
+        }
     }
 }

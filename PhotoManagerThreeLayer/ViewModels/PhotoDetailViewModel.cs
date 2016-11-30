@@ -11,7 +11,8 @@ namespace PhotoManagerThreeLayer.ViewModels
         [StringLength(50)]
         [Required]
         public string Title { get; set; }
-        [DisplayName("Date when photo taken")]
+        public string Description { get; set; }
+        [DisplayName("Date")]
         public DateTime TakenDate { get; set; }
         public string Place { get; set; }
         public string Camera { get; set; }
@@ -26,8 +27,11 @@ namespace PhotoManagerThreeLayer.ViewModels
         public List<PhotoCommentViewModel> Comments { get; set; }
         public int? ImageId { get; set; }
         public List<string> Albums { get; set; }
+        [DisplayName("Modified")]
         public DateTime? LastModified { get; set; }
+        [DisplayName("Uploaded")]
         public DateTime CreatedDate { get; set; }
+        [DisplayName("Public")]
         public bool anyOneCanSee { get; set; }
 
         public PhotoDetailViewModel()

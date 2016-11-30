@@ -9,6 +9,7 @@ namespace PhotoManagerThreeLayer.ViewModels
         {
             CreateMap<PhotoDTO, PhotoListViewModel>();
             CreateMap<PhotoDTO, PhotoDetailViewModel>();
+            CreateMap<PhotoDetailViewModel, PhotoDTO>();
 
             CreateMap<AlbumDTO, AlbumListViewModel>();
             CreateMap<AlbumDTO, AlbumDetailViewModel>();

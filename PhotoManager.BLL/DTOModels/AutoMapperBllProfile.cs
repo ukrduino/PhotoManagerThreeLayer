@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using PhotoManager.BLL.Services;
 using PhotoManager.DAL.Models;
 
 namespace PhotoManager.BLL.DTOModels
@@ -9,13 +8,13 @@ namespace PhotoManager.BLL.DTOModels
         protected override void Configure()
         {
             CreateMap<Photo, PhotoDTO>();
-            //CreateMap<PhotoDTO, Photo>();
+            CreateMap<PhotoDTO, Photo>();
 
             CreateMap<Album, AlbumDTO>();
             CreateMap<AlbumDTO, Album>().ForMember(dest => dest.CreatedDate, opt => opt.Ignore());
 
             CreateMap<PhotoComment, PhotoCommentDTO>();
-            //CreateMap<PhotoCommentDTO, PhotoComment>();
+            CreateMap<PhotoCommentDTO, PhotoComment>();
         }
     }
 }

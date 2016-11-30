@@ -1,8 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using PhotoManager.DAL.Models.Interfaces;
-
 namespace PhotoManager.DAL.Models
 {
     public class PhotoComment
