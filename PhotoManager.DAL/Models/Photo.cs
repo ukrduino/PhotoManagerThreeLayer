@@ -21,13 +21,15 @@ namespace PhotoManager.DAL.Models
         public string CameraLockSpeed { get; set; }
         public string ISO { get; set; }
         public bool UsedFlash { get; set; }
+        public bool AnyOneCanSee { get; set; }
         public int UserId { get; set; }
+        public int SmallImageId { get; set; }
+        public int MiddleImageId { get; set; }
         public int ImageId { get; set; }
         public List<Album> Albums { get; set; }
         public List<PhotoComment> Comments { get; set; }
         public DateTime? Modified { get; set; }
         public DateTime Created { get; set; }
-        public bool AnyOneCanSee { get; set; }
         public int? Views { get; set; }
 
         public Photo()

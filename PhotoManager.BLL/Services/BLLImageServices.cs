@@ -13,7 +13,14 @@ namespace PhotoManager.BLL.Services
             using (UnitOfWork unitOfWork = new UnitOfWork(new PhotoManagerDbContext()))
             {
                 Image newImage = new Image();
-                newImage.ImageData = ImageUtils.ResizeImage(imageDataStream, size);
+                if (size.Equals(Enums.ImageSize.Actual))
+                {
+                    newImage.ImageData = imageDataStream.ReadAllBytes();
+                }
+                else
+                {
+                    newImage.ImageData = ImageUtils.ResizeImage(imageDataStream, size);
+                }
                 unitOfWork.Images.Add(newImage);
                 unitOfWork.Complete();
                 return newImage.Id;

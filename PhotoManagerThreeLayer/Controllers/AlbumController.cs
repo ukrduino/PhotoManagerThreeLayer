@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -48,26 +49,18 @@ namespace PhotoManagerThreeLayer.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(AlbumDetailViewModel viewAlbum, HttpPostedFileBase file)
+        public ActionResult Create(AlbumDetailViewModel viewAlbum)
         {
             if (ModelState.IsValid)
             {
-                AlbumDTO albumDto = Mapper.Map<AlbumDTO>(viewAlbum);
-                byte[] imageData = null;
-                if (file != null)
+                if (!WebSecurityService.IsPayedUser() &&
+                    BllAlbumServices.GetAlbumsNumberForCurrentUser() > 5)
                 {
-                    if (file.ContentLength > (500 * 1024))
-                    {
-                        ModelState.AddModelError("ImageUploadValidationError", "File size must be less than 500 Kb");
-                        return View(viewAlbum);
-                    }
-                    if (!file.IsJpgImage())
-                    {
-                        ModelState.AddModelError("ImageUploadValidationError", "File type allowed : jpeg");
-                        return View(viewAlbum);
-                    }
-                    albumDto.ImageId = _imageServices.SaveImageToDb(file.InputStream, Enums.ImageSize.Small);
+                    ModelState.AddModelError("NumberOfAlbumsValidationError", "Free users can have only 5 albums (please upgrade to payed user)");
+                    return View(viewAlbum);
                 }
+                AlbumDTO albumDto = Mapper.Map<AlbumDTO>(viewAlbum);
+                albumDto.Created = DateTime.Now;
                 _albumServices.CreateAlbum(albumDto);
                 return RedirectToAction("Index");
             }

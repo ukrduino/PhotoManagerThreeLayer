@@ -23,7 +23,6 @@ namespace PhotoManagerThreeLayer
                 cfg.AddProfile<AutoMapperViewProfile>();
                 cfg.AddProfile<AutoMapperBllProfile>();
             });
-            //bllDbServices.CleanUpDb();
             bllDbServices.SeedDb();
         }
     }

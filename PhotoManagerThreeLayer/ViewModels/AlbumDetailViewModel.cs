@@ -19,7 +19,7 @@ namespace PhotoManagerThreeLayer.ViewModels
         [DisplayName("Album created")]
         public DateTime CreatedDate { get; set; }
         [DisplayName("Album modified")]
-        public DateTime? LastModified { get; set; }
+        public DateTime LastModified { get; set; }
 
         public AlbumDetailViewModel()
         {

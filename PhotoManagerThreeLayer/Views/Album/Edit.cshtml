@@ -39,17 +39,6 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    @Html.LabelFor(model => model.ImageId, new { @class = "control-label col-md-2" })
-                    <div class="col-md-10" style="text-align: left">
-                        <label class="btn btn-primary" for="my-file-selector">
-                            <input id="my-file-selector" type="file" name="file" style="display: none;">
-                            Select file
-                        </label>
-                        <span id="edit-upload-file-info"></span>
-                        @Html.ValidationMessage("ImageUploadValidationError", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
                         <input type="submit" value="Save" class="btn btn-success" />
                         <a class="btn btn-danger" href='@Url.Action("Details", "Album", new {id = Model.Id})'>Back to album details</a>

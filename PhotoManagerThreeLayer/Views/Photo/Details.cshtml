@@ -9,7 +9,7 @@
     </h4>
     <hr />
     <div class="col-lg-3">
-        <img src="@Url.Action("GetPhotoCoverImage", new { id = Model.ImageId})" class="albumCoverImage" />
+        <img src="@Url.Action("GetPhotoCoverImage", new { id = Model.SmallImageId})" class="albumCoverImage" />
     </div>
     <div class="col-lg-9">
         <dl class="dl-horizontal">
@@ -110,11 +110,11 @@
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => model.anyOneCanSee)
+                @Html.DisplayNameFor(model => model.AnyOneCanSee)
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.anyOneCanSee)
+                @Html.DisplayFor(model => model.AnyOneCanSee)
             </dd>
 
         </dl>

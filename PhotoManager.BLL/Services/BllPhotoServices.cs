@@ -56,5 +56,13 @@ namespace PhotoManager.BLL.Services
                 unitOfWork.Complete();
             }
         }
+
+        public static int GetPhotosNumberForCurrentUser()
+        {
+            using (UnitOfWork unitOfWork = new UnitOfWork(new PhotoManagerDbContext()))
+            {
+                return unitOfWork.Photos.GetPhotosByUser(WebSecurityService.GetCurrentUser()).Count;
+            }
+        }
     }
 }

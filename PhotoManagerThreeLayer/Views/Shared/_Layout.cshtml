@@ -1,5 +1,7 @@
 ﻿@using PhotoManager.BLL.Services
 
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,11 +24,11 @@
                         <li>@Html.ActionLink("PHOTOS", "Index", "Photo")</li>
                         @if (!WebSecurityService.IsPayedUser())
                         {
-                            <li><h4 id="advert">Upgrade to payed user to have more than 5 albums (you have 2 albums)</h4></li>
+                            <li><h4 id="advert">Upgrade to payed user to have more than 5 albums (you have @BllAlbumServices.GetAlbumsNumberForCurrentUser() albums)</h4></li>
                         }
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a>Hello, @User.Identity.Name</a></li>
+                        <li><a>@User.Identity.Name (@BllAlbumServices.GetAlbumsNumberForCurrentUser()/@BllPhotoServices.GetPhotosNumberForCurrentUser())</a></li>
 
                         @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "nav navbar-nav navbar-right" }))
                         {

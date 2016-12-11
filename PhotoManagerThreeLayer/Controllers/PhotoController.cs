@@ -73,9 +73,10 @@ namespace PhotoManagerThreeLayer.Controllers
                         ModelState.AddModelError("ImageUploadValidationError", "File type allowed : jpeg");
                         return View(photoDetailViewModel);
                     }
-                    photoDto.ImageId = _imageServices.SaveImageToDb(file.InputStream, Enums.ImageSize.Small);
-                    photoDto.Created = DateTime.Now; ;
-                    photoDto.AnyOneCanSee = true;
+                    photoDto.ImageId = _imageServices.SaveImageToDb(file.InputStream, Enums.ImageSize.Actual);
+                    photoDto.SmallImageId = _imageServices.SaveImageToDb(file.InputStream, Enums.ImageSize.Small);
+                    photoDto.MiddleImageId = _imageServices.SaveImageToDb(file.InputStream, Enums.ImageSize.Middle);
+                    photoDto.Created = DateTime.Now;
                 }
                 _photoServices.CreatePhoto(photoDto);
                 return RedirectToAction("Index");

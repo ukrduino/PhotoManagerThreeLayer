@@ -4,6 +4,7 @@
     {
         public enum ImageSize
         {
+            Actual,
             Middle,
             Small
         }

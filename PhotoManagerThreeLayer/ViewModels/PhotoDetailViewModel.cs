@@ -24,15 +24,16 @@ namespace PhotoManagerThreeLayer.ViewModels
         public string ISO { get; set; }
         [DisplayName("Used flash")]
         public bool UsedFlash { get; set; }
+        public bool AnyOneCanSee { get; set; }
         public List<PhotoCommentViewModel> Comments { get; set; }
-        public int? ImageId { get; set; }
+        public int SmallImageId { get; set; }
         public List<string> Albums { get; set; }
         [DisplayName("Modified")]
-        public DateTime? LastModified { get; set; }
+        public DateTime LastModified { get; set; }
         [DisplayName("Uploaded")]
         public DateTime CreatedDate { get; set; }
         [DisplayName("Public")]
-        public bool anyOneCanSee { get; set; }
+        public int Views { get; set; }
 
         public PhotoDetailViewModel()
         {

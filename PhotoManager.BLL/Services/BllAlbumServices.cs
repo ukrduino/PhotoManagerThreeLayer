@@ -14,14 +14,45 @@ namespace PhotoManager.BLL.Services
             using (UnitOfWork unitOfWork = new UnitOfWork(new PhotoManagerDbContext()))
             {
                 IEnumerable<Album> albums = unitOfWork.Albums.GetAlbumsByUser(WebSecurityService.GetCurrentUser());
+                foreach (Album album in albums)
+                {
+                    UpdateAlbumCover(unitOfWork, album);
+                }
                 return Mapper.Map<IEnumerable<Album>, List<AlbumDTO>>(albums);
             }
         }
+
+        private void UpdateAlbumCover(UnitOfWork unitOfWork, Album album)
+        {
+            List<Photo> photos = unitOfWork.Photos.GetPhotosByAlbum(album.Id);
+            if (album.ImageId == null && photos.Count > 0)
+            {
+                album.ImageId = photos[0].SmallImageId;
+                unitOfWork.Albums.UpdateAlbum(album);
+                unitOfWork.Complete();
+                return;
+            }
+            if (album.ImageId != null && photos.Count == 0)
+            {
+                album.ImageId = null;
+                unitOfWork.Albums.UpdateAlbum(album);
+                unitOfWork.Complete();
+                return;
+            }
+            if (album.ImageId != null && photos.Count > 0 && !photos[0].Id.Equals(album.ImageId))
+            {
+                album.ImageId = photos[0].Id;
+                unitOfWork.Albums.UpdateAlbum(album);
+                unitOfWork.Complete();
+            }
+        }
+
         public AlbumDTO GetAlbum(int id)
         {
             using (UnitOfWork unitOfWork = new UnitOfWork(new PhotoManagerDbContext()))
             {
                 Album album = unitOfWork.Albums.GetAlbumById(id);
+                UpdateAlbumCover(unitOfWork, album);
                 return Mapper.Map<AlbumDTO>(album);
             }
         }
@@ -37,6 +68,7 @@ namespace PhotoManager.BLL.Services
                 unitOfWork.Complete();
             }
         }
+
         public void UpdateAlbum(AlbumDTO albumDto)
         {
             using (UnitOfWork unitOfWork = new UnitOfWork(new PhotoManagerDbContext()))
@@ -52,6 +84,14 @@ namespace PhotoManager.BLL.Services
             {
                 unitOfWork.Albums.RemovePhotosFromAlbum(albumId, photoIds);
                 unitOfWork.Complete();
+            }
+        }
+
+        public static int GetAlbumsNumberForCurrentUser()
+        {
+            using (UnitOfWork unitOfWork = new UnitOfWork(new PhotoManagerDbContext()))
+            {
+                return unitOfWork.Albums.GetAlbumsByUser(WebSecurityService.GetCurrentUser()).Count;
             }
         }
     }
