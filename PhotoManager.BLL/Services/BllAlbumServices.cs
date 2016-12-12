@@ -41,7 +41,7 @@ namespace PhotoManager.BLL.Services
             }
             if (album.ImageId != null && photos.Count > 0 && !photos[0].Id.Equals(album.ImageId))
             {
-                album.ImageId = photos[0].Id;
+                album.ImageId = photos[0].SmallImageId;
                 unitOfWork.Albums.UpdateAlbum(album);
                 unitOfWork.Complete();
             }

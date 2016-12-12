@@ -9,16 +9,17 @@ namespace PhotoManager.BLL.Utils
     {
         //TODO define sizes
         private static int smallImageWidth = 260;
-        private static int smallImageHights = 260;
+        private static int smallImageHights = 195;
         private static int middleImageWidth = 800;
         private static int middleImageHights = 600;
-        private static Image ResizeImage(Image image, int newHeight, int newWidth)
+
+        private static Image ResizeImage(Image image, int newWidth, int newHeight)
         {
-            Bitmap new_image = new Bitmap(newHeight, newWidth);
-            Graphics g = Graphics.FromImage((Image)new_image);
+            Bitmap newImage = new Bitmap(newWidth, newHeight);
+            Graphics g = Graphics.FromImage((Image)newImage);
             g.InterpolationMode = InterpolationMode.High;
-            g.DrawImage(image, 0, 0, newHeight, newWidth);
-            return new_image;
+            g.DrawImage(image, 0, 0, newWidth, newHeight);
+            return newImage;
         }
 
         public static byte[] ResizeImage(Stream imageDataStream, Enums.ImageSize size)
@@ -29,7 +30,7 @@ namespace PhotoManager.BLL.Utils
                 switch (size)
                 {
                     case Enums.ImageSize.Middle:
-                        newImage = ResizeImage(img, middleImageHights, middleImageWidth);
+                        newImage = ResizeImage(img, middleImageWidth, middleImageHights);
                         using (var output = new MemoryStream())
                         {
                             newImage.Save(output, ImageFormat.Jpeg);
@@ -37,7 +38,7 @@ namespace PhotoManager.BLL.Utils
                         }
 
                     case Enums.ImageSize.Small:
-                        newImage = ResizeImage(img, smallImageHights, smallImageWidth);
+                        newImage = ResizeImage(img, smallImageWidth, smallImageHights);
                         using (var output = new MemoryStream())
                         {
                             newImage.Save(output, ImageFormat.Jpeg);
@@ -46,7 +47,6 @@ namespace PhotoManager.BLL.Utils
                     default:
                         return new byte[0];
                 }
-
             }
         }
     }

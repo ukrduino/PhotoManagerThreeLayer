@@ -1,0 +1,38 @@
+﻿@model PhotoManagerThreeLayer.ViewModels.PhotoListViewModel
+<div class="photoListItem">
+    <input type="checkbox" class="photoSelect" id="@Model.Id" />
+    @Model.Title
+
+    <img src="@Url.Action("GetPhotoCoverImage", "Photo", new { id = Model.SmallImageId})" class="photoCoverImage" alt="@Model.Title small image" />
+
+    @*</a>*@
+    @if (!String.IsNullOrEmpty(Model.Description))
+    {
+        <p>
+            @Model.Description.Truncate(35)
+        </p>
+    }
+    else
+    {
+        <a href='@Url.Action("Edit", "Photo", new {id = Model.Id})'>Click to add a description</a>
+    }
+    @if (Model.AnyOneCanSee)
+            {
+        <p>
+            <span class="glyphicon glyphicon-eye-open photoListView-anyOneCanSee" aria-hidden="true"></span><span>Anyone can see this photo</span>&nbsp;<a href='@Url.Action("Edit", "Photo", new {id = Model.Id})'>(Edit)</a>
+        </p>
+    }
+    else
+    {
+        <p class="photoListView-anyOneCanSee-false">
+            <span class="glyphicon glyphicon-eye-close photoListView-anyOneCanSee-false-icon" aria-hidden="true"></span><span>Nobody can see this photo</span>&nbsp;<a href='@Url.Action("Edit", "Photo", new {id = Model.Id})'>(Edit)</a>
+        </p>
+    }
+
+    <p>
+        Uploaded:&nbsp;@Model.Created.ToString("d")&nbsp;|&nbsp;<a href='@Url.Action("Delete", "Photo", new {id = Model.Id})'>Delete</a>
+    </p>
+    <p>
+        <span>@Model.Views&nbsp;views</span>&nbsp;/&nbsp;<a href='@Url.Action("Details", "Photo", new {id = Model.Id})'>@Model.Comments&nbsp;Comments</a>
+    </p>
+</div>

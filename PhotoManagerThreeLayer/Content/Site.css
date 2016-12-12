@@ -30,34 +30,29 @@ textarea {
     border-color: #080808;
 }
 
-.albumCover {
+/*.albumCover {
     width: 300px;
     height: 300px;
     overflow: hidden;
     background-color: #211b1b;
     margin: 10px;
-}
+}*/
 
 .photoListItem {
-    width: 300px;
-    height: 400px;
-    overflow: hidden;
-    text-align: center;
     background-color: #211b1b;
-    margin: 10px;
     text-align: left;
+    padding: 5px;
+    margin-bottom: 3px;
 }
 
-.albumCoverImage {
+/*.albumCoverImage {
     object-fit: cover;
     width: 260px;
     height: 260px;
-}
+}*/
 
 .photoCoverImage {
-    object-fit: cover;
-    width: 260px;
-    height: 260px;
+   width: 100%;
 }
 
 .photoListView-anyOneCanSee {
@@ -92,6 +87,20 @@ textarea {
 }
 
 #advert {
-    margin-left: 50px; 
-    margin-top: 15px; 
+    margin-left: 50px;
+    margin-top: 15px;
+}
+
+.albumPhotosBlock {
+    border: 1px;
+    border-color: white;
+    border-style: solid;
+    margin-right: 3px
+}
+
+.albumAddPhotosBlock {
+    border: 1px;
+    border-color: white;
+    border-style: solid;
+    margin-right: 3px
 }

@@ -6,7 +6,7 @@
     <hr />
     @foreach (var item in Model)
     {
-        <div class="col-lg-4 albumCover">
+        <div class="col-lg-3 albumCover">
             <a href='@Url.Action("Details", "Album", new {id = item.Id})'>
                 @if (item.ImageId != null)
                 {

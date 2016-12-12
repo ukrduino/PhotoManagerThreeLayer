@@ -1,5 +1,4 @@
-﻿@using System.Diagnostics.Eventing.Reader
-@model IEnumerable<PhotoManagerThreeLayer.ViewModels.PhotoListViewModel>
+﻿@model IEnumerable<PhotoManagerThreeLayer.ViewModels.PhotoListViewModel>
 
 <div class="row" style="text-align: center">
     <h2>Photos &nbsp; <a href='@Url.Action("Create", "Photo")'><span class="glyphicon glyphicon-plus photoListView-anyOneCanSee" aria-hidden="true"></span></a></h2>
@@ -7,48 +6,13 @@
     {
         foreach (var item in Model)
         {
-            <div class="col-lg-4 photoListItem">
-                <input type="checkbox" class="photoSelect" id="@item.Id" />
-                @item.Title
-                @*<a href='@Url.Action("Details", "Photo", new {id = item.Id})'>*@
-                <img src="@Url.Action("GetPhotoCoverImage", new { id = item.ImageId})" class="photoCoverImage" alt="@item.Title small image" />
-
-                @*</a>*@
-                @if (!String.IsNullOrEmpty(item.Description))
-                {
-                    @item.Description.Substring(0, Math.Min(item.Description.Length, 35))
-                    if (item.Description.Length > 35)
-                    {
-                        <span>...</span>
-                    }
-                }
-                else
-                {
-                    <a href='@Url.Action("Edit", "Photo", new {id = item.Id})'>Click to add a description</a>
-                }
-                @if (item.AnyOneCanSee)
-                {
-                    <p>
-                        <span class="glyphicon glyphicon-eye-open photoListView-anyOneCanSee" aria-hidden="true"></span><span>Anyone can see this photo</span>&nbsp;<a href='@Url.Action("Edit", "Photo", new {id = item.Id})'>(Edit)</a>
-                    </p>
-                }
-                else
-                {
-                    <p class="photoListView-anyOneCanSee-false">
-                        <span class="glyphicon glyphicon-eye-close photoListView-anyOneCanSee-false-icon" aria-hidden="true"></span><span>Nobody can see this photo</span>&nbsp;<a href='@Url.Action("Edit", "Photo", new {id = item.Id})'>(Edit)</a>
-                    </p>
-                }
-
-                <p>
-                    Uploaded:&nbsp;@item.Created.ToString("d")&nbsp;|&nbsp;<a href='@Url.Action("Delete", "Photo", new {id = item.Id})'>Delete</a>
-                </p>
-                <p>
-                    <span>@item.Views&nbsp;views</span>&nbsp;/&nbsp;<a href='@Url.Action("Details", "Photo", new {id = item.Id})'>@item.Comments&nbsp;Comments</a>
-                </p>
+            <div class="col-lg-3">
+                @Html.Partial("_PhotoListItem", item);
             </div>
         }
     }
-    else{
+    else
+    {
         <h2> YOU DONT HAVE UPLOADED PHOTOS </h2>
     }
 </div>

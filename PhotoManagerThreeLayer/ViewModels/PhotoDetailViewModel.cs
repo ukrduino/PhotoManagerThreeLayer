@@ -29,9 +29,9 @@ namespace PhotoManagerThreeLayer.ViewModels
         public int SmallImageId { get; set; }
         public List<string> Albums { get; set; }
         [DisplayName("Modified")]
-        public DateTime LastModified { get; set; }
+        public DateTime Modified { get; set; }
         [DisplayName("Uploaded")]
-        public DateTime CreatedDate { get; set; }
+        public DateTime Created { get; set; }
         [DisplayName("Public")]
         public int Views { get; set; }
 
