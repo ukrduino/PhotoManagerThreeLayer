@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Web;
 using System.Web.Mvc;
 using AutoMapper;
@@ -13,7 +14,6 @@ namespace PhotoManagerThreeLayer.Controllers
     [Authorize]
     public class PhotoController : Controller
     {
-        private BllAlbumServices _albumServices = new BllAlbumServices();
         private BllPhotoServices _photoServices = new BllPhotoServices();
         private BLLImageServices _imageServices = new BLLImageServices();
         private BllCommentServices _commentServices = new BllCommentServices();
@@ -110,10 +110,44 @@ namespace PhotoManagerThreeLayer.Controllers
             return View(photoDetailViewModel);
         }
 
-        //TODO needs refactoring, album should contain not image but link on photo from this album
-        public ActionResult GetPhotoCoverImage(int id)
+        public ActionResult GetPhotoImage(int id)
         {
             return File(_imageServices.GetImageBytesFromDb(id), "image/jpg");
+        }
+
+        public ActionResult LoadPhotosToAlbumDetailView(string albumId, string inAlbum, string pageNumber)
+        {
+            int albId = int.Parse(albumId);
+            int pageNum = int.Parse(pageNumber);
+            bool inAlb = bool.Parse(inAlbum);
+            List<PhotoDTO> photoDtoList = _photoServices.GetPhotosForCurrentUserAndAlbumWithPagination(albId, inAlb, pageNum);
+            return PartialView("_PhotosInAlbum", Mapper.Map<List<PhotoDTO>, List<PhotoListViewModel>>(photoDtoList));
+        }
+
+        public JsonResult GetDataForPagination(string albumId, string inAlbum, string pageNumber)
+        {
+            int pageSize = int.Parse(ConfigurationManager.AppSettings["AlbumDetailsPhotosPageSize"]);
+            int albId = int.Parse(albumId);
+            int pageNum = int.Parse(pageNumber);
+            bool inAlb = bool.Parse(inAlbum);
+            if (inAlb)
+            {
+                var result = new
+                {
+                    AlbumPhotosPreviousePage = pageNum - 1,
+                    AlbumPhotosNextPage = decimal.Divide(_photoServices.GetPhotosNumberForCurrentUserAndAlbum(albId, true), pageSize) > pageNum ? pageNum + 1 : -1
+                };
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                var result = new
+                {
+                    AddPhotosPreviousePage = pageNum - 1,
+                    AddPhotosNextPage = decimal.Divide(_photoServices.GetPhotosNumberForCurrentUserAndAlbum(albId, false), pageSize) > pageNum ? pageNum + 1 : -1
+                };
+                return Json(result, JsonRequestBehavior.AllowGet);
+            };
         }
     }
 }

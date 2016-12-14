@@ -7,12 +7,13 @@
         @Model.Title &nbsp;
         <a href='@Url.Action("Edit", "Album", new {id = Model.Id})'><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>&nbsp;
         <a href='@Url.Action("Create", "Album")'><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
+        <input id="AlbumId" name="AlbumId" type="hidden" value="@Model.Id" />
     </h4>
     <hr />
     <div class="col-lg-3">
         @if (Model.ImageId != null)
         {
-            <img src="@Url.Action("GetAlbumCoverImage", new { id = Model.ImageId})" class="albumCoverImage" />
+            <img src="@Url.Action("GetAlbumImage", new { id = Model.ImageId})" class="albumCoverImage" />
         }
         else
         {
@@ -61,36 +62,27 @@
 <div class="row">
     <div class="col-lg-6">
         <div class="row">
+            <h4 style="text-align: center">
+                <span id="AlbumPhotoBackward" class="glyphicon glyphicon-backward" aria-hidden="true" style="display: none" data-page=""></span>
+                &nbsp;
+                Album photos
+                &nbsp;
+                <span  id="AlbumPhotoForward" class="glyphicon glyphicon-forward" aria-hidden="true" style="display: none" data-page=""></span>
+            </h4>
             <div class="col-lg-12 albumPhotosBlock">
-                <div class="row">
-                    @using (Html.BeginForm("RemovePhotosFromAlbum", "Album", FormMethod.Post, new { id = "MyForm" }))
-                    {
-                        @Html.AntiForgeryToken()
-                        <input id="AlbumId" name="AlbumId" type="hidden" value="@Model.Id" />
-                        <input id="PhotosArr" name="PhotosArr" type="hidden" value="" />
-                        <h4 style="text-align: center">
-                            Photos<button type="submit" id="removePhotos"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></button>
-                        </h4>
-                    }
-
-                    @foreach (var item in Model.Photos)
-                    {
-                        <div class="col-lg-6">
-                            @Html.Partial("_AlbumPhotoListItem", item)
-                        </div>
-                    }
-                </div>
             </div>
         </div>
     </div>
     <div class="col-lg-6">
         <div class="row">
+            <h4 style="text-align: center">
+                <span id="AddPhotoBackward" class="glyphicon glyphicon-backward" aria-hidden="true" style="display: none" data-page=""></span>
+                &nbsp;
+                Add photos
+                &nbsp;
+                <span id="AddAlbumPhotoForward" class="glyphicon glyphicon-forward" aria-hidden="true" style="display: none" data-page=""></span>
+            </h4>
             <div class="col-lg-12 albumAddPhotosBlock">
-                <div class="row">
-                    <div class="col-lg-6">
-                        fkjhkgjhgkjdfhg
-                    </div>
-                </div>
             </div>
         </div>
     </div>

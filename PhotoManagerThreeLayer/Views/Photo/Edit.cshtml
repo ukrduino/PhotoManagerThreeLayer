@@ -4,7 +4,7 @@
     <h2>Edit album</h2>
     <hr />
     <div class="col-lg-3">
-        <img src="@Url.Action("GetPhotoCoverImage", new {id = Model.SmallImageId})" class="albumCoverImage" />
+        <img src="@Url.Action("GetPhotoImage", new {id = Model.SmallImageId})" class="albumCoverImage" />
     </div>
     <div class="col-lg-9">
         @using (Html.BeginForm())

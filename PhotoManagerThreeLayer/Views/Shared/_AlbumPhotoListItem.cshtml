@@ -1,6 +1,7 @@
 ﻿@model PhotoManagerThreeLayer.ViewModels.PhotoListViewModel
 <div class="photoListItem">
-    <input type="checkbox" class="photoSelect" id="@Model.Id" />
     @Model.Title
-    <img src="@Url.Action("GetPhotoCoverImage", "Photo", new { id = Model.SmallImageId})" class="photoCoverImage" alt="@Model.Title small image" />
+    &nbsp;
+    <a class="action" data-id="@Model.Id" href=""><span class="glyphicon" aria-hidden="true"></span></a>
+    <img src="@Url.Action("GetPhotoImage", "Photo", new { id = Model.SmallImageId})" class="photoCoverImage" alt="@Model.Title small image" />
 </div>

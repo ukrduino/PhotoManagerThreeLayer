@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using AutoMapper;
 using PhotoManager.BLL.DTOModels;
 using PhotoManager.BLL.Services;
-using PhotoManager.BLL.Utils;
 using PhotoManagerThreeLayer.ViewModels;
 
 namespace PhotoManagerThreeLayer.Controllers
@@ -16,7 +14,6 @@ namespace PhotoManagerThreeLayer.Controllers
     public class AlbumController : Controller
     {
         private BllAlbumServices _albumServices = new BllAlbumServices();
-        private BllPhotoServices _photoServices = new BllPhotoServices();
         private BLLImageServices _imageServices = new BLLImageServices();
 
         public ActionResult Index()
@@ -34,8 +31,6 @@ namespace PhotoManagerThreeLayer.Controllers
                 return HttpNotFound();
             }
             AlbumDetailViewModel albumDetailViewModel = Mapper.Map<AlbumDetailViewModel>(albumDto);
-            List<PhotoDTO> photoDtoList = _photoServices.GetPhotosByAlbum(id);
-            albumDetailViewModel.Photos = Mapper.Map<List<PhotoDTO>, List<PhotoListViewModel>>(photoDtoList);
             return View(albumDetailViewModel);
         }
 
@@ -86,6 +81,7 @@ namespace PhotoManagerThreeLayer.Controllers
         {
             if (ModelState.IsValid)
             {
+                //TODO remove image selector
                 byte[] imageData = null;
                 AlbumDTO albumDto = _albumServices.GetAlbum(viewAlbum.Id);
                 AlbumDetailViewModel albumDetailViewModel = Mapper.Map<AlbumDetailViewModel>(albumDto);
@@ -113,19 +109,21 @@ namespace PhotoManagerThreeLayer.Controllers
             return View(viewAlbum);
         }
 
-        // POST: /Album/RemovePhotosFromAlbum
+        // POST: /Album/RemovePhotoFromAlbum
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult RemovePhotosFromAlbum(int albumId, string photosArr)
+        public void RemovePhotoFromAlbum(string albumId, string photoId)
         {
-            List<int> photoIds = photosArr.Split(',').ToList().Select(int.Parse).ToList();
-            _albumServices.RemovePhotosFromAlbum(albumId, photoIds);
-            return RedirectToAction("Details", new { id = albumId });
+            _albumServices.RemovePhotoFromAlbum(int.Parse(albumId), int.Parse(photoId));
         }
 
+        // POST: /Album/AddPhotoToAlbum
+        [HttpPost]
+        public void AddPhotoToAlbum(string albumId, string photoId)
+        {
+            _albumServices.AddPhotoToAlbum(int.Parse(albumId), int.Parse(photoId));
+        }
 
-        //TODO needs refactoring, album should contain not image but link on photo from this album
-        public ActionResult GetAlbumCoverImage(int id)
+        public ActionResult GetAlbumImage(int id)
         {
             return File(_imageServices.GetImageBytesFromDb(id), "image/jpg");
         }

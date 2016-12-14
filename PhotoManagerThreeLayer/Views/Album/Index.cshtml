@@ -10,7 +10,7 @@
             <a href='@Url.Action("Details", "Album", new {id = item.Id})'>
                 @if (item.ImageId != null)
                 {
-                    <img src="@Url.Action("GetAlbumCoverImage", new { id = item.ImageId})" class="albumCoverImage" />
+                    <img src="@Url.Action("GetAlbumImage", new { id = item.ImageId})" class="albumCoverImage" />
                 }
                 else
                 {

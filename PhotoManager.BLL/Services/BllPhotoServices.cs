@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
+using System.Configuration;
 using AutoMapper;
 using PhotoManager.BLL.DTOModels;
 using PhotoManager.DAL;
@@ -62,6 +62,30 @@ namespace PhotoManager.BLL.Services
             using (UnitOfWork unitOfWork = new UnitOfWork(new PhotoManagerDbContext()))
             {
                 return unitOfWork.Photos.GetPhotosByUser(WebSecurityService.GetCurrentUser()).Count;
+            }
+        }
+
+        public int GetPhotosNumberForCurrentUserAndAlbum(int albumId, bool inAlbum)
+        {
+            using (UnitOfWork unitOfWork = new UnitOfWork(new PhotoManagerDbContext()))
+            {
+                return unitOfWork.Photos.GetPhotosByUserAndAlbum(WebSecurityService.GetCurrentUser(), unitOfWork.Albums.Get(albumId), inAlbum).Count;
+            }
+        }
+
+        public List<PhotoDTO> GetPhotosForCurrentUserAndAlbumWithPagination(int albumId, bool inAlbum, int pageNumber)
+        {
+            using (UnitOfWork unitOfWork = new UnitOfWork(new PhotoManagerDbContext()))
+            {
+                int pageSize = int.Parse(ConfigurationManager.AppSettings["AlbumDetailsPhotosPageSize"]);
+                int skip = (pageNumber - 1)*pageSize;
+                List<Photo> photos = unitOfWork.Photos.GetPhotosByUserAndAlbumWithPagination(
+                    WebSecurityService.GetCurrentUser(),
+                    unitOfWork.Albums.Get(albumId),
+                    inAlbum,
+                    skip,
+                    pageSize);
+                return Mapper.Map<List<Photo>, List<PhotoDTO>>(photos);
             }
         }
     }

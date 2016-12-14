@@ -304,7 +304,9 @@
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -329,6 +331,8 @@
     <Content Include="Views\Photo\Edit.cshtml" />
     <Content Include="Views\Shared\_PhotoListItem.cshtml" />
     <Content Include="Views\Shared\_AlbumPhotoListItem.cshtml" />
+    <Content Include="Views\Shared\_AddPhotosList.cshtml" />
+    <Content Include="Views\Photo\_PhotosInAlbum.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

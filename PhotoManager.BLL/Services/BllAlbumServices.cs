@@ -78,11 +78,20 @@ namespace PhotoManager.BLL.Services
                 unitOfWork.Complete();
             }
         }
-        public void RemovePhotosFromAlbum(int albumId, List<int> photoIds)
+        public void RemovePhotoFromAlbum(int albumId, int photoId)
         {
             using (UnitOfWork unitOfWork = new UnitOfWork(new PhotoManagerDbContext()))
             {
-                unitOfWork.Albums.RemovePhotosFromAlbum(albumId, photoIds);
+                unitOfWork.Albums.RemovePhotoFromAlbum(albumId, photoId);
+                unitOfWork.Complete();
+            }
+        }
+
+        public void AddPhotoToAlbum(int albumId, int photoIds)
+        {
+            using (UnitOfWork unitOfWork = new UnitOfWork(new PhotoManagerDbContext()))
+            {
+                unitOfWork.Albums.AddPhotoToAlbum(albumId, photoIds);
                 unitOfWork.Complete();
             }
         }

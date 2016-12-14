@@ -6,7 +6,7 @@
     <div class="col-lg-3">
         @if (Model.ImageId != null)
         {
-            <img src="@Url.Action("GetAlbumCoverImage", new { id = Model.ImageId})" class="albumCoverImage" />
+            <img src="@Url.Action("GetAlbumImage", new { id = Model.ImageId})" class="albumCoverImage" />
         }
         else
         {

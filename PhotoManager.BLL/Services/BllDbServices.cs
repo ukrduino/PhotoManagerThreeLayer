@@ -86,7 +86,7 @@ namespace PhotoManager.BLL.Services
 
         private void AddPhotoToRandomAlbums(Photo photo, UnitOfWork unitOfWork, User user)
         {
-            int numberOfAlbums = NumberUtils.RandomIntInRange(1, unitOfWork.Albums.GetAlbumsByUser(user).ToList().Count);
+            int numberOfAlbums = NumberUtils.RandomIntInRange(1, unitOfWork.Albums.GetAlbumsByUser(user).Count);
             var albums = unitOfWork.Albums.GetAlbumsByUser(user).OrderBy(arg => Guid.NewGuid()).Take(numberOfAlbums);
             foreach (var album in albums)
             {
