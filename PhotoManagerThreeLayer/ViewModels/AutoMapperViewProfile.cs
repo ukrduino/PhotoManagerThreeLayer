@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using PhotoManager.BLL.DTOModels;
+using PhotoManager.BLL.Services;
 
 namespace PhotoManagerThreeLayer.ViewModels
 {
@@ -12,7 +13,8 @@ namespace PhotoManagerThreeLayer.ViewModels
             CreateMap<PhotoDetailViewModel, PhotoDTO>();
 
             CreateMap<AlbumDTO, AlbumListViewModel>();
-            CreateMap<AlbumDTO, AlbumDetailViewModel>();
+            CreateMap<AlbumDTO, AlbumDetailViewModel>().ForMember(dest=>dest.Author,
+                opt => opt.MapFrom(src => WebSecurityService.GetUserNameById(src.UserId)));
             CreateMap<AlbumDetailViewModel, AlbumDTO>();
 
             CreateMap<PhotoCommentDTO, PhotoCommentViewModel>();

@@ -2,62 +2,39 @@
 
     function loadPhotosToAlbumDetailView(inAlbum, pageNumb) {
         var albumId = $("#AlbumId").val();
-        if (inAlbum) {
-            $(".albumPhotosBlock")
-                .load("/Photo/LoadPhotosToAlbumDetailView",
-                    { albumId: albumId, inAlbum: inAlbum, pageNumber: pageNumb },
-                    function () {
-                        updatePagination(albumId, inAlbum, pageNumb);
-                        $(".albumPhotosBlock")
-                            .find(".glyphicon")
-                            .each(function () {
-                                $(this).addClass("glyphicon-minus").css("color", "red");
-                            });
-                        $(".albumPhotosBlock")
-                            .find(".action")
-                            .each(function () {
-                                $(this).click(function (e) {
-                                    e.preventDefault();
-                                    $.ajax({
-                                        type: "POST",
-                                        url: '/Album/RemovePhotoFromAlbum',
-                                        data: { albumId: albumId, photoId: $(this).data("id") },
-                                        success: function (data) {
-                                            loadPhotosToAlbumDetailView(true, 1);
-                                            loadPhotosToAlbumDetailView(false, 1);
-                                        }
-                                    });
-                                });
-                            });
-                    });
+        $(".albumPhotosBlock")
+            .load("/Photo/LoadPhotosToAlbumDetailView",
+                { albumId: albumId, inAlbum: inAlbum, pageNumber: pageNumb },
+                function () {
+                    updatePagination(albumId, inAlbum, pageNumb);
+                    $(".albumPhotosBlock")
+                        .find(".glyphicon")
+                        .each(function () {
+                            $(this).addClass("glyphicon-eye-open");
+                        });
+                    $(".albumPhotosBlock")
+                        .find(".action")
+                        .each(function () {
+                            $(this).attr('href', '/Photo/Details/' + $(this).data("id"));
 
-        } else {
-            $(".albumAddPhotosBlock")
-                .load("/Photo/LoadPhotosToAlbumDetailView",
-                    { albumId: albumId, inAlbum: inAlbum, pageNumber: pageNumb },
-                    function () {
-                        updatePagination(albumId, inAlbum, pageNumb);
-                        $(".albumAddPhotosBlock")
-                            .find(".glyphicon")
-                            .each(function () {
-                                $(this).addClass("glyphicon-plus");
-                            });
-                        $(".albumAddPhotosBlock").find(".action").each(function () {
+                        });
+                    $(".albumPhotosBlock")
+                        .find(".smallImage")
+                        .each(function () {
                             $(this).click(function (e) {
                                 e.preventDefault();
-                                $.ajax({
-                                    type: "POST",
-                                    url: '/Album/AddPhotoToAlbum',
-                                    data: { albumId: albumId, photoId: $(this).data("id") },
-                                    success: function (data) {
-                                        loadPhotosToAlbumDetailView(true, 1);
-                                        loadPhotosToAlbumDetailView(false, 1);
-                                    }
-                                });
+                                loadMiddleImage($(this).data("id"));
                             });
                         });
-                    });
-        }
+                    var firstPhoto = $(".photoListItem img")[0];
+                    loadMiddleImage($(firstPhoto).data("id"));
+                });
+    };
+
+    function loadMiddleImage(id) {
+        var image = $('<img class="middleImage"></img>');
+        image.attr('src', '/Photo/GetMiddleImage/' + id);
+        $('#middleImage').empty().append(image);
     }
 
 
@@ -70,14 +47,6 @@
             function () {
                 loadPhotosToAlbumDetailView(true, $(this).data("page"));
             });
-        $("#AddPhotoBackward").click(
-            function () {
-                loadPhotosToAlbumDetailView(false, $(this).data("page"));
-            });
-        $("#AddAlbumPhotoForward").click(
-            function () {
-                loadPhotosToAlbumDetailView(false, $(this).data("page"));
-            });
     }
 
     function updatePagination(albumId, inAlbum, pageNumb) {
@@ -86,30 +55,17 @@
             url: '/Photo/GetDataForPagination',
             data: { albumId: albumId, inAlbum: inAlbum, pageNumber: pageNumb },
             success: function (data) {
-                if (inAlbum) {
-                    if (data.AlbumPhotosPreviousePage > 0) {
-                        $("#AlbumPhotoBackward").show().attr('data-page', data.AlbumPhotosPreviousePage);
+                if (data.AlbumPhotosPreviousePage > 0) {
+                    $("#AlbumPhotoBackward").show().attr('data-page', data.AlbumPhotosPreviousePage);
 
-                    } else {
-                        $("#AlbumPhotoBackward").hide();
-                    }
-                    if (data.AlbumPhotosNextPage > -1) {
-                        $("#AlbumPhotoForward").show().attr('data-page', data.AlbumPhotosNextPage);
-
-                    } else {
-                        $("#AlbumPhotoForward").hide();
-                    }
                 } else {
-                    if (data.AddPhotosPreviousePage > 0) {
-                        $("#AddPhotoBackward").show().attr('data-page', data.AddPhotosPreviousePage);
-                    } else {
-                        $("#AddPhotoBackward").hide();
-                    }
-                    if (data.AddPhotosNextPage > -1) {
-                        $("#AddAlbumPhotoForward").show().attr('data-page', data.AddPhotosNextPage);
-                    } else {
-                        $("#AddAlbumPhotoForward").hide();
-                    }
+                    $("#AlbumPhotoBackward").hide();
+                }
+                if (data.AlbumPhotosNextPage > -1) {
+                    $("#AlbumPhotoForward").show().attr('data-page', data.AlbumPhotosNextPage);
+
+                } else {
+                    $("#AlbumPhotoForward").hide();
                 }
             }
         });
@@ -117,5 +73,4 @@
 
     attachPagination();
     loadPhotosToAlbumDetailView(true, 1);
-    loadPhotosToAlbumDetailView(false, 1);
-})
+});

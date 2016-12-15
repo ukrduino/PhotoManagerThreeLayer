@@ -1,7 +1,7 @@
 ﻿@model PhotoManagerThreeLayer.ViewModels.PhotoListViewModel
 <div class="photoListItem">
-    @Model.Title
+    @Model.Title.Truncate(20)
     &nbsp;
     <a class="action" data-id="@Model.Id" href=""><span class="glyphicon" aria-hidden="true"></span></a>
-    <img src="@Url.Action("GetPhotoImage", "Photo", new { id = Model.SmallImageId})" class="photoCoverImage" alt="@Model.Title small image" />
+    <img src="@Url.Action("GetSmallPhotoImage", "Photo", new { id = Model.Id})" class="smallImage" data-id="@Model.Id" alt="@Model.Title small image" />
 </div>

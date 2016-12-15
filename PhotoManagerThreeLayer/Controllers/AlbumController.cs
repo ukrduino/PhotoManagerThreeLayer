@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Web;
 using System.Web.Mvc;
 using AutoMapper;
 using PhotoManager.BLL.DTOModels;
@@ -20,6 +18,18 @@ namespace PhotoManagerThreeLayer.Controllers
         {
             IEnumerable<AlbumDTO> albumDtoList = _albumServices.GetAllAlbums(); //TODO server side pagination or limit number of albums or by user (NOT ALL)
             return View(Mapper.Map<IEnumerable<AlbumDTO>, IEnumerable<AlbumListViewModel>>(albumDtoList));
+        }
+
+        // GET: /Album/Manage/5
+        public ActionResult Manage(int id = 0)
+        {
+            AlbumDTO albumDto = _albumServices.GetAlbum(id);
+            if (albumDto == null)
+            {
+                return HttpNotFound();
+            }
+            AlbumDetailViewModel albumDetailViewModel = Mapper.Map<AlbumDetailViewModel>(albumDto);
+            return View(albumDetailViewModel);
         }
 
         // GET: /Album/Details/5
@@ -77,36 +87,15 @@ namespace PhotoManagerThreeLayer.Controllers
         // POST: /Album/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(AlbumDetailViewModel viewAlbum, HttpPostedFileBase file)
+        public ActionResult Edit(AlbumDetailViewModel albumDetailViewModel)
         {
             if (ModelState.IsValid)
             {
-                //TODO remove image selector
-                byte[] imageData = null;
-                AlbumDTO albumDto = _albumServices.GetAlbum(viewAlbum.Id);
-                AlbumDetailViewModel albumDetailViewModel = Mapper.Map<AlbumDetailViewModel>(albumDto);
-                if (file != null)
-                {
-                    if (file.ContentLength > (500 * 1024))
-                    {
-                        ModelState.AddModelError("ImageUploadValidationError", "File size must be less than 500 Kb");
-                        return View(albumDetailViewModel);
-                    }
-                    if (!file.IsJpgImage())
-                    {
-                        ModelState.AddModelError("ImageUploadValidationError", "File type allowed : jpeg");
-                        return View(albumDetailViewModel);
-                    }
-                    using (var binaryReader = new BinaryReader(file.InputStream))
-                    {
-                        imageData = binaryReader.ReadBytes(file.ContentLength);
-                    }
-                    //albumDto.ImageId = _imageServices.SaveImageToDb(imageData, Enums.ImageSize.Small);
-                }
-                _albumServices.UpdateAlbum(albumDto);
-                return RedirectToAction("Details", new { id = viewAlbum.Id });
+                AlbumDTO albumDto = Mapper.Map<AlbumDTO>(albumDetailViewModel);
+               _albumServices.UpdateAlbum(albumDto);
+                return RedirectToAction("Manage", new { id = albumDetailViewModel.Id });
             }
-            return View(viewAlbum);
+            return View(albumDetailViewModel);
         }
 
         // POST: /Album/RemovePhotoFromAlbum

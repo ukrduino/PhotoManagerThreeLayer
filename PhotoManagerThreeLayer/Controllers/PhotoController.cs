@@ -110,9 +110,22 @@ namespace PhotoManagerThreeLayer.Controllers
             return View(photoDetailViewModel);
         }
 
-        public ActionResult GetPhotoImage(int id)
+        public ActionResult GetSmallPhotoImage(int id)
         {
-            return File(_imageServices.GetImageBytesFromDb(id), "image/jpg");
+            PhotoDTO photo = _photoServices.GetPhoto(id);
+            return File(_imageServices.GetImageBytesFromDb(photo.SmallImageId), "image/jpg");
+        }
+
+        public ActionResult GetMiddleImage(int id)
+        {
+            PhotoDTO photo = _photoServices.GetPhoto(id);
+            return File(_imageServices.GetImageBytesFromDb(photo.MiddleImageId), "image/jpg");
+        }
+
+        public ActionResult GetImage(int id)
+        {
+            PhotoDTO photo = _photoServices.GetPhoto(id);
+            return File(_imageServices.GetImageBytesFromDb(photo.ImageId), "image/jpg");
         }
 
         public ActionResult LoadPhotosToAlbumDetailView(string albumId, string inAlbum, string pageNumber)

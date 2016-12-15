@@ -1,10 +1,10 @@
 ﻿@model PhotoManagerThreeLayer.ViewModels.PhotoDetailViewModel
 
 <div class="row" style="text-align: center">
-    <h2>Edit album</h2>
+    <h2>Edit Photo</h2>
     <hr />
     <div class="col-lg-3">
-        <img src="@Url.Action("GetPhotoImage", new {id = Model.SmallImageId})" class="albumCoverImage" />
+        <img src="@Url.Action("GetSmallPhotoImage", new {id = Model.Id})" class="smallImage" />
     </div>
     <div class="col-lg-9">
         @using (Html.BeginForm())

@@ -18,13 +18,13 @@ namespace PhotoManager.DAL.Models
         public int UserId { get; set; }
         public List<Photo> Photos { get; set; }
         public int? ImageId { get; set; }
-        public DateTime CreatedDate { get; set; }
+        public DateTime Created { get; set; }
         public DateTime? Modified { get; set; }
 
         public Album()
         {
             Photos = new List<Photo>();
-            CreatedDate = DateTime.Now;
+            Created = DateTime.Now;
         }
     }
 }

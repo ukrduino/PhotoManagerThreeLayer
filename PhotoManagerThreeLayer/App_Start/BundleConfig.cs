@@ -26,6 +26,8 @@ namespace PhotoManagerThreeLayer
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+            bundles.Add(new ScriptBundle("~/bundles/albumManage").Include(
+                "~/Scripts/albumManage.js"));
             bundles.Add(new ScriptBundle("~/bundles/albumDetails").Include(
                 "~/Scripts/albumDetails.js"));
             bundles.Add(new ScriptBundle("~/bundles/albumAddEdit").Include(

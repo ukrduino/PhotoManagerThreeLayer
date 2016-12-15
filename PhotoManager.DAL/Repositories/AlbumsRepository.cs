@@ -40,7 +40,8 @@ namespace PhotoManager.DAL.Repositories
             _context.Albums.Attach(album);
             var albumFromDb = _context.Entry(album);
             albumFromDb.State = EntityState.Modified;
-            albumFromDb.Property(alb => alb.CreatedDate).IsModified = false;
+            albumFromDb.Property(alb => alb.Created).IsModified = false;
+            albumFromDb.Property(phot => phot.UserId).IsModified = false;
         }
 
         public void RemovePhotoFromAlbum(int albumId, int photoId)

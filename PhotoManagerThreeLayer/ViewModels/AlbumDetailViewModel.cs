@@ -13,18 +13,15 @@ namespace PhotoManagerThreeLayer.ViewModels
         public string Title { get; set; }
         public string Author { get; set; }
         public string Description { get; set; }
-        public List<PhotoListViewModel> Photos { get; set; }
-        [DisplayName("Album cover")]
         public int? ImageId { get; set; }
         [DisplayName("Album created")]
-        public DateTime CreatedDate { get; set; }
+        public DateTime Created { get; set; }
         [DisplayName("Album modified")]
-        public DateTime LastModified { get; set; }
+        public DateTime Modified { get; set; }
 
         public AlbumDetailViewModel()
         {
-            Photos = new List<PhotoListViewModel>();
-            CreatedDate = DateTime.Now;
+
         }
     }
 }

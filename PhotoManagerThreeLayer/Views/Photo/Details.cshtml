@@ -9,7 +9,7 @@
     </h4>
     <hr />
     <div class="col-lg-3">
-        <img src="@Url.Action("GetPhotoImage", new { id = Model.SmallImageId})" class="albumCoverImage" />
+        <img src="@Url.Action("GetSmallPhotoImage", new { id = Model.Id})" class="smallImage" />
     </div>
     <div class="col-lg-9">
         <dl class="dl-horizontal">
@@ -116,7 +116,6 @@
             <dd>
                 @Html.DisplayFor(model => model.AnyOneCanSee)
             </dd>
-
         </dl>
     </div>
 </div>

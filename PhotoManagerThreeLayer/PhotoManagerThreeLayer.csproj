@@ -200,7 +200,7 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\albumAddEdit.js" />
-    <Content Include="Scripts\albumDetails.js" />
+    <Content Include="Scripts\albumManage.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff2" />
@@ -286,6 +286,7 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Scripts\albumDetails.js" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />
@@ -317,7 +318,7 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Album\Details.cshtml" />
+    <Content Include="Views\Album\Manage.cshtml" />
     <Content Include="Views\Album\Index.cshtml" />
     <Content Include="Views\Album\Create.cshtml" />
     <Content Include="Views\Album\Edit.cshtml" />
@@ -329,10 +330,12 @@
     <Content Include="Scripts\jquery-3.1.1.min.map" />
     <Content Include="Views\Photo\Details.cshtml" />
     <Content Include="Views\Photo\Edit.cshtml" />
-    <Content Include="Views\Shared\_PhotoListItem.cshtml" />
-    <Content Include="Views\Shared\_AlbumPhotoListItem.cshtml" />
-    <Content Include="Views\Shared\_AddPhotosList.cshtml" />
+    <Content Include="Views\Photo\_PhotoListItem.cshtml" />
+    <Content Include="Views\Photo\_AlbumPhotoListItem.cshtml" />
     <Content Include="Views\Photo\_PhotosInAlbum.cshtml" />
+    <Content Include="Views\Album\Details.cshtml" />
+    <Content Include="Views\Album\_AlbumDetailsPageHeader.cshtml" />
+    <Content Include="Views\Album\_albumPhotosList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
