@@ -180,7 +180,6 @@
     <Compile Include="Utils\HttpPostedFileBaseExtensions.cs" />
     <Compile Include="Utils\StringExtensions.cs" />
     <Compile Include="ViewModels\AccountViewModels.cs" />
-    <Compile Include="ViewModels\AlbumCommentViewModel.cs" />
     <Compile Include="ViewModels\AlbumDetailViewModel.cs" />
     <Compile Include="ViewModels\AlbumListViewModel.cs" />
     <Compile Include="ViewModels\AutoMapperViewProfile.cs" />
@@ -336,6 +335,7 @@
     <Content Include="Views\Album\Details.cshtml" />
     <Content Include="Views\Album\_AlbumDetailsPageHeader.cshtml" />
     <Content Include="Views\Album\_albumPhotosList.cshtml" />
+    <Content Include="Views\Photo\_CommentItem.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

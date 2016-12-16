@@ -119,3 +119,7 @@
         </dl>
     </div>
 </div>
+@foreach (var item in Model.Comments)
+{
+    @Html.Partial("_CommentItem", item)
+}

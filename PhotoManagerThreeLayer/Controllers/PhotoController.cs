@@ -162,5 +162,18 @@ namespace PhotoManagerThreeLayer.Controllers
                 return Json(result, JsonRequestBehavior.AllowGet);
             };
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateComment(PhotoCommentViewModel photoCommentViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                PhotoCommentDTO photoCommentDto = Mapper.Map<PhotoCommentDTO>(photoCommentViewModel);
+                _commentServices.CreateComment(photoCommentDto);
+                return RedirectToAction("Details", new {id= photoCommentViewModel.PhotoId });
+            }
+            return RedirectToAction("Details", new { id = photoCommentViewModel.PhotoId });
+        }
     }
 }

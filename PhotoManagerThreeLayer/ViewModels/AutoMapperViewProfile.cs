@@ -17,7 +17,9 @@ namespace PhotoManagerThreeLayer.ViewModels
                 opt => opt.MapFrom(src => WebSecurityService.GetUserNameById(src.UserId)));
             CreateMap<AlbumDetailViewModel, AlbumDTO>();
 
-            CreateMap<PhotoCommentDTO, PhotoCommentViewModel>();
+            CreateMap<PhotoCommentDTO, PhotoCommentViewModel>().ForMember(dest => dest.Author,
+                opt => opt.MapFrom(src => WebSecurityService.GetUserNameById(src.UserId)));
+            CreateMap<PhotoCommentViewModel, PhotoCommentDTO>();
         }
     }
 }

@@ -20,5 +20,10 @@ namespace PhotoManager.DAL.Repositories
                         select comment;
             return query.ToList();
         }
+
+        public void DeleteCommentsForPhoto(int photoId)
+        {
+            _context.PhotoComments.RemoveRange(GetCommentsByPhoto(photoId));
+        }
     }
 }

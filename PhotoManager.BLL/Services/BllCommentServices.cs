@@ -18,5 +18,17 @@ namespace PhotoManager.BLL.Services
                 return Mapper.Map<List<PhotoComment>, List<PhotoCommentDTO>>(comments);
             }
         }
+
+        public void CreateComment(PhotoCommentDTO photoCommentDto)
+        {
+            using (UnitOfWork unitOfWork = new UnitOfWork(new PhotoManagerDbContext()))
+            {
+
+                PhotoComment photoComment = Mapper.Map<PhotoComment>(photoCommentDto);
+                photoComment.UserId = WebSecurityService.GetCurrentUser().UserId;
+                unitOfWork.PhotoComments.Add(photoComment);
+                unitOfWork.Complete();
+            }
+        }
     }
 }
