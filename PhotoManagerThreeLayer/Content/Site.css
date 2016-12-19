@@ -101,3 +101,11 @@ textarea {
     border-style: solid;
     margin-right: 3px
 }
+
+#directLink {
+    text-align: center
+}
+
+.Error404 {
+    width: 100%
+}

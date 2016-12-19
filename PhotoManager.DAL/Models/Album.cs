@@ -14,6 +14,7 @@ namespace PhotoManager.DAL.Models
         [StringLength(50)]
         [Index(IsUnique = true)]
         public string Title { get; set; }
+        public string TitleSlug { get; set; }
         public string Description { get; set; }
         public int UserId { get; set; }
         public List<Photo> Photos { get; set; }

@@ -116,5 +116,24 @@ namespace PhotoManagerThreeLayer.Controllers
         {
             return File(_imageServices.GetImageBytesFromDb(id), "image/jpg");
         }
+
+        [AllowAnonymous]
+        public ActionResult DirectAlbumLinkAccess(string titleSlug)
+        {
+            AlbumDTO albumDto = _albumServices.GetAlbumBySlug(titleSlug);
+            if (albumDto == null)
+            {
+                return HttpNotFound();
+            }
+            AlbumDetailViewModel albumDetailViewModel = Mapper.Map<AlbumDetailViewModel>(albumDto);
+            return View(albumDetailViewModel);
+        }
+
+        public ContentResult GetDirectAlbumLink(int id)
+        {
+            AlbumDTO albumDto = _albumServices.GetAlbum(id);
+            string link = Request.Url.GetLeftPart(UriPartial.Authority) + "/" + albumDto.TitleSlug;
+            return Content(link);
+        }
     }
 }

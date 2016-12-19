@@ -1,9 +1,12 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using AutoMapper;
 using PhotoManager.BLL.DTOModels;
+using PhotoManager.BLL.Utils;
 using PhotoManager.DAL;
 using PhotoManager.DAL.Models;
 using PhotoManager.DAL.Repositories;
+using UnidecodeSharpFork;
 
 namespace PhotoManager.BLL.Services
 {
@@ -57,13 +60,23 @@ namespace PhotoManager.BLL.Services
             }
         }
 
+        public AlbumDTO GetAlbumBySlug(string titleSlug)
+        {
+            using (UnitOfWork unitOfWork = new UnitOfWork(new PhotoManagerDbContext()))
+            {
+                Album album = unitOfWork.Albums.GetAlbumBySlug(titleSlug);
+                UpdateAlbumCover(unitOfWork, album);
+                return Mapper.Map<AlbumDTO>(album);
+            }
+        }
+
         public void CreateAlbum(AlbumDTO albumDto)
         {
             using (UnitOfWork unitOfWork = new UnitOfWork(new PhotoManagerDbContext()))
             {
-
                 Album album = Mapper.Map<Album>(albumDto);
                 album.UserId = WebSecurityService.GetCurrentUser().UserId;
+                album.TitleSlug = album.Title.Unidecode().GenerateSlug();
                 unitOfWork.Albums.Add(album);
                 unitOfWork.Complete();
             }
@@ -74,6 +87,7 @@ namespace PhotoManager.BLL.Services
             using (UnitOfWork unitOfWork = new UnitOfWork(new PhotoManagerDbContext()))
             {
                 Album album = Mapper.Map<Album>(albumDto);
+                album.TitleSlug = album.Title.Unidecode().GenerateSlug();
                 unitOfWork.Albums.UpdateAlbum(album);
                 unitOfWork.Complete();
             }

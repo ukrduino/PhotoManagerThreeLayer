@@ -6,6 +6,7 @@ namespace PhotoManager.BLL.DTOModels
     {
         public int Id { get; set; }
         public string Title { get; set; }
+        public string TitleSlug { get; set; }
         public int UserId { get; set; }
         public string Description { get; set; }
         public int? ImageId { get; set; }

@@ -63,5 +63,10 @@ namespace PhotoManager.DAL.Repositories
                 album.Photos.Add(photo);
             }
         }
+
+        public Album GetAlbumBySlug(string titleSlug)
+        {
+            return _context.Albums.FirstOrDefault(alb => alb.TitleSlug.Equals(titleSlug));
+        }
     }
 }

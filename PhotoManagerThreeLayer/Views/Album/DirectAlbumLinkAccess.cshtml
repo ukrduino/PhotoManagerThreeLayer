@@ -1,15 +1,11 @@
 ﻿@model PhotoManagerThreeLayer.ViewModels.AlbumDetailViewModel
 
 <div class="row">
+    <div id="album" value="@Model.Id"></div>
     <h4 style="text-align: center">
         @Model.Title &nbsp;
-        <a href='@Url.Action("Edit", "Album", new {id = Model.Id})'><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>&nbsp;
-        <a href='@Url.Action("Manage", "Album", new {id = Model.Id})'><span class="glyphicon glyphicon-transfer" aria-hidden="true"></span></a>&nbsp;
-        <a href='@Url.Action("Create", "Album")'><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>&nbsp;
-        @Ajax.ActionLink(".", "GetDirectAlbumLink", "Album", new {id=@Model.Id}, new AjaxOptions{ UpdateTargetId= "directLink" }, new { @class = "glyphicon glyphicon-link"})
-        <input id="AlbumId" name="AlbumId" type="hidden" value="@Model.Id"/>
+        <input id="AlbumId" name="AlbumId" type="hidden" value="@Model.Id" />
     </h4>
-        <div id="directLink"></div>
 </div>
 <hr />
 @Html.Partial("_AlbumDetailsPageHeader", Model)
@@ -31,7 +27,6 @@
             </div>
         </div>
     </div>
- </div>
+</div>
 
 @Scripts.Render("~/bundles/albumDetails")
-@Scripts.Render("~/bundles/unobtrusiveAjax")
