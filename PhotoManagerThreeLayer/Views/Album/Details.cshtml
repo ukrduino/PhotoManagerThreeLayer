@@ -13,25 +13,32 @@
 </div>
 <hr />
 @Html.Partial("_AlbumDetailsPageHeader", Model)
-<hr />
-<div class="row">
-    <div class="col-lg-7">
-        <div id="middleImage"></div>
-    </div>
-    <div class="col-lg-5">
-        <div class="row">
-            <h4 style="text-align: center">
-                <span id="AlbumPhotoBackward" class="glyphicon glyphicon-backward" aria-hidden="true" style="display: none" data-page=""></span>
-                &nbsp;
-                Album photos
-                &nbsp;
-                <span id="AlbumPhotoForward" class="glyphicon glyphicon-forward" aria-hidden="true" style="display: none" data-page=""></span>
-            </h4>
-            <div class="col-lg-12 albumPhotosBlock">
+<hr/>
+@if (Model.ImageId != null)
+{
+    <div class="row">
+        <div class="col-lg-7">
+            <div id="middleImage"></div>
+        </div>
+        <div class="col-lg-5">
+            <div class="row">
+                <h4 style="text-align: center">
+                    <span id="AlbumPhotoBackward" class="glyphicon glyphicon-backward" aria-hidden="true" style="display: none" data-page=""></span>
+                    &nbsp;
+                    Album photos
+                    &nbsp;
+                    <span id="AlbumPhotoForward" class="glyphicon glyphicon-forward" aria-hidden="true" style="display: none" data-page=""></span>
+                </h4>
+                <div class="col-lg-12 albumPhotosBlock">
+                </div>
             </div>
         </div>
     </div>
- </div>
+}
+else
+{
+    @Html.Partial("_NoPhotosInAlbum")
+}
 
-@Scripts.Render("~/bundles/albumDetails")
-@Scripts.Render("~/bundles/unobtrusiveAjax")
+        @Scripts.Render("~/bundles/albumDetails")
+        @Scripts.Render("~/bundles/unobtrusiveAjax")

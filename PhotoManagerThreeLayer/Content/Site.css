@@ -109,3 +109,7 @@ textarea {
 .Error404 {
     width: 100%
 }
+
+.no_photos {
+    text-align: center
+}

@@ -343,6 +343,8 @@
     <Content Include="Views\Album\DirectAlbumLinkAccess.cshtml" />
     <Content Include="Views\Album\_DirectAlbumLink.cshtml" />
     <Content Include="Views\Error\Index.cshtml" />
+    <Content Include="Views\Shared\_NoUploadedPhotosMessage.cshtml" />
+    <Content Include="Views\Album\_NoPhotosInAlbum.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -355,6 +357,9 @@
       <Project>{46b7aa8a-0a23-44b5-b69e-b712bf7d831c}</Project>
       <Name>PhotoManager.BLL</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

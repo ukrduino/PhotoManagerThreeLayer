@@ -1,18 +1,23 @@
 ﻿@model IEnumerable<PhotoManagerThreeLayer.ViewModels.PhotoListViewModel>
 
 <div class="row" style="text-align: center">
-    <h2>Photos &nbsp; <a href='@Url.Action("Create", "Photo")'><span class="glyphicon glyphicon-plus photoListView-anyOneCanSee" aria-hidden="true"></span></a></h2>
-    @if (Model.Any())
-    {
-        foreach (var item in Model)
-        {
-            <div class="col-lg-3">
-                @Html.Partial("_PhotoListItem", item)
-            </div>
-        }
-    }
-    else
-    {
-        <h2> YOU DONT HAVE UPLOADED PHOTOS </h2>
-    }
+    <h2>
+        Photos &nbsp; <a href='@Url.Action("Create", "Photo")'><span class="glyphicon glyphicon-plus photoListView-anyOneCanSee" aria-hidden="true"></span></a>
+    </h2>
 </div>
+
+@if (Model.Any())
+{
+    <div class="row" style="text-align: center">
+        @foreach (var item in Model)
+        {
+        <div class="col-lg-3">
+            @Html.Partial("_PhotoListItem", item)
+        </div>
+        }
+    </div>
+}
+else
+{
+    @Html.Partial("_NoUploadedPhotosMessage")
+}
