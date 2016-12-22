@@ -23,8 +23,8 @@ namespace PhotoManager.BLL.Services
         {
             using (UnitOfWork unitOfWork = new UnitOfWork(new PhotoManagerDbContext()))
             {
-
                 PhotoComment photoComment = Mapper.Map<PhotoComment>(photoCommentDto);
+                photoComment.Created = DateTime.Now;
                 photoComment.UserId = WebSecurityService.GetCurrentUser().UserId;
                 unitOfWork.PhotoComments.Add(photoComment);
                 unitOfWork.Complete();

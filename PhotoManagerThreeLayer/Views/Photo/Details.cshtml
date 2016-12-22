@@ -1,4 +1,5 @@
-﻿@model PhotoManagerThreeLayer.ViewModels.PhotoDetailViewModel
+﻿@using PhotoManager.BLL.Services
+@model PhotoManagerThreeLayer.ViewModels.PhotoDetailViewModel
 
 <div class="row">
     <div id="photo" value="@Model.Id"></div>
@@ -9,7 +10,7 @@
     </h4>
     <hr />
     <div class="col-lg-3">
-        <img src="@Url.Action("GetSmallPhotoImage", new { id = Model.Id})" class="smallImage" />
+        <img src="@Url.Action("GetSmallPhotoImage", new {id = Model.Id})" class="smallImage" />
     </div>
     <div class="col-lg-9">
         <dl class="dl-horizontal">
@@ -119,6 +120,34 @@
         </dl>
     </div>
 </div>
+@if (WebSecurityService.IsAuthenticated)
+{
+    using (Html.BeginForm("CreateComment", "Photo"))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <input type="hidden" name="PhotoId" value="@Model.Id" />
+
+        <div class="form-group">
+            <label for="comment">Comment:</label>
+            <div class="row">
+                <div class="col-lg-11">
+                    <div class="form-group">
+                        <input class="form-control" name="Text" style="max-width: 100%;">
+                        @Html.ValidationMessage("EmptyMessageError", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-lg-1">
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-success" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}
+<div id="newComments"></div>
+
 @foreach (var item in Model.Comments)
 {
     @Html.Partial("_CommentItem", item)

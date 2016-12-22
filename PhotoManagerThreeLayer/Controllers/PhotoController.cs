@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using AutoMapper;
@@ -33,7 +34,7 @@ namespace PhotoManagerThreeLayer.Controllers
                 return HttpNotFound();
             }
             PhotoDetailViewModel photoDetailViewModel = Mapper.Map<PhotoDetailViewModel>(photoDto);
-            List<PhotoCommentDTO> photoCommentsDto = _commentServices.GetCommentsByPhoto(id);
+            List<PhotoCommentDTO> photoCommentsDto = _commentServices.GetCommentsByPhoto(id).OrderByDescending(x => x.Created).ToList();
             photoDetailViewModel.Comments = Mapper.Map<List<PhotoCommentDTO>, List<PhotoCommentViewModel>>(photoCommentsDto);
             return View(photoDetailViewModel);
         }
@@ -167,12 +168,13 @@ namespace PhotoManagerThreeLayer.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult CreateComment(PhotoCommentViewModel photoCommentViewModel)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                PhotoCommentDTO photoCommentDto = Mapper.Map<PhotoCommentDTO>(photoCommentViewModel);
-                _commentServices.CreateComment(photoCommentDto);
-                return RedirectToAction("Details", new {id= photoCommentViewModel.PhotoId });
+                ModelState.AddModelError("EmptyMessageError", "You can't post empty message");
+                return RedirectToAction("Details", new { id = photoCommentViewModel.PhotoId });
             }
+            PhotoCommentDTO photoCommentDto = Mapper.Map<PhotoCommentDTO>(photoCommentViewModel);
+            _commentServices.CreateComment(photoCommentDto);
             return RedirectToAction("Details", new { id = photoCommentViewModel.PhotoId });
         }
     }
