@@ -177,5 +177,16 @@ namespace PhotoManagerThreeLayer.Controllers
             _commentServices.CreateComment(photoCommentDto);
             return RedirectToAction("Details", new { id = photoCommentViewModel.PhotoId });
         }
+
+        [HttpPost]
+        public ActionResult SearchPhoto(string photoSearchText)
+        {
+            IEnumerable<PhotoDTO> photoDtoList = _photoServices.SearchPhotos(photoSearchText);
+            if (photoDtoList.Any())
+            {
+                return PartialView("_PhotosList", Mapper.Map<IEnumerable<PhotoDTO>, IEnumerable<PhotoListViewModel>>(photoDtoList));
+            }
+            return PartialView("_NoPhotosFound");
+        }
     }
 }

@@ -73,6 +73,15 @@ namespace PhotoManager.BLL.Services
             }
         }
 
+        public List<PhotoDTO> SearchPhotos(string photoSearchText)
+        {
+            using (UnitOfWork unitOfWork = new UnitOfWork(new PhotoManagerDbContext()))
+            {
+                List<Photo> photos = unitOfWork.Photos.SearchPhotos(photoSearchText, WebSecurityService.GetCurrentUser());
+                return Mapper.Map<List<Photo>, List<PhotoDTO>>(photos);
+            }
+        }
+
         public List<PhotoDTO> GetPhotosForCurrentUserAndAlbumWithPagination(int albumId, bool inAlbum, int pageNumber)
         {
             using (UnitOfWork unitOfWork = new UnitOfWork(new PhotoManagerDbContext()))

@@ -127,23 +127,20 @@
         @Html.AntiForgeryToken()
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <input type="hidden" name="PhotoId" value="@Model.Id" />
-
-        <div class="form-group">
-            <label for="comment">Comment:</label>
+        <label>Comment:</label>
             <div class="row">
                 <div class="col-lg-11">
                     <div class="form-group">
-                        <input class="form-control" name="Text" style="max-width: 100%;">
+                        <input class="form-control" name="Text" style="max-width: 100%">
                         @Html.ValidationMessage("EmptyMessageError", new { @class = "text-danger" })
                     </div>
                 </div>
                 <div class="col-lg-1">
                     <div class="form-group">
-                        <input type="submit" class="btn btn-success" />
+                        <input type="submit" class="btn btn-success" value="Add Comment"/>
                     </div>
                 </div>
             </div>
-        </div>
     }
 }
 <div id="newComments"></div>
@@ -152,3 +149,5 @@
 {
     @Html.Partial("_CommentItem", item)
 }
+
+@Scripts.Render("~/bundles/unobtrusiveAjax")

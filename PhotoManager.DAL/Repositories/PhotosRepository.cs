@@ -64,5 +64,12 @@ namespace PhotoManager.DAL.Repositories
             }
             return photos.Where(phot => !phot.Albums.Contains(album)).Skip(skip).Take(pageSize).ToList();
         }
+
+        public List<Photo> SearchPhotos(string photoSearchText, User user)
+        {
+            List<Photo> res1 = _context.Photos.Where(p=>p.Title.Contains(photoSearchText)).ToList();
+            List<Photo> res2 = _context.Photos.Where(p=>p.Description.Contains(photoSearchText)).ToList();
+            return res1.Concat(res2).Where(p=>p.UserId.Equals(user.UserId)).ToList();
+        }
     }
 }

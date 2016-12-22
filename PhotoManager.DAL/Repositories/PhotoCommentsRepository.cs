@@ -21,9 +21,12 @@ namespace PhotoManager.DAL.Repositories
             return query.ToList();
         }
 
-        public void DeleteCommentsForPhoto(int photoId)
+        public int GetCommentsNumberByPhoto(int id)
         {
-            _context.PhotoComments.RemoveRange(GetCommentsByPhoto(photoId));
+            var query = from comment in _context.PhotoComments
+                        where comment.PhotoId == id
+                        select comment;
+            return query.ToList().Count;
         }
     }
 }

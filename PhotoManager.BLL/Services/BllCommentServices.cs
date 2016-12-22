@@ -19,6 +19,14 @@ namespace PhotoManager.BLL.Services
             }
         }
 
+        public static int GetCommentsNumberByPhoto(int id)
+        {
+            using (UnitOfWork unitOfWork = new UnitOfWork(new PhotoManagerDbContext()))
+            {
+                return unitOfWork.PhotoComments.GetCommentsNumberByPhoto(id);
+            }
+        }
+
         public void CreateComment(PhotoCommentDTO photoCommentDto)
         {
             using (UnitOfWork unitOfWork = new UnitOfWork(new PhotoManagerDbContext()))

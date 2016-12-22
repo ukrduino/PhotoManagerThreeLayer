@@ -8,7 +8,8 @@ namespace PhotoManagerThreeLayer.ViewModels
     {
         protected override void Configure()
         {
-            CreateMap<PhotoDTO, PhotoListViewModel>();
+            CreateMap<PhotoDTO, PhotoListViewModel>().ForMember(dest => dest.CommentsNumber,
+                opt => opt.MapFrom(src => BllCommentServices.GetCommentsNumberByPhoto(src.Id)));
             CreateMap<PhotoDTO, PhotoDetailViewModel>();
             CreateMap<PhotoDetailViewModel, PhotoDTO>();
 

@@ -23,14 +23,13 @@ namespace PhotoManager.BLL.DTOModels
         public int MiddleImageId { get; set; }
         public int ImageId { get; set; }
         public List<Album> AlbumsIds { get; set; }
-        public List<PhotoComment> CommentsIds { get; set; }
+        public int CommentsNumber { get; set; }
         public DateTime Modified { get; set; }
         public DateTime Created { get; set; }
         public int Views { get; set; }
         public PhotoDTO()
         {
             AlbumsIds = new List<Album>();
-            CommentsIds = new List<PhotoComment>();
         }
     }
 }

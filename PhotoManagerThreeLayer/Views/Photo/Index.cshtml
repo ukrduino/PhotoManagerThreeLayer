@@ -5,19 +5,28 @@
         Photos &nbsp; <a href='@Url.Action("Create", "Photo")'><span class="glyphicon glyphicon-plus photoListView-anyOneCanSee" aria-hidden="true"></span></a>
     </h2>
 </div>
-
-@if (Model.Any())
+@using (Ajax.BeginForm("SearchPhoto", new AjaxOptions { UpdateTargetId = "photos", InsertionMode = InsertionMode.Replace}))
 {
-    <div class="row" style="text-align: center">
-        @foreach (var item in Model)
-        {
-        <div class="col-lg-3">
-            @Html.Partial("_PhotoListItem", item)
+    <div class="row">
+        <div class="form-group col-lg-4 col-lg-offset-7">
+            <input class="form-control" name="photoSearchText" style="max-width: 100%" />
         </div>
-        }
+        <div class="form-group col-lg-1">
+            <input class="btn btn-info" type="submit" value="Search" />
+        </div>
     </div>
 }
-else
-{
-    @Html.Partial("_NoUploadedPhotosMessage")
-}
+<div id="photos">
+    @if (Model.Any())
+    {
+        @Html.Partial("_PhotosList")
+    }
+    else
+    {
+        @Html.Partial("_NoUploadedPhotosMessage")
+    }
+</div>
+
+@Scripts.Render("~/bundles/unobtrusiveAjax")
+
+

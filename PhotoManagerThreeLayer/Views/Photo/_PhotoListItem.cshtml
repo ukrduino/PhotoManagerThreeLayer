@@ -33,6 +33,6 @@
         Uploaded:&nbsp;@Model.Created.ToString("d")&nbsp;|&nbsp;<a href='@Url.Action("Delete", "Photo", new {id = Model.Id})'>Delete</a>
     </p>
     <p>
-        <span>@Model.Views&nbsp;views</span>&nbsp;/&nbsp;<a href='@Url.Action("Details", "Photo", new {id = Model.Id})'>@Model.Comments&nbsp;Comments</a>
+        <span>@Model.Views&nbsp;views</span>&nbsp;/&nbsp;<a href='@Url.Action("Details", "Photo", new {id = Model.Id})'>@Model.CommentsNumber&nbsp;Comments</a>
     </p>
 </div>
