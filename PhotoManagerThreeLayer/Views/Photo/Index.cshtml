@@ -5,17 +5,78 @@
         Photos &nbsp; <a href='@Url.Action("Create", "Photo")'><span class="glyphicon glyphicon-plus photoListView-anyOneCanSee" aria-hidden="true"></span></a>
     </h2>
 </div>
-@using (Ajax.BeginForm("SearchPhoto", new AjaxOptions { UpdateTargetId = "photos", InsertionMode = InsertionMode.Replace}))
-{
-    <div class="row">
-        <div class="form-group col-lg-4 col-lg-offset-7">
-            <input class="form-control" name="photoSearchText" style="max-width: 100%" />
-        </div>
-        <div class="form-group col-lg-1">
-            <input class="btn btn-info" type="submit" value="Search" />
-        </div>
+<div class="row">
+    <div class="col-lg-11" id="simpleSearch">
+        @using (Ajax.BeginForm("SearchPhoto", new AjaxOptions { UpdateTargetId = "photos", InsertionMode = InsertionMode.Replace }))
+        {
+            <div class="row">
+                <div class="form-group col-lg-4 col-lg-offset-7">
+                    <input class="form-control searchField" name="photoSearchText" style="max-width: 100%" />
+                </div>
+                <div class="form-group col-lg-1">
+                    <input class="btn btn-info" type="submit" value="Search" />
+                </div>
+            </div>
+        }
     </div>
-}
+    <div class="col-lg-11" id="extendedSearch">
+        @using (Ajax.BeginForm("SearchPhotoExtended", new AjaxOptions { UpdateTargetId = "photos", InsertionMode = InsertionMode.Replace }))
+        {
+            <div class="row">
+                <div class="col-lg-10">
+                    <div class="form-group col-lg-4">
+                        <label>title</label>
+                        <input class="form-control searchField" name="title" style="max-width: 100%" />
+                    </div>
+                    <div class="form-group col-lg-4">
+                        <label>takenDate</label>
+                        <input class="form-control searchField" name="takenDate" style="max-width: 100%" />
+                    </div>
+                    <div class="form-group col-lg-4">
+                        <label>place</label>
+                        <input class="form-control searchField" name="place" style="max-width: 100%" />
+                    </div>
+                    <div class="form-group col-lg-4">
+                        <label>camera</label>
+                        <input class="form-control searchField" name="camera" style="max-width: 100%" />
+                    </div>
+                    <div class="form-group col-lg-4">
+                        <label>focalLength</label>
+                        <input class="form-control searchField" name="focalLength" style="max-width: 100%" />
+                    </div>
+                    <div class="form-group col-lg-4">
+                        <label>aperture</label>
+                        <input class="form-control searchField" name="aperture" style="max-width: 100%" />
+                    </div>
+                    <div class="form-group col-lg-4">
+                        <label>cameraLockSpeed</label>
+                        <input class="form-control searchField" name="cameraLockSpeed" style="max-width: 100%" />
+                    </div>
+                    <div class="form-group col-lg-4">
+                        <label>iso</label>
+                        <input class="form-control searchField" name="iso" style="max-width: 100%" />
+                    </div>
+                    <div class="checkbox form-group col-lg-4">
+                        <label>usedFlash</label>
+                        <select name="usedFlash" class="form-control">
+                            <option value="notSearch">Select</option>
+                            <option value="used">Used flash</option>
+                            <option value="not_used">Without flash</option>
+                        </select>
+                        @*<div class="checkbox" id="usedFlash" >
+                            <input type="checkbox" name="usedFlash" class="searchCheckbox"/>
+                        </div>*@
+                    </div>
+                </div>
+                <div class="form-group col-lg-2">
+                    <input class="btn btn-info" type="submit" value="Search" id="extendedSearchButton"/>
+                </div>
+            </div>
+        }
+    </div>
+    <div class="col-lg-1"><button class="btn btn-default" id="toggleSearchButton">Extended search</button></div>
+</div>
+
 <div id="photos">
     @if (Model.Any())
     {
@@ -28,5 +89,5 @@
 </div>
 
 @Scripts.Render("~/bundles/unobtrusiveAjax")
-
+@Scripts.Render("~/bundles/photoIndex")
 

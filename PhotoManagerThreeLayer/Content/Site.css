@@ -113,3 +113,22 @@ textarea {
 .no_photos {
     text-align: center
 }
+
+#extendedSearch {
+    border: 1px;
+    border-color: white;
+    border-style: solid;
+    padding: 5px;
+    text-align: center;
+    margin-bottom: 10px;
+    display: none
+}
+
+#extendedSearchButton {
+    margin-top: 90px
+}
+
+#usedFlash {
+    text-align: center;
+    padding-left: 150px
+}

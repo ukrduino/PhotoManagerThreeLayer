@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using LinqKit;
 using PhotoManager.DAL.Models;
 
 
@@ -60,7 +62,7 @@ namespace PhotoManager.DAL.Repositories
             List<Photo> photos = _context.Photos.Where(photo => photo.UserId.Equals(user.UserId)).Include("Albums").ToList();
             if (inAlbum)
             {
-                return photos.Where(phot => phot.Albums.Any(alb=>alb.Id.Equals(album.Id))).Skip(skip).Take(pageSize).ToList();
+                return photos.Where(phot => phot.Albums.Any(alb => alb.Id.Equals(album.Id))).Skip(skip).Take(pageSize).ToList();
             }
             return photos.Where(phot => !phot.Albums.Contains(album)).Skip(skip).Take(pageSize).ToList();
         }
@@ -69,6 +71,34 @@ namespace PhotoManager.DAL.Repositories
         {
             List<Photo> res1 = _context.SearchPhotos(photoSearchText, userId);
             return res1;
+        }
+
+        public List<Photo> SearchPhotosExtended(
+            string title,
+            DateTime takenDate,
+            string place,
+            string camera,
+            string focalLength,
+            string aperture,
+            string cameraLockSpeed,
+            string iso,
+            string usedFlash,
+            int userId
+            )
+        {
+            var predicate = PredicateBuilder.True<Photo>();
+            predicate = predicate.And(photo => photo.UserId == userId);
+            if (!string.IsNullOrEmpty(title)) predicate = predicate.And(photo => photo.Title == title);
+            if (takenDate != DateTime.MinValue) predicate = predicate.And(photo => photo.TakenDate == takenDate);
+            if (!string.IsNullOrEmpty(place)) predicate = predicate.And(photo => photo.Place == place);
+            if (!string.IsNullOrEmpty(camera)) predicate = predicate.And(photo => photo.Camera == camera);
+            if (!string.IsNullOrEmpty(focalLength)) predicate = predicate.And(photo => photo.FocalLength == focalLength);
+            if (!string.IsNullOrEmpty(aperture)) predicate = predicate.And(photo => photo.Aperture == aperture);
+            if (!string.IsNullOrEmpty(cameraLockSpeed)) predicate = predicate.And(photo => photo.CameraLockSpeed == cameraLockSpeed);
+            if (!string.IsNullOrEmpty(iso)) predicate = predicate.And(photo => photo.ISO == iso);
+            if (!usedFlash.Equals("notSearch")) predicate = predicate.And(photo => photo.UsedFlash == usedFlash.Equals("used"));
+
+            return _context.Photos.AsExpandable().Where(predicate).ToList();
         }
     }
 }

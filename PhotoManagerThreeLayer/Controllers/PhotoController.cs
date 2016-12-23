@@ -188,5 +188,36 @@ namespace PhotoManagerThreeLayer.Controllers
             }
             return PartialView("_NoPhotosFound");
         }
+
+        [HttpPost]
+        public ActionResult SearchPhotoExtended(
+            string title,
+            string takenDate,
+            string place,
+            string camera,
+            string focalLength,
+            string aperture,
+            string cameraLockSpeed,
+            string iso,
+            string usedFlash
+            )
+        {
+            IEnumerable<PhotoDTO> photoDtoList = _photoServices.SearchPhotosExtended(
+                    title.Trim(),
+                    takenDate.Trim(),
+                    place.Trim(),
+                    camera.Trim(),
+                    focalLength.Trim(),
+                    aperture.Trim(),
+                    cameraLockSpeed.Trim(),
+                    iso.Trim(),
+                    usedFlash.Trim()
+                );
+            if (photoDtoList.Any())
+            {
+                return PartialView("_PhotosList", Mapper.Map<IEnumerable<PhotoDTO>, IEnumerable<PhotoListViewModel>>(photoDtoList));
+            }
+            return PartialView("_NoPhotosFound");
+        }
     }
 }

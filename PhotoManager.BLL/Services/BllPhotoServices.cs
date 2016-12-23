@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
+using System.Linq;
 using AutoMapper;
 using PhotoManager.BLL.DTOModels;
 using PhotoManager.DAL;
@@ -79,6 +81,41 @@ namespace PhotoManager.BLL.Services
             {
                 List<Photo> photos = unitOfWork.Photos.SearchPhotos(photoSearchText, WebSecurityService.GetCurrentUser().UserId);
                 return Mapper.Map<List<Photo>, List<PhotoDTO>>(photos);
+            }
+        }
+
+        public List<PhotoDTO> SearchPhotosExtended(
+            string title,
+            string takenDate,
+            string place,
+            string camera,
+            string focalLength,
+            string aperture,
+            string cameraLockSpeed,
+            string iso,
+            string usedFlash
+            )
+        {
+            using (UnitOfWork unitOfWork = new UnitOfWork(new PhotoManagerDbContext()))
+            {
+                DateTime td = DateTime.MinValue;
+                if (!string.IsNullOrEmpty(takenDate))
+                {
+                    //TODO not working
+                    DateTime.TryParse(takenDate, out td);
+                }
+                IEnumerable<Photo> photos = unitOfWork.Photos.SearchPhotosExtended(
+                    title,
+                    td,
+                    place,
+                    camera,
+                    focalLength,
+                    aperture,
+                    cameraLockSpeed,
+                    iso,
+                    usedFlash,
+                    WebSecurityService.GetCurrentUser().UserId);
+                return Mapper.Map<List<Photo>, List<PhotoDTO>>(photos.ToList());
             }
         }
 
