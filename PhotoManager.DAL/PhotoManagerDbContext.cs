@@ -1,8 +1,11 @@
 using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Core.Objects;
 using System.Data.Entity.Infrastructure;
 using System.Data.Entity.ModelConfiguration.Conventions;
+using System.Data.SqlClient;
+using System.Linq;
 using PhotoManager.DAL.Models;
 using PhotoManager.DAL.Models.Interfaces;
 
@@ -40,6 +43,13 @@ namespace PhotoManager.DAL
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConvention>();
+        }
+
+        public List<Photo> SearchPhotos(string searchText, int userId)
+        {
+            SqlParameter param1 = new SqlParameter("@SearchText", searchText);
+            SqlParameter param2 = new SqlParameter("@UserId", userId);
+            return Database.SqlQuery<Photo>("SearchPhotos @SearchText, @UserId", param1, param2).ToList();
         }
     }
 }

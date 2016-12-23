@@ -77,7 +77,7 @@ namespace PhotoManager.BLL.Services
         {
             using (UnitOfWork unitOfWork = new UnitOfWork(new PhotoManagerDbContext()))
             {
-                List<Photo> photos = unitOfWork.Photos.SearchPhotos(photoSearchText, WebSecurityService.GetCurrentUser());
+                List<Photo> photos = unitOfWork.Photos.SearchPhotos(photoSearchText, WebSecurityService.GetCurrentUser().UserId);
                 return Mapper.Map<List<Photo>, List<PhotoDTO>>(photos);
             }
         }
