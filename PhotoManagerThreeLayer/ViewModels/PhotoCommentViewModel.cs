@@ -5,7 +5,7 @@ namespace PhotoManagerThreeLayer.ViewModels
 {
    public class PhotoCommentViewModel
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         [Required]
         public string Text { get; set; }
         public DateTime Created { get; set; }

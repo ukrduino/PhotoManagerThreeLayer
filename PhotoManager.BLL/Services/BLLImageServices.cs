@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using PhotoManager.BLL.Utils;
 using PhotoManager.DAL;
 using PhotoManager.DAL.Models;
@@ -8,7 +9,7 @@ namespace PhotoManager.BLL.Services
 {
     public class BLLImageServices
     {
-        public int SaveImageToDb(Stream imageDataStream , Enums.ImageSize size)
+        public Guid SaveImageToDb(Stream imageDataStream , Enums.ImageSize size)
         {
             using (UnitOfWork unitOfWork = new UnitOfWork(new PhotoManagerDbContext()))
             {
@@ -27,7 +28,7 @@ namespace PhotoManager.BLL.Services
             }
         }
 
-        public byte[] GetImageBytesFromDb(int imageId)
+        public byte[] GetImageBytesFromDb(Guid imageId)
         {
             using (UnitOfWork unitOfWork = new UnitOfWork(new PhotoManagerDbContext()))
             {

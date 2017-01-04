@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using PhotoManager.DAL.Models;
 
@@ -13,7 +14,7 @@ namespace PhotoManager.DAL.Repositories
         {
             _context = context;
         }
-        public List<PhotoComment> GetCommentsByPhoto(int id)
+        public List<PhotoComment> GetCommentsByPhoto(Guid id)
         {
             var query = from comment in _context.PhotoComments
                         where comment.PhotoId == id
@@ -21,7 +22,7 @@ namespace PhotoManager.DAL.Repositories
             return query.ToList();
         }
 
-        public int GetCommentsNumberByPhoto(int id)
+        public int GetCommentsNumberByPhoto(Guid id)
         {
             var query = from comment in _context.PhotoComments
                         where comment.PhotoId == id

@@ -17,7 +17,7 @@ namespace PhotoManager.DAL.Repositories
             _context = context;
         }
 
-        public List<Photo> GetPhotosByAlbum(int id)
+        public List<Photo> GetPhotosByAlbum(Guid id)
         {
             var query = from photo in _context.Photos
                         where photo.Albums.Any(album => album.Id == id)
@@ -32,7 +32,7 @@ namespace PhotoManager.DAL.Repositories
                         select photos;
             return query.ToList();
         }
-        public Photo GetPhotoById(int id)
+        public Photo GetPhotoById(Guid id)
         {
             return _context.Photos.FirstOrDefault(photo => photo.Id == id);
         }
@@ -47,7 +47,7 @@ namespace PhotoManager.DAL.Repositories
             photoFromDb.Property(phot => phot.ImageId).IsModified = false;
         }
 
-        public List<Photo> GetPhotosByUserAndAlbum(int userId, int albumId, bool inAlbum, bool excludePrivate)
+        public List<Photo> GetPhotosByUserAndAlbum(int userId, Guid albumId, bool inAlbum, bool excludePrivate)
         {
             List<Photo> photos;
             photos = _context.Photos.Where(photo => photo.UserId.Equals(userId)).Include("Albums").ToList();
@@ -62,7 +62,7 @@ namespace PhotoManager.DAL.Repositories
             return photos.Where(phot => !phot.Albums.Any(alb => alb.Id.Equals(albumId))).ToList();
         }
 
-        public List<Photo> GetPhotosByUserAndAlbumWithPagination(int userId, int albumId, bool inAlbum, int skip = 0, int pageSize = 0)
+        public List<Photo> GetPhotosByUserAndAlbumWithPagination(int userId, Guid albumId, bool inAlbum, int skip = 0, int pageSize = 0)
         {
             List<Photo> photos = _context.Photos.Where(photo => photo.UserId.Equals(userId)).Include("Albums").ToList();
             if (inAlbum)

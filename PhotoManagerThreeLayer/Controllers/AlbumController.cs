@@ -24,7 +24,7 @@ namespace PhotoManagerThreeLayer.Controllers
         }
 
         // GET: /Album/Manage/5
-        public ActionResult Manage(int id = 0)
+        public ActionResult Manage(Guid id)
         {
             AlbumDTO albumDto = _albumServices.GetAlbum(id);
             if (albumDto == null)
@@ -36,7 +36,7 @@ namespace PhotoManagerThreeLayer.Controllers
         }
 
         // GET: /Album/Details/5
-        public ActionResult Details(int id = 0)
+        public ActionResult Details(Guid id)
         {
             AlbumDTO albumDto = _albumServices.GetAlbum(id);
             if (albumDto == null)
@@ -76,7 +76,7 @@ namespace PhotoManagerThreeLayer.Controllers
         }
 
         // GET: /Album/Edit/5
-        public ActionResult Edit(int id = 0)
+        public ActionResult Edit(Guid id)
         {
             AlbumDTO albumDto = _albumServices.GetAlbum(id);
             if (albumDto == null)
@@ -105,23 +105,23 @@ namespace PhotoManagerThreeLayer.Controllers
         [HttpPost]
         public void RemovePhotoFromAlbum(string albumId, string photoId)
         {
-            _albumServices.RemovePhotoFromAlbum(int.Parse(albumId), int.Parse(photoId));
+            _albumServices.RemovePhotoFromAlbum(Guid.Parse(albumId), Guid.Parse(photoId));
         }
 
         // POST: /Album/AddPhotoToAlbum
         [HttpPost]
         public void AddPhotoToAlbum(string albumId, string photoId)
         {
-            _albumServices.AddPhotoToAlbum(int.Parse(albumId), int.Parse(photoId));
+            _albumServices.AddPhotoToAlbum(Guid.Parse(albumId), Guid.Parse(photoId));
         }
 
         [AllowAnonymous]
-        public ActionResult GetAlbumImage(int id)
+        public ActionResult GetAlbumImage(Guid id)
         {
             return File(_imageServices.GetImageBytesFromDb(id), "image/jpg");
         }
 
-        public ContentResult GetDirectAlbumLink(int id)
+        public ContentResult GetDirectAlbumLink(Guid id)
         {
             AlbumDTO albumDto = _albumServices.GetAlbum(id);
             string link = Request.Url.GetLeftPart(UriPartial.Authority) + "/" + albumDto.TitleSlug;

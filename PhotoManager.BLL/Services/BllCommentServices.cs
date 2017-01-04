@@ -10,7 +10,7 @@ namespace PhotoManager.BLL.Services
 {
     public class BllCommentServices
     {
-        public List<PhotoCommentDTO> GetCommentsByPhoto(int id)
+        public List<PhotoCommentDTO> GetCommentsByPhoto(Guid id)
         {
             using (UnitOfWork unitOfWork = new UnitOfWork(new PhotoManagerDbContext()))
             {
@@ -19,7 +19,7 @@ namespace PhotoManager.BLL.Services
             }
         }
 
-        public static int GetCommentsNumberByPhoto(int id)
+        public static int GetCommentsNumberByPhoto(Guid id)
         {
             using (UnitOfWork unitOfWork = new UnitOfWork(new PhotoManagerDbContext()))
             {

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using AutoMapper;
 using PhotoManager.BLL.DTOModels;
 using PhotoManager.BLL.Utils;
@@ -49,7 +50,7 @@ namespace PhotoManager.BLL.Services
             }
         }
 
-        public AlbumDTO GetAlbum(int id)
+        public AlbumDTO GetAlbum(Guid id)
         {
             using (UnitOfWork unitOfWork = new UnitOfWork(new PhotoManagerDbContext()))
             {
@@ -91,7 +92,7 @@ namespace PhotoManager.BLL.Services
                 unitOfWork.Complete();
             }
         }
-        public void RemovePhotoFromAlbum(int albumId, int photoId)
+        public void RemovePhotoFromAlbum(Guid albumId, Guid photoId)
         {
             using (UnitOfWork unitOfWork = new UnitOfWork(new PhotoManagerDbContext()))
             {
@@ -100,7 +101,7 @@ namespace PhotoManager.BLL.Services
             }
         }
 
-        public void AddPhotoToAlbum(int albumId, int photoIds)
+        public void AddPhotoToAlbum(Guid albumId, Guid photoIds)
         {
             using (UnitOfWork unitOfWork = new UnitOfWork(new PhotoManagerDbContext()))
             {

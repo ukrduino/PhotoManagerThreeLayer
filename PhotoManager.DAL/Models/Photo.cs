@@ -10,7 +10,7 @@ namespace PhotoManager.DAL.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
         public DateTime TakenDate { get; set; }
@@ -23,9 +23,9 @@ namespace PhotoManager.DAL.Models
         public bool UsedFlash { get; set; }
         public bool AnyOneCanSee { get; set; }
         public int UserId { get; set; }
-        public int SmallImageId { get; set; }
-        public int MiddleImageId { get; set; }
-        public int ImageId { get; set; }
+        public Guid SmallImageId { get; set; }
+        public Guid MiddleImageId { get; set; }
+        public Guid ImageId { get; set; }
         public List<Album> Albums { get; set; }
         public List<PhotoComment> Comments { get; set; }
         public DateTime? Modified { get; set; }

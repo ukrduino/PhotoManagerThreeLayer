@@ -18,7 +18,7 @@ namespace PhotoManager.DAL.Repositories
             _entities = Context.Set<TEntity>();
         }
 
-        public TEntity Get(int id)
+        public TEntity Get(Guid id)
         {
             return Context.Set<TEntity>().Find(id);
         }

@@ -173,7 +173,6 @@
   <ItemGroup>
     <Compile Include="DTOModels\AlbumDTO.cs" />
     <Compile Include="DTOModels\AutoMapperBllProfile.cs" />
-    <Compile Include="DTOModels\LogDTO.cs" />
     <Compile Include="DTOModels\PhotoCommentDTO.cs" />
     <Compile Include="DTOModels\PhotoDTO.cs" />
     <Compile Include="Services\BLLImageServices.cs" />

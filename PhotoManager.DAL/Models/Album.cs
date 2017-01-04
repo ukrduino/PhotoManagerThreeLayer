@@ -10,7 +10,7 @@ namespace PhotoManager.DAL.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         [StringLength(50)]
         [Index(IsUnique = true)]
         public string Title { get; set; }
@@ -18,7 +18,7 @@ namespace PhotoManager.DAL.Models
         public string Description { get; set; }
         public int UserId { get; set; }
         public List<Photo> Photos { get; set; }
-        public int? ImageId { get; set; }
+        public Guid? ImageId { get; set; }
         public DateTime Created { get; set; }
         public DateTime? Modified { get; set; }
 

@@ -27,7 +27,7 @@ namespace PhotoManagerThreeLayer.Controllers
 
         // GET: /Photo/Details/5
         [AllowAnonymous]
-        public ActionResult Details(int id = 0)
+        public ActionResult Details(Guid id)
         {
             PhotoDTO photoDto = _photoServices.GetPhoto(id);
             if (photoDto == null)
@@ -87,7 +87,7 @@ namespace PhotoManagerThreeLayer.Controllers
         }
 
         // GET: /Album/Edit/5
-        public ActionResult Edit(int id = 0)
+        public ActionResult Edit(Guid id)
         {
             PhotoDTO photoDto = _photoServices.GetPhoto(id);
             if (photoDto == null)
@@ -113,21 +113,21 @@ namespace PhotoManagerThreeLayer.Controllers
         }
 
         [AllowAnonymous]
-        public ActionResult GetSmallPhotoImage(int id)
+        public ActionResult GetSmallPhotoImage(Guid id)
         {
             PhotoDTO photo = _photoServices.GetPhoto(id);
             return File(_imageServices.GetImageBytesFromDb(photo.SmallImageId), "image/jpg");
         }
 
         [AllowAnonymous]
-        public ActionResult GetMiddleImage(int id)
+        public ActionResult GetMiddleImage(Guid id)
         {
             PhotoDTO photo = _photoServices.GetPhoto(id);
             return File(_imageServices.GetImageBytesFromDb(photo.MiddleImageId), "image/jpg");
         }
 
         [AllowAnonymous]
-        public ActionResult GetImage(int id)
+        public ActionResult GetImage(Guid id)
         {
             PhotoDTO photo = _photoServices.GetPhoto(id);
             return File(_imageServices.GetImageBytesFromDb(photo.ImageId), "image/jpg");
@@ -136,7 +136,7 @@ namespace PhotoManagerThreeLayer.Controllers
         [AllowAnonymous]
         public ActionResult LoadPhotosToAlbumDetailView(string albumId, string inAlbum, string pageNumber)
         {
-            int albId = int.Parse(albumId);
+            Guid albId = Guid.Parse(albumId);
             int pageNum = int.Parse(pageNumber);
             bool inAlb = bool.Parse(inAlbum);
             List<PhotoDTO> photoDtoList = _photoServices.GetPhotosForCurrentUserAndAlbumWithPagination(albId, inAlb, pageNum);
@@ -147,7 +147,7 @@ namespace PhotoManagerThreeLayer.Controllers
         public JsonResult GetDataForPagination(string albumId, string inAlbum, string pageNumber)
         {
             int pageSize = int.Parse(ConfigurationManager.AppSettings["AlbumDetailsPhotosPageSize"]);
-            int albId = int.Parse(albumId);
+            Guid albId = Guid.Parse(albumId);
             int pageNum = int.Parse(pageNumber);
             bool inAlb = bool.Parse(inAlbum);
             if (inAlb)

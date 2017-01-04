@@ -7,7 +7,7 @@ namespace PhotoManager.DAL.Repositories.Interfaces
 {
     public interface IRepository<TEntity> where TEntity : class
     {
-        TEntity Get(int id);
+        TEntity Get(Guid id);
         IEnumerable<TEntity> GetAll();
         IQueryable<TEntity> Find(Expression<Func<TEntity, bool>> predicate);
         TEntity SingleOrDefault(Expression<Func<TEntity, bool>> predicate);

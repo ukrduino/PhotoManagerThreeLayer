@@ -7,7 +7,7 @@ namespace PhotoManagerThreeLayer.ViewModels
 {
     public class PhotoDetailViewModel
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         [StringLength(50)]
         [Required]
         public string Title { get; set; }
@@ -26,7 +26,7 @@ namespace PhotoManagerThreeLayer.ViewModels
         public bool UsedFlash { get; set; }
         public bool AnyOneCanSee { get; set; }
         public List<PhotoCommentViewModel> Comments { get; set; }
-        public int SmallImageId { get; set; }
+        public Guid SmallImageId { get; set; }
         public List<string> Albums { get; set; }
         [DisplayName("Modified")]
         public DateTime Modified { get; set; }

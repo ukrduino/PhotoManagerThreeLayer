@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using PhotoManager.DAL.Models;
@@ -15,14 +16,14 @@ namespace PhotoManager.DAL.Repositories
             _context = context;
         }
 
-        public List<Album> GetAlbumsByPhoto(int id)
+        public List<Album> GetAlbumsByPhoto(Guid id)
         {
             var query = from album in _context.Albums
                         where album.Photos.Any(photo => photo.Id == id)
                         select album;
             return query.ToList();
         }
-        public Album GetAlbumById(int id)
+        public Album GetAlbumById(Guid id)
         {
             return _context.Albums.FirstOrDefault(alb => alb.Id == id);
         }
@@ -44,7 +45,7 @@ namespace PhotoManager.DAL.Repositories
             albumFromDb.Property(phot => phot.UserId).IsModified = false;
         }
 
-        public void RemovePhotoFromAlbum(int albumId, int photoId)
+        public void RemovePhotoFromAlbum(Guid albumId, Guid photoId)
         {
             Album album = _context.Albums.Include("Photos").SingleOrDefault(alb=>alb.Id == albumId);
             Photo photo = _context.Photos.SingleOrDefault(pht => pht.Id.Equals(photoId));
@@ -54,7 +55,7 @@ namespace PhotoManager.DAL.Repositories
             }
         }
 
-        public void AddPhotoToAlbum(int albumId, int photoId)
+        public void AddPhotoToAlbum(Guid albumId, Guid photoId)
         {
             Album album = _context.Albums.Include("Photos").SingleOrDefault(alb=>alb.Id == albumId);
             Photo photo = _context.Photos.SingleOrDefault(pht => pht.Id.Equals(photoId));

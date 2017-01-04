@@ -20,7 +20,7 @@ namespace PhotoManager.BLL.Services
                 return Mapper.Map<IEnumerable<Photo>, List<PhotoDTO>>(photos);
             }
         }
-        public List<PhotoDTO> GetPhotosByAlbum(int id)
+        public List<PhotoDTO> GetPhotosByAlbum(Guid id)
         {
             using (UnitOfWork unitOfWork = new UnitOfWork(new PhotoManagerDbContext()))
             {
@@ -28,7 +28,7 @@ namespace PhotoManager.BLL.Services
                 return Mapper.Map<List<Photo>, List<PhotoDTO>>(photos);
             }
         }
-        public PhotoDTO GetPhoto(int id)
+        public PhotoDTO GetPhoto(Guid id)
         {
             using (UnitOfWork unitOfWork = new UnitOfWork(new PhotoManagerDbContext()))
             {
@@ -67,12 +67,12 @@ namespace PhotoManager.BLL.Services
             }
         }
 
-        public int GetPhotosNumberForAlbum(int albumId, bool inAlbum)
+        public int GetPhotosNumberForAlbum(Guid albumId, bool inAlbum)
         {
             using (UnitOfWork unitOfWork = new UnitOfWork(new PhotoManagerDbContext()))
             {
                 bool excludePrivate = true;
-                int userId = unitOfWork.Albums.Get(albumId).Id;
+                int userId = unitOfWork.Albums.Get(albumId).UserId;
                 if (WebSecurityService.IsAuthenticated)
                 {
                     excludePrivate = WebSecurityService.GetCurrentUserId() != userId;
@@ -125,7 +125,7 @@ namespace PhotoManager.BLL.Services
             }
         }
 
-        public List<PhotoDTO> GetPhotosForCurrentUserAndAlbumWithPagination(int albumId, bool inAlbum, int pageNumber)
+        public List<PhotoDTO> GetPhotosForCurrentUserAndAlbumWithPagination(Guid albumId, bool inAlbum, int pageNumber)
         {
             using (UnitOfWork unitOfWork = new UnitOfWork(new PhotoManagerDbContext()))
             {
