@@ -4,9 +4,12 @@
 <div class="row">
     <div id="photo" value="@Model.Id"></div>
     <h4 style="text-align: center">
-        @Model.Title &nbsp;
-        <a href='@Url.Action("Edit", "Photo", new {id = Model.Id})'><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>&nbsp;
+    @Model.Title &nbsp;
+    @if (Request.IsAuthenticated && WebSecurityService.GetCurrentUserId() == Model.UserId)
+    {
+        <a href='@Url.Action("Edit", "Photo", new {id = Model.Id})'><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a><span>&nbsp;</span>
         <a href='@Url.Action("Create", "Photo")'><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
+    }
     </h4>
     <hr />
     <div class="col-lg-3">

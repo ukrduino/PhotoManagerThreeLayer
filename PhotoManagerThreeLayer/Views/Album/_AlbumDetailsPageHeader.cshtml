@@ -3,13 +3,13 @@
 <div class="row">
     <div class="col-lg-3">
         @if (Model.ImageId != null)
-            {
+        {
             <img src="@Url.Action("GetAlbumImage", new { id = Model.ImageId})" class="smallImage" />
-            }
-            else
-            {
-                <img src="./../../Content/AlbumPlaceholder.jpg" class="smallImage" alt="Album cover not selected" />
-            }
+        }
+        else
+        {
+            <img src="./../../Content/images/AlbumPlaceholder.jpg" class="smallImage" alt="Album cover not selected" />
+        }
     </div>
     <div class="col-lg-9">
         <dl class="dl-horizontal">

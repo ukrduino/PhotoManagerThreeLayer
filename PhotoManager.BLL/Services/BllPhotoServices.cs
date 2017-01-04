@@ -16,7 +16,7 @@ namespace PhotoManager.BLL.Services
         {
             using (UnitOfWork unitOfWork = new UnitOfWork(new PhotoManagerDbContext()))
             {
-                IEnumerable<Photo> photos = unitOfWork.Photos.GetPhotosByUser(WebSecurityService.GetCurrentUser());
+                IEnumerable<Photo> photos = unitOfWork.Photos.GetPhotosByUserId(WebSecurityService.GetCurrentUserId());
                 return Mapper.Map<IEnumerable<Photo>, List<PhotoDTO>>(photos);
             }
         }
@@ -43,7 +43,7 @@ namespace PhotoManager.BLL.Services
             {
 
                 Photo photo = Mapper.Map<Photo>(photoDto);
-                photo.UserId = WebSecurityService.GetCurrentUser().UserId;
+                photo.UserId = WebSecurityService.GetCurrentUserId();
                 unitOfWork.Photos.Add(photo);
                 unitOfWork.Complete();
             }
@@ -63,15 +63,21 @@ namespace PhotoManager.BLL.Services
         {
             using (UnitOfWork unitOfWork = new UnitOfWork(new PhotoManagerDbContext()))
             {
-                return unitOfWork.Photos.GetPhotosByUser(WebSecurityService.GetCurrentUser()).Count;
+                return unitOfWork.Photos.GetPhotosByUserId(WebSecurityService.GetCurrentUserId()).Count;
             }
         }
 
-        public int GetPhotosNumberForCurrentUserAndAlbum(int albumId, bool inAlbum)
+        public int GetPhotosNumberForAlbum(int albumId, bool inAlbum)
         {
             using (UnitOfWork unitOfWork = new UnitOfWork(new PhotoManagerDbContext()))
             {
-                return unitOfWork.Photos.GetPhotosByUserAndAlbum(WebSecurityService.GetCurrentUser(), unitOfWork.Albums.Get(albumId), inAlbum).Count;
+                bool excludePrivate = true;
+                int userId = unitOfWork.Albums.Get(albumId).Id;
+                if (WebSecurityService.IsAuthenticated)
+                {
+                    excludePrivate = WebSecurityService.GetCurrentUserId() != userId;
+                }
+                return unitOfWork.Photos.GetPhotosByUserAndAlbum(userId, albumId, inAlbum, excludePrivate).Count;
             }
         }
 
@@ -125,9 +131,10 @@ namespace PhotoManager.BLL.Services
             {
                 int pageSize = int.Parse(ConfigurationManager.AppSettings["AlbumDetailsPhotosPageSize"]);
                 int skip = (pageNumber - 1)*pageSize;
+                Album album = unitOfWork.Albums.Get(albumId);
                 List<Photo> photos = unitOfWork.Photos.GetPhotosByUserAndAlbumWithPagination(
-                    WebSecurityService.GetCurrentUser(),
-                    unitOfWork.Albums.Get(albumId),
+                    album.UserId,
+                    albumId,
                     inAlbum,
                     skip,
                     pageSize);

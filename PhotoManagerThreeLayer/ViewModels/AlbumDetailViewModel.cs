@@ -12,6 +12,7 @@ namespace PhotoManagerThreeLayer.ViewModels
         [Required]
         public string Title { get; set; }
         public string Author { get; set; }
+        public int UserId { get; set; }
         public string Description { get; set; }
         public int? ImageId { get; set; }
         [DisplayName("Album created")]

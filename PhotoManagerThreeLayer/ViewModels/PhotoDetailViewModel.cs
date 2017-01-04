@@ -34,6 +34,7 @@ namespace PhotoManagerThreeLayer.ViewModels
         public DateTime Created { get; set; }
         [DisplayName("Public")]
         public int Views { get; set; }
+        public int UserId { get; set; }
 
         public PhotoDetailViewModel()
         {

@@ -26,6 +26,7 @@ namespace PhotoManagerThreeLayer.Controllers
         }
 
         // GET: /Photo/Details/5
+        [AllowAnonymous]
         public ActionResult Details(int id = 0)
         {
             PhotoDTO photoDto = _photoServices.GetPhoto(id);
@@ -111,24 +112,28 @@ namespace PhotoManagerThreeLayer.Controllers
             return View(photoDetailViewModel);
         }
 
+        [AllowAnonymous]
         public ActionResult GetSmallPhotoImage(int id)
         {
             PhotoDTO photo = _photoServices.GetPhoto(id);
             return File(_imageServices.GetImageBytesFromDb(photo.SmallImageId), "image/jpg");
         }
 
+        [AllowAnonymous]
         public ActionResult GetMiddleImage(int id)
         {
             PhotoDTO photo = _photoServices.GetPhoto(id);
             return File(_imageServices.GetImageBytesFromDb(photo.MiddleImageId), "image/jpg");
         }
 
+        [AllowAnonymous]
         public ActionResult GetImage(int id)
         {
             PhotoDTO photo = _photoServices.GetPhoto(id);
             return File(_imageServices.GetImageBytesFromDb(photo.ImageId), "image/jpg");
         }
 
+        [AllowAnonymous]
         public ActionResult LoadPhotosToAlbumDetailView(string albumId, string inAlbum, string pageNumber)
         {
             int albId = int.Parse(albumId);
@@ -138,6 +143,7 @@ namespace PhotoManagerThreeLayer.Controllers
             return PartialView("_PhotosInAlbum", Mapper.Map<List<PhotoDTO>, List<PhotoListViewModel>>(photoDtoList));
         }
 
+        [AllowAnonymous]
         public JsonResult GetDataForPagination(string albumId, string inAlbum, string pageNumber)
         {
             int pageSize = int.Parse(ConfigurationManager.AppSettings["AlbumDetailsPhotosPageSize"]);
@@ -149,7 +155,7 @@ namespace PhotoManagerThreeLayer.Controllers
                 var result = new
                 {
                     AlbumPhotosPreviousePage = pageNum - 1,
-                    AlbumPhotosNextPage = decimal.Divide(_photoServices.GetPhotosNumberForCurrentUserAndAlbum(albId, true), pageSize) > pageNum ? pageNum + 1 : -1
+                    AlbumPhotosNextPage = decimal.Divide(_photoServices.GetPhotosNumberForAlbum(albId, true), pageSize) > pageNum ? pageNum + 1 : -1
                 };
                 return Json(result, JsonRequestBehavior.AllowGet);
             }
@@ -158,7 +164,7 @@ namespace PhotoManagerThreeLayer.Controllers
                 var result = new
                 {
                     AddPhotosPreviousePage = pageNum - 1,
-                    AddPhotosNextPage = decimal.Divide(_photoServices.GetPhotosNumberForCurrentUserAndAlbum(albId, false), pageSize) > pageNum ? pageNum + 1 : -1
+                    AddPhotosNextPage = decimal.Divide(_photoServices.GetPhotosNumberForAlbum(albId, false), pageSize) > pageNum ? pageNum + 1 : -1
                 };
                 return Json(result, JsonRequestBehavior.AllowGet);
             };

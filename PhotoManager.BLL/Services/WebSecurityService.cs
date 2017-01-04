@@ -27,6 +27,11 @@ namespace PhotoManager.BLL.Services
             return GetUser(CurrentUserName);
         }
 
+        public static int GetCurrentUserId()
+        {
+            return GetUser(CurrentUserName).UserId;
+        }
+
         public static bool IsPayedUser()
         {
             return GetUser(CurrentUserName) is PayedUser;

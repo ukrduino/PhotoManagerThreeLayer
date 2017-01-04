@@ -25,10 +25,10 @@ namespace PhotoManager.DAL.Repositories
             return query.ToList();
         }
 
-        public List<Photo> GetPhotosByUser(User user)
+        public List<Photo> GetPhotosByUserId(int userId)
         {
             var query = from photos in _context.Photos
-                        where photos.UserId == user.UserId
+                        where photos.UserId == userId
                         select photos;
             return query.ToList();
         }
@@ -47,24 +47,29 @@ namespace PhotoManager.DAL.Repositories
             photoFromDb.Property(phot => phot.ImageId).IsModified = false;
         }
 
-        public List<Photo> GetPhotosByUserAndAlbum(User user, Album album, bool inAlbum)
+        public List<Photo> GetPhotosByUserAndAlbum(int userId, int albumId, bool inAlbum, bool excludePrivate)
         {
-            List<Photo> photos = _context.Photos.Where(photo => photo.UserId.Equals(user.UserId)).Include("Albums").ToList();
+            List<Photo> photos;
+            photos = _context.Photos.Where(photo => photo.UserId.Equals(userId)).Include("Albums").ToList();
+            if (excludePrivate)
+            {
+                photos.RemoveAll(photo => photo.AnyOneCanSee == false);
+            }
             if (inAlbum)
             {
-                return photos.Where(phot => phot.Albums.Any(alb => alb.Id.Equals(album.Id))).ToList();
+                return photos.Where(phot => phot.Albums.Any(alb => alb.Id.Equals(albumId))).ToList();
             }
-            return photos.Where(phot => !phot.Albums.Contains(album)).ToList();
+            return photos.Where(phot => !phot.Albums.Any(alb => alb.Id.Equals(albumId))).ToList();
         }
 
-        public List<Photo> GetPhotosByUserAndAlbumWithPagination(User user, Album album, bool inAlbum, int skip = 0, int pageSize = 0)
+        public List<Photo> GetPhotosByUserAndAlbumWithPagination(int userId, int albumId, bool inAlbum, int skip = 0, int pageSize = 0)
         {
-            List<Photo> photos = _context.Photos.Where(photo => photo.UserId.Equals(user.UserId)).Include("Albums").ToList();
+            List<Photo> photos = _context.Photos.Where(photo => photo.UserId.Equals(userId)).Include("Albums").ToList();
             if (inAlbum)
             {
-                return photos.Where(phot => phot.Albums.Any(alb => alb.Id.Equals(album.Id))).Skip(skip).Take(pageSize).ToList();
+                return photos.Where(phot => phot.Albums.Any(alb => alb.Id.Equals(albumId))).Skip(skip).Take(pageSize).ToList();
             }
-            return photos.Where(phot => !phot.Albums.Contains(album)).Skip(skip).Take(pageSize).ToList();
+            return photos.Where(phot => !phot.Albums.Any(alb => alb.Id.Equals(albumId))).Skip(skip).Take(pageSize).ToList();
         }
 
         public List<Photo> SearchPhotos(string photoSearchText, int userId)

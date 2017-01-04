@@ -1,18 +1,22 @@
-﻿@model PhotoManagerThreeLayer.ViewModels.AlbumDetailViewModel
+﻿@using PhotoManager.BLL.Services
+@model PhotoManagerThreeLayer.ViewModels.AlbumDetailViewModel
 
 <div class="row">
     <h4 style="text-align: center">
         @Model.Title &nbsp;
-        <a href='@Url.Action("Edit", "Album", new {id = Model.Id})'><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>&nbsp;
-        <a href='@Url.Action("Manage", "Album", new {id = Model.Id})'><span class="glyphicon glyphicon-transfer" aria-hidden="true"></span></a>&nbsp;
-        <a href='@Url.Action("Create", "Album")'><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>&nbsp;
-        @Ajax.ActionLink(".", "GetDirectAlbumLink", "Album", new {id=@Model.Id}, new AjaxOptions{ UpdateTargetId= "directLink" }, new { @class = "glyphicon glyphicon-link"})
-        <input id="AlbumId" name="AlbumId" type="hidden" value="@Model.Id"/>
+        @if (Request.IsAuthenticated && WebSecurityService.GetCurrentUserId() == Model.UserId)
+        {
+            <a href='@Url.Action("Edit", "Album", new {id = Model.Id})'><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a><span>&nbsp;</span>
+            <a href='@Url.Action("Manage", "Album", new {id = Model.Id})'><span class="glyphicon glyphicon-transfer" aria-hidden="true"></span></a><span>&nbsp;</span>
+            <a href='@Url.Action("Create", "Album")'><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a><span>&nbsp;</span>
+            @Ajax.ActionLink(".", "GetDirectAlbumLink", "Album", new { id = Model.Id }, new AjaxOptions { UpdateTargetId = "directLink" }, new { @class = "glyphicon glyphicon-link" })
+        }
     </h4>
         <div id="directLink"></div>
+        <input id="AlbumId" name="AlbumId" type="hidden" value="@Model.Id"/>
 </div>
 <hr />
-@Html.Partial("_AlbumDetailsPageHeader", Model)
+@Html.Partial("~/Views/Album/_AlbumDetailsPageHeader.cshtml", Model)
 <hr/>
 @if (Model.ImageId != null)
 {
@@ -39,6 +43,6 @@ else
 {
     @Html.Partial("_NoPhotosInAlbum")
 }
-
+@Scripts.Render("~/bundles/unobtrusiveAjax")
 @Scripts.Render("~/bundles/albumDetails")
 

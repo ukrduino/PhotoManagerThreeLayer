@@ -39,6 +39,7 @@ namespace PhotoManager.DAL
         public virtual DbSet<PhotoComment> PhotoComments { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Image> Images { get; set; }
+        public virtual DbSet<Log> Log { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

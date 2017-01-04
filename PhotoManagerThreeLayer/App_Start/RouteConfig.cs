@@ -9,9 +9,9 @@ namespace PhotoManagerThreeLayer
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
             routes.MapRoute(
-                name: "DirectAlbumLink",
+                name: "DirectLinkAlbumAccess",
                 url: "{titleSlug}",
-                defaults: new { controller = "Album", action = "DirectAlbumLinkAccess" }
+                defaults: new { controller = "Album", action = "DirectLinkAlbumAccess" }
             );
             routes.MapRoute(
                 name: "Default",
